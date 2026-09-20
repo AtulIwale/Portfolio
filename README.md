@@ -1,6 +1,6 @@
 # AEC Intelligence Portfolio — Atul Iwale
 
-Six connected portfolio projects: business process design, implementation governance,
+Eight connected portfolio projects: business process design, implementation governance,
 procurement analytics, cost/cash scenarios and predictive machine learning.
 
 **Status: runnable synthetic-data research prototypes and fictional business case studies.
@@ -19,7 +19,9 @@ and [variation-governance walkthrough](projects/02-variation-governance/APPROACH
 | Discipline | Project | Working evidence |
 |---|---|---|
 | Business Analysis | [AEC ERP Process & Controls Transformation](projects/01-erp-transformation/README.md) | AS-IS/TO-BE, requirements, controls, traceability and UAT |
+| Business Analysis | [Cost Plan Module Requirements for Real Estate Developers](projects/07-cost-plan-requirements/README.md) | Proposed requirements, acceptance criteria, cost-control rules and fictional worked example |
 | Commercial governance / PM | [Contract Variation, Valuation & Payment Governance](projects/02-variation-governance/README.md) | Stage gates, approval matrix, RAID, rollout and acceptance plan |
+| Project Management | [HR, Payroll & Accounts Module Rollout](projects/08-hr-payroll-accounts-rollout/README.md) | Proposed phased rollout, dependencies, risk controls, parallel-run gates and cutover plan |
 | Data Analysis | [Procure-to-Pay & Supplier Performance Control Tower](projects/03-control-tower/README.md) | Executable SQL, reconciliation and supplier scorecard |
 | Data Science | [Project Cash Flow & Estimate-at-Completion Simulator](projects/04-cash-eac/README.md) | Monte Carlo scenarios and funding sensitivity |
 | Machine Learning | [Procurement Delivery Risk Early-Warning System](projects/05-delivery-risk/README.md) | Baselines, classifier comparison, threshold selection and review queue |
@@ -85,7 +87,7 @@ No automatic purchasing, payment, contract approval or employment decision is pe
 aec/       Generator, feature pipelines, models, SQL, simulation and retrieval
 data/      Entire generated JSONL dataset and manifest
 outputs/   Computed evaluations, scenarios, review queues and HTML report
-projects/  Six standalone business-facing case studies
+projects/  Eight standalone business-facing case studies
 notebooks/ Four executed analytical walkthroughs with saved charts and Colab links
 scripts/   Rebuild and execute the notebooks in fresh kernels
 docs/      Data card, model cards, governance and AI boundaries
