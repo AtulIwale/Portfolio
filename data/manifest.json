@@ -1,0 +1,155 @@
+{
+  "seed": 42,
+  "as_of": "2025-12-31",
+  "synthetic": true,
+  "currency": "INR",
+  "tables": {
+    "projects": {
+      "rows": 30,
+      "sha256": "8bdb3793933bde58b2a37ea55741474512b978f69495c4918ddab3fc12914d33",
+      "columns": [
+        "project_id",
+        "name",
+        "sector",
+        "company_id",
+        "currency"
+      ]
+    },
+    "suppliers": {
+      "rows": 60,
+      "sha256": "c7805f3b04bef34c6123d0ff226d50929dffa913fa424357b94354e6020d6f28",
+      "columns": [
+        "supplier_id",
+        "name"
+      ]
+    },
+    "requisitions": {
+      "rows": 3600,
+      "sha256": "18a11ca59c52f5c63c46af643848b94aec5a59e1142e331606a66530389a05c7",
+      "columns": [
+        "requisition_id",
+        "project_id",
+        "date",
+        "required_by",
+        "resource_category",
+        "quantity"
+      ]
+    },
+    "orders": {
+      "rows": 3600,
+      "sha256": "63f8923ac3e57f03369f8bee33f47bb10cda277902b3373a9e52deef8b2e079b",
+      "columns": [
+        "order_id",
+        "requisition_id",
+        "project_id",
+        "supplier_id",
+        "order_date",
+        "required_by",
+        "category",
+        "quantity",
+        "unit_rate",
+        "amount",
+        "currency"
+      ]
+    },
+    "grns": {
+      "rows": 4733,
+      "sha256": "3b5701e713bead1c8beddd35d4d88d647960b3cebde8500473bcab07b860053f",
+      "columns": [
+        "grn_id",
+        "order_id",
+        "received_date",
+        "quantity",
+        "rejected_quantity"
+      ]
+    },
+    "invoices": {
+      "rows": 4709,
+      "sha256": "b77d7b1e8580821d5eb407d2b93fae88ea3f22364ab17ecd8765c6d2bc6a93f8",
+      "columns": [
+        "invoice_id",
+        "grn_id",
+        "order_id",
+        "invoice_date",
+        "due_date",
+        "amount",
+        "currency"
+      ]
+    },
+    "payments": {
+      "rows": 5414,
+      "sha256": "a0fa33e7936a826c4ecdc9c51351ebd6e02bce2a5e96f7d06c70f452a9d9f33d",
+      "columns": [
+        "payment_id",
+        "invoice_id",
+        "paid_date",
+        "amount",
+        "currency"
+      ]
+    },
+    "packages": {
+      "rows": 750,
+      "sha256": "d9ea01036ec28e6481276bec689f9ce7079437c023a11f95c3f3ad78fca86408",
+      "columns": [
+        "package_id",
+        "project_id",
+        "start_date",
+        "sector",
+        "original_budget",
+        "currency"
+      ]
+    },
+    "snapshots": {
+      "rows": 2250,
+      "sha256": "f872410495898b38854abf3d600554e49306956d143b623722b0a321a1f19123",
+      "columns": [
+        "snapshot_id",
+        "package_id",
+        "snapshot_date",
+        "progress_assumption",
+        "actual_cost",
+        "committed_remaining",
+        "approved_variations",
+        "pending_variations",
+        "variation_count"
+      ]
+    },
+    "outcomes": {
+      "rows": 739,
+      "sha256": "e9983b6afd6b38a40b55bce1f202d8e2372d0ee2cdf20eb5773140eca687dce7",
+      "columns": [
+        "package_id",
+        "completion_date",
+        "final_cost"
+      ]
+    },
+    "variations": {
+      "rows": 2696,
+      "sha256": "3691b6680fd3136171cc3097af58f89e8ecda194b122dd359ec9d98b3993de6c",
+      "columns": [
+        "variation_id",
+        "package_id",
+        "date",
+        "amount",
+        "status"
+      ]
+    },
+    "orders_dirty": {
+      "rows": 101,
+      "sha256": "9f90d9dffddb8378c631d6945d488babafcb146ef33426c52d3e3dbbd472c9e3",
+      "columns": [
+        "order_id",
+        "requisition_id",
+        "project_id",
+        "supplier_id",
+        "order_date",
+        "required_by",
+        "category",
+        "quantity",
+        "unit_rate",
+        "amount",
+        "currency"
+      ]
+    }
+  }
+}

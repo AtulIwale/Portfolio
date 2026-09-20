@@ -1,0 +1,132 @@
+{
+  "test_set": "Small authored smoke set; not an independent NLP benchmark.",
+  "passed": 7,
+  "total": 7,
+  "cases": [
+    {
+      "question": "Who can approve a purchase order?",
+      "expected": "CTRL-01",
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": false,
+        "evidence": [
+          {
+            "source": "CTRL-01",
+            "quote": "Order authorisation requires an approved requisition, a named budget owner and recorded approval. The requester cannot approve their own purchase order.",
+            "score": 0.4601249139062397
+          },
+          {
+            "source": "CTRL-02",
+            "quote": "Invoice matching compares invoice quantities and rates with the purchase order and goods receipt. Payment remains on hold when matching exceptions are unresolved.",
+            "score": 0.17340038148596199
+          }
+        ],
+        "answer": "Order authorisation requires an approved requisition, a named budget owner and recorded approval. The requester cannot approve their own purchase order. Invoice matching compares invoice quantities and rates with the purchase order and goods receipt. Payment remains on hold when matching exceptions are unresolved.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    },
+    {
+      "question": "What happens to invoice payment when matching fails?",
+      "expected": "CTRL-02",
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": false,
+        "evidence": [
+          {
+            "source": "CTRL-02",
+            "quote": "Invoice matching compares invoice quantities and rates with the purchase order and goods receipt. Payment remains on hold when matching exceptions are unresolved.",
+            "score": 0.4973485370637303
+          }
+        ],
+        "answer": "Invoice matching compares invoice quantities and rates with the purchase order and goods receipt. Payment remains on hold when matching exceptions are unresolved.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    },
+    {
+      "question": "What evidence is required for variation approval?",
+      "expected": "CTRL-03",
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": false,
+        "evidence": [
+          {
+            "source": "CTRL-03",
+            "quote": "Variation approval requires a scope description, estimated cost, evidence and delegated commercial approval before budget changes are posted.",
+            "score": 0.44305879253371533
+          }
+        ],
+        "answer": "Variation approval requires a scope description, estimated cost, evidence and delegated commercial approval before budget changes are posted.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    },
+    {
+      "question": "What are UAT exit criteria?",
+      "expected": "CTRL-04",
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": false,
+        "evidence": [
+          {
+            "source": "CTRL-04",
+            "quote": "UAT exit requires all critical scenarios passed, no unresolved critical defects, reconciled migration balances and signed business acceptance.",
+            "score": 0.3154311519499823
+          }
+        ],
+        "answer": "UAT exit requires all critical scenarios passed, no unresolved critical defects, reconciled migration balances and signed business acceptance.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    },
+    {
+      "question": "What should a buyer do with supplier delivery risk scores?",
+      "expected": "CTRL-05",
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": false,
+        "evidence": [
+          {
+            "source": "CTRL-05",
+            "quote": "Supplier delivery risk scores support procurement follow-up only. A buyer must verify current supplier commitments before taking action.",
+            "score": 0.5908789478687516
+          }
+        ],
+        "answer": "Supplier delivery risk scores support procurement follow-up only. A buyer must verify current supplier commitments before taking action.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    },
+    {
+      "question": "Are synthetic cost forecasts validated savings?",
+      "expected": "CTRL-06",
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": false,
+        "evidence": [
+          {
+            "source": "CTRL-06",
+            "quote": "Synthetic cost forecasts depend on assumed physical progress and remaining scope. They are not validated production forecasts or proof of financial savings.",
+            "score": 0.5391980200772039
+          }
+        ],
+        "answer": "Synthetic cost forecasts depend on assumed physical progress and remaining scope. They are not validated production forecasts or proof of financial savings.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    },
+    {
+      "question": "Write a poem about galaxies",
+      "expected": null,
+      "passed": true,
+      "result": {
+        "mode": "extractive_retrieval",
+        "abstained": true,
+        "evidence": [],
+        "answer": "No supporting evidence found.",
+        "notice": "Fictional portfolio policies. No legal advice, automated approval or live ERP access."
+      }
+    }
+  ]
+}
