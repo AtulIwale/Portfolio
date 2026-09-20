@@ -1,6 +1,15 @@
 # Procurement Delivery Risk Early-Warning System
 
-**Machine Learning · classification · calibrated decision review**
+[View the executed notebook](../../notebooks/05_delivery_risk.ipynb) · [Browse source code](../../aec/)
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtulIwale/Portfolio/blob/main/notebooks/05_delivery_risk.ipynb)
+
+Read the saved charts and reasoning on GitHub, or run a copy in Colab. No client data is used.
+
+![Held-out calibration and feature importance: better ranking does not establish accurate probabilities](../../outputs/notebook-figures/05-calibration-importance.png)
+
+
+**Machine Learning · classification · calibration and decision review**
 
 ## Problem and action
 

@@ -1,5 +1,8 @@
 # AEC ERP Process & Controls Transformation
 
+[Read the illustrated approach](APPROACH.md) · [Requirements, UAT and delivery pack](../../docs/BUSINESS_DELIVERABLES.md)
+
+
 **Business Analysis · fictional design case study**
 
 ## Problem and value

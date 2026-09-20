@@ -1,5 +1,8 @@
 # Contract Variation, Valuation & Payment Governance
 
+[Read the illustrated approach](APPROACH.md) · [Requirements, UAT and delivery pack](../../docs/BUSINESS_DELIVERABLES.md)
+
+
 **Business process design · commercial governance · project-management delivery plan**
 
 ## Problem and intended value

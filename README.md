@@ -10,6 +10,12 @@ The schemas are original simplified designs inspired by common enterprise regist
 
 ## Explore the projects
 
+**Start here:** [Read the approach in four executed notebooks](notebooks/README.md).
+Charts, tables and results are saved, so you can review the work without running code.
+Each technical case study also has an **Open in Colab** link. For business analysis and
+delivery, read the [ERP design walkthrough](projects/01-erp-transformation/APPROACH.md)
+and [variation-governance walkthrough](projects/02-variation-governance/APPROACH.md).
+
 | Discipline | Project | Working evidence |
 |---|---|---|
 | Business Analysis | [AEC ERP Process & Controls Transformation](projects/01-erp-transformation/README.md) | AS-IS/TO-BE, requirements, controls, traceability and UAT |
@@ -80,6 +86,8 @@ aec/       Generator, feature pipelines, models, SQL, simulation and retrieval
 data/      Entire generated JSONL dataset and manifest
 outputs/   Computed evaluations, scenarios, review queues and HTML report
 projects/  Six standalone business-facing case studies
+notebooks/ Four executed analytical walkthroughs with saved charts and Colab links
+scripts/   Rebuild and execute the notebooks in fresh kernels
 docs/      Data card, model cards, governance and AI boundaries
 tests/     Determinism, joins, leakage, reconciliation and evidence tests
 ```

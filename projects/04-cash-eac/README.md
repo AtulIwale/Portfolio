@@ -1,5 +1,14 @@
 # Project Cash Flow & Estimate-at-Completion Simulator
 
+[View the executed notebook](../../notebooks/04_cash_flow_eac.ipynb) · [Browse source code](../../aec/)
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtulIwale/Portfolio/blob/main/notebooks/04_cash_flow_eac.ipynb)
+
+Read the saved charts and reasoning on GitHub, or run a copy in Colab. No client data is used.
+
+![Synthetic cost scenarios and net cash timing; ranges reflect assumptions, not forecast confidence](../../outputs/notebook-figures/04-scenarios.png)
+
+
 **Data Science · Monte Carlo simulation · sensitivity · uncertainty**
 
 ## Business question

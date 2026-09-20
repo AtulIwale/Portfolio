@@ -1,5 +1,14 @@
 # Cost Overrun & Variation Risk Predictor
 
+[View the executed notebook](../../notebooks/06_cost_overrun.ipynb) · [Browse source code](../../aec/)
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtulIwale/Portfolio/blob/main/notebooks/06_cost_overrun.ipynb)
+
+Read the saved charts and reasoning on GitHub, or run a copy in Colab. No client data is used.
+
+![Held-out synthetic cost predictions and uncertainty intervals](../../outputs/notebook-figures/06-predictions-intervals.png)
+
+
 **Machine Learning · regression · uncertainty · commercial review**
 
 ## Business decision

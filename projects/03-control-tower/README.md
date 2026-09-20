@@ -1,5 +1,14 @@
 # Procure-to-Pay & Supplier Performance Control Tower
 
+[View the executed notebook](../../notebooks/03_procure_to_pay.ipynb) · [Browse source code](../../aec/)
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtulIwale/Portfolio/blob/main/notebooks/03_procure_to_pay.ipynb)
+
+Read the saved charts and reasoning on GitHub, or run a copy in Colab. No client data is used.
+
+![Synthetic procurement trends and supplier delivery performance](../../outputs/notebook-figures/03-procurement-overview.png)
+
+
 **Data Analysis · SQL · reconciliation · exception reporting**
 
 ## Decision and users
