@@ -1,7 +1,0 @@
-{
-  "seed": 42,
-  "data_manifest": "../data/manifest.json",
-  "synthetic_only": true,
-  "model_selection": "validation only; no test tuning",
-  "rows": 28682
-}

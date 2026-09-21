@@ -1,0 +1,324 @@
+{
+  "model": {
+    "kind": "Decision tree classifier",
+    "maxDepth": 4,
+    "minLeaf": 60,
+    "features": [
+      "bid_count",
+      "scope_changes",
+      "approval_levels",
+      "planned_days"
+    ],
+    "target": "award_delay",
+    "threshold": 0.5,
+    "nodes": [
+      {
+        "feature": 3,
+        "threshold": 32.5,
+        "left": 1,
+        "right": 8,
+        "probability": 0.3158388,
+        "samples": 1067
+      },
+      {
+        "feature": 1,
+        "threshold": 2.5,
+        "left": 2,
+        "right": 5,
+        "probability": 0.46567164,
+        "samples": 335
+      },
+      {
+        "feature": 3,
+        "threshold": 27.5,
+        "left": 3,
+        "right": 4,
+        "probability": 0.35955056,
+        "samples": 178
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.40540541,
+        "samples": 111
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.28358209,
+        "samples": 67
+      },
+      {
+        "feature": 2,
+        "threshold": 3.5,
+        "left": 6,
+        "right": 7,
+        "probability": 0.58598726,
+        "samples": 157
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.51546392,
+        "samples": 97
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.7,
+        "samples": 60
+      },
+      {
+        "feature": 1,
+        "threshold": 2.5,
+        "left": 9,
+        "right": 14,
+        "probability": 0.24726776,
+        "samples": 732
+      },
+      {
+        "feature": 1,
+        "threshold": 0.5,
+        "left": 10,
+        "right": 11,
+        "probability": 0.15363881,
+        "samples": 371
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.09322034,
+        "samples": 118
+      },
+      {
+        "feature": 0,
+        "threshold": 3.5,
+        "left": 12,
+        "right": 13,
+        "probability": 0.18181818,
+        "samples": 253
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.13333333,
+        "samples": 120
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.22556391,
+        "samples": 133
+      },
+      {
+        "feature": 3,
+        "threshold": 54.5,
+        "left": 15,
+        "right": 18,
+        "probability": 0.3434903,
+        "samples": 361
+      },
+      {
+        "feature": 2,
+        "threshold": 3.5,
+        "left": 16,
+        "right": 17,
+        "probability": 0.38162544,
+        "samples": 283
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.34031414,
+        "samples": 191
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.4673913,
+        "samples": 92
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.20512821,
+        "samples": 78
+      }
+    ],
+    "featureImportance": {
+      "bid_count": 0.01930767627590084,
+      "scope_changes": 0.41390877773463725,
+      "approval_levels": 0.08149828728532357,
+      "planned_days": 0.48528525870413836
+    },
+    "metrics": {
+      "trainRows": 1067,
+      "testRows": 671,
+      "excludedRows": 3262,
+      "trainCutoff": "2024-06-01",
+      "testStart": "2024-08-01",
+      "labelCutoff": "2024-08-01",
+      "auc": 0.6486,
+      "accuracy": 0.6557,
+      "precision": 0.5246,
+      "recall": 0.27,
+      "brier": 0.218,
+      "baselineBrier": 0.2298,
+      "baselineAccuracy": 0.6468,
+      "testEventRate": 0.3532,
+      "confusionMatrix": [
+        [
+          376,
+          58
+        ],
+        [
+          173,
+          64
+        ]
+      ]
+    },
+    "limitations": "Temporal holdout on synthetic data only. January\u2013May training; June\u2013July excluded; August\u2013October test. Training labels must be known before August. Repeated entities may occur in both periods: this tests future records for known populations, not unseen suppliers or employees. Scores are uncalibrated tree frequencies, not established real-world probabilities. Model features are captured at record creation; outcomes, status, payment and completion fields are excluded. No automated approvals or personnel decisions."
+  },
+  "analysis": {
+    "rows": 5000,
+    "details": 17602,
+    "events": 5000,
+    "total": 21333880000,
+    "median": 4270000.0,
+    "p90": 7251000.0,
+    "byStatus": [
+      {
+        "name": "Awarded",
+        "count": 733,
+        "value": 3049100000
+      },
+      {
+        "name": "Cancelled",
+        "count": 718,
+        "value": 3163560000
+      },
+      {
+        "name": "Contract active",
+        "count": 716,
+        "value": 3057580000
+      },
+      {
+        "name": "Contract closed",
+        "count": 729,
+        "value": 3044110000
+      },
+      {
+        "name": "Draft",
+        "count": 724,
+        "value": 3108930000
+      },
+      {
+        "name": "In evaluation",
+        "count": 690,
+        "value": 3011200000
+      },
+      {
+        "name": "Lost",
+        "count": 690,
+        "value": 2899400000
+      }
+    ],
+    "byType": [
+      {
+        "name": "Framework call-off",
+        "count": 1251,
+        "value": 5313470000
+      },
+      {
+        "name": "Negotiated contract",
+        "count": 1263,
+        "value": 5510780000
+      },
+      {
+        "name": "Open tender",
+        "count": 1243,
+        "value": 5279380000
+      },
+      {
+        "name": "Selective tender",
+        "count": 1243,
+        "value": 5230250000
+      }
+    ],
+    "months": [
+      {
+        "name": "2024-01",
+        "count": 500,
+        "value": 2136720000
+      },
+      {
+        "name": "2024-02",
+        "count": 500,
+        "value": 2185460000
+      },
+      {
+        "name": "2024-03",
+        "count": 500,
+        "value": 2059600000
+      },
+      {
+        "name": "2024-04",
+        "count": 500,
+        "value": 2132520000
+      },
+      {
+        "name": "2024-05",
+        "count": 500,
+        "value": 2138860000
+      },
+      {
+        "name": "2024-06",
+        "count": 500,
+        "value": 2119890000
+      },
+      {
+        "name": "2024-07",
+        "count": 500,
+        "value": 2185190000
+      },
+      {
+        "name": "2024-08",
+        "count": 500,
+        "value": 2156870000
+      },
+      {
+        "name": "2024-09",
+        "count": 500,
+        "value": 2087100000
+      },
+      {
+        "name": "2024-10",
+        "count": 500,
+        "value": 2131670000
+      }
+    ],
+    "labelled": 2178,
+    "eventsObserved": 704,
+    "currency": "INR"
+  }
+}

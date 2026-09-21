@@ -1,98 +1,70 @@
-# AEC Intelligence Portfolio — Atul Iwale
+# Atul Iwale — Connected AEC Module Projects
 
-Eight connected portfolio projects: business process design, implementation governance,
-procurement analytics, cost/cash scenarios and predictive machine learning.
+One dataset per construction ERP module, used consistently for Business Analysis, implementation planning, Data Analysis & Data Science, Machine Learning and a working review app.
 
-**Status: runnable synthetic-data research prototypes and fictional business case studies.
-Not client engagements, a production ERP integration, or validated commercial outcomes.**
-No client records, vendor manual excerpts, credentials or proprietary ERP code are included.
-The schemas are original simplified designs inspired by common enterprise register concepts.
+**8 modules · 40,000 synthetic primary records · 8 Excel workbooks · 8 trained models and apps**
 
-## Explore the projects
+This repository replaces the previous portfolio examples. Previous content remains recoverable in Git history.
 
-**Start here:** [Read the approach in four executed notebooks](notebooks/README.md).
-Charts, tables and results are saved, so you can review the work without running code.
-Each technical case study also has an **Open in Colab** link. For business analysis and
-delivery, read the [ERP design walkthrough](projects/01-erp-transformation/APPROACH.md)
-and [variation-governance walkthrough](projects/02-variation-governance/APPROACH.md).
+## Projects and datasets
 
-| Discipline | Project | Working evidence |
-|---|---|---|
-| Business Analysis | [AEC ERP Process & Controls Transformation](projects/01-erp-transformation/README.md) | AS-IS/TO-BE, requirements, controls, traceability and UAT |
-| Business Analysis | [Cost Plan Module Requirements for Real Estate Developers](projects/07-cost-plan-requirements/README.md) | Proposed requirements, acceptance criteria, cost-control rules and fictional worked example |
-| Commercial governance / PM | [Contract Variation, Valuation & Payment Governance](projects/02-variation-governance/README.md) | Stage gates, approval matrix, RAID, rollout and acceptance plan |
-| Project Management | [HR, Payroll & Accounts Module Rollout](projects/08-hr-payroll-accounts-rollout/README.md) | Proposed phased rollout, dependencies, risk controls, parallel-run gates and cutover plan |
-| Data Analysis | [Procure-to-Pay & Supplier Performance Control Tower](projects/03-control-tower/README.md) | Executable SQL, reconciliation and supplier scorecard |
-| Data Science | [Project Cash Flow & Estimate-at-Completion Simulator](projects/04-cash-eac/README.md) | Monte Carlo scenarios and funding sensitivity |
-| Machine Learning | [Procurement Delivery Risk Early-Warning System](projects/05-delivery-risk/README.md) | Baselines, classifier comparison, threshold selection and review queue |
-| Machine Learning | [Cost Overrun & Variation Risk Predictor](projects/06-cost-risk/README.md) | Final-cost regression, overrun flags and calibrated intervals |
+| Module | Primary records | Project documentation | Excel dataset |
+|---|---:|---|---|
+| Tendering & Contracts | 5,000 | [Open project](modules/tender-contracts) | [Download Excel](public/data/modules/tender-contracts.xlsx) |
+| Procurement & Subcontracting | 5,000 | [Open project](modules/procurement-subcontracting) | [Download Excel](public/data/modules/procurement-subcontracting.xlsx) |
+| Inventory & Warehouse Management | 5,000 | [Open project](modules/inventory-warehouse) | [Download Excel](public/data/modules/inventory-warehouse.xlsx) |
+| Real Estate Sales | 5,000 | [Open project](modules/real-estate-sales) | [Download Excel](public/data/modules/real-estate-sales.xlsx) |
+| Construction Assets — Fixed & Movable | 5,000 | [Open project](modules/construction-assets) | [Download Excel](public/data/modules/construction-assets.xlsx) |
+| Accounts Receivable & Accounts Payable | 5,000 | [Open project](modules/receivables-payables) | [Download Excel](public/data/modules/receivables-payables.xlsx) |
+| Construction HR | 5,000 | [Open project](modules/construction-hr) | [Download Excel](public/data/modules/construction-hr.xlsx) |
+| Construction Payroll | 5,000 | [Open project](modules/construction-payroll) | [Download Excel](public/data/modules/construction-payroll.xlsx) |
 
-Supporting AI/NLP: [Evidence assistant](docs/AI_EVIDENCE.md). This version implements
-local extractive retrieval with citations and abstention, **not a generative LLM agent**.
+## Run locally
 
-## Run everything
-
-Python 3.12 recommended. From the repository root:
+Node.js 24 or later is required. Python is only needed to retrain the models; the apps can use the checked-in trained models.
 
 ```bash
-python -m venv .venv
-# Activate .venv using your operating system's command.
-python -m pip install -r requirements.txt
-python -m aec.run
-python -m unittest discover -s tests -v
-python -m aec.dashboard
+npm ci
+npm run data
+npm run build
+npm test
+npm start
 ```
 
-Open `outputs/control_tower.html` locally for a filterable procurement report.
-No API keys, cloud subscriptions or client exports are required.
-The default run generates 3,600 orders, 750 fictional cost packages and their linked records.
-The committed [manifest](data/manifest.json) gives the exact table counts, schema and hashes.
-The committed [outputs](outputs/) contain actual computed results, not illustrative scores.
-To experiment: `python -m aec.run --seed 73`. This replaces generated `data/` and the selected
-output folder; keep the published seed-42 evidence in version control.
+Open http://localhost:4173. `npm run data` deterministically regenerates the same record IDs and values, then applies the versioned model files. The eight Excel files are included. HR and Payroll are separate employee-month datasets connected through attendance IDs.
 
-## What is implemented
+## Repository structure
 
-- Relational synthetic data with partial receipts, payment instalments, rejection events,
-  open/censored orders, variation states, time drift and separate data-quality fixtures.
-- SQL at declared grains; reconciliation back to source totals; supplier KPIs.
-- Median imputation, categorical encoding and scaling within train-only pipelines.
-- Dummy, logistic, ridge and histogram gradient-boosting baselines/candidates.
-- Outcome-mature temporal splits; no future completion information in prediction inputs.
-- Validation-only model and threshold selection; separate interval calibration subset.
-- ROC-AUC, average precision, Brier, precision/recall/F1, MAE/RMSE, empirical interval coverage.
-- Fixed-model bootstrap uncertainty, category slices, permutation importance and KS drift.
-- Scenario uncertainty, shared escalation shocks, funding gaps and one-factor stress cases.
-- TF-IDF evidence retrieval with source IDs, abstention and a small regression test set.
-- Business requirements, responsibility/approval rules, risk register and UAT acceptance.
+- `modules/`: module-specific business requirements, implementation plans, analysis and model evaluation.
+- `src/modules/`: shared React project pages, evidence assistant, filters, record inspection, CSV export and what-if inference.
+- `scripts/generate-modules.mjs`: seeded generation of primary records, related records and shared masters.
+- `scripts/train-module-models.py`: training, temporal holdout evaluation and data checks.
+- `models/`: actual exported decision trees and measured evaluations.
+- `public/data/modules/`: downloadable Excel workbooks; generated JSON is recreated with `npm run data`.
+- `tests/`: model parity, dataset and linked HR/Payroll checks.
 
-These methods are chosen for the business questions. This repository does **not** claim
-to cover all Data Science/ML/AI methods. Deep learning, computer vision, reinforcement
-learning, production LLM RAG and live deployment monitoring are not implemented.
+## Retrain
 
-## Read before interpreting results
-
-1. [Data card & register mapping](docs/DATA_CARD.md): which fields are assumptions.
-2. [Methodology & model cards](docs/METHODOLOGY.md): leakage controls, evaluation and limits.
-3. [Business requirements & traceability](docs/BUSINESS_DELIVERABLES.md).
-4. [Actual run summary](outputs/RESULTS.md).
-
-Performance on this dataset measures recovery of patterns built into the simulator.
-It cannot establish accuracy on a real contractor, causality, savings or deployment readiness.
-No automatic purchasing, payment, contract approval or employment decision is performed.
-
-## Repository map
-
-```text
-aec/       Generator, feature pipelines, models, SQL, simulation and retrieval
-data/      Entire generated JSONL dataset and manifest
-outputs/   Computed evaluations, scenarios, review queues and HTML report
-projects/  Eight standalone business-facing case studies
-notebooks/ Four executed analytical walkthroughs with saved charts and Colab links
-scripts/   Rebuild and execute the notebooks in fresh kernels
-docs/      Data card, model cards, governance and AI boundaries
-tests/     Determinism, joins, leakage, reconciliation and evidence tests
+```bash
+python3 -m pip install -r requirements.txt
+npm run data
+npm run train
+npm run build
+npm test
 ```
 
-No licence has been selected by the owner. Public visibility does not itself grant an
-open-source licence. Dependency licences remain those of their respective projects.
+The Python pipeline updates canonical JSON, website metrics and checked-in model exports. Excel risk scores remain tied to their documented version; changing the model does not silently alter the workbooks.
+
+Excel source is in `scripts/build-module-workbook.mjs`. Re-authoring workbooks requires `@oai/artifact-tool` in the ChatGPT spreadsheet runtime. Set `MODULE_SITE_ROOT` to this checkout and `MODULE_OUTPUT` to an output folder, then run the script with a module ID. The supplied workbooks can be used without this authoring dependency.
+
+## Method and limitations
+
+Version AEC-DEMO-2026.1; seed 20260921. Records cover January–October 2024; the reporting snapshot is 1 March 2025. Each workbook includes nine sheets: Summary, Records, Details, Events, Masters, Dictionary, Requirements, Implementation and Model. Amount examples use INR.
+
+Field concepts reference the user-supplied Xpedeon documentation. The original manual is not included. Records, business thresholds, tax/deduction rates and implementation costs are synthetic demonstration assumptions, not actual client data or statutory calculations.
+
+ML uses depth-four decision trees with at least 60 training examples per leaf. January–May records train the model only when outcomes are known before August; June–July are excluded; August–October form the holdout. Status, completion, payment and outcome fields are not model inputs. Repeated entities can occur across periods. Metrics describe synthetic data only and do not establish real-world performance.
+
+The apps perform local inference with the actual exported models. Their evidence assistant supports deterministic count, total and highest-score questions; it does not call a generative LLM or authorize business decisions. Portfolio implementation plans are illustrative plans, not claims of completed client implementations.
+
+[Portfolio website](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/process-projects.html) · [AI Apps](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app.html)

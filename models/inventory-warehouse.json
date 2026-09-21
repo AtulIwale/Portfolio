@@ -1,0 +1,389 @@
+{
+  "model": {
+    "kind": "Decision tree classifier",
+    "maxDepth": 4,
+    "minLeaf": 60,
+    "features": [
+      "days_since_count",
+      "movement_qty",
+      "manual_entry",
+      "item_value"
+    ],
+    "target": "stock_exception",
+    "threshold": 0.5,
+    "nodes": [
+      {
+        "feature": 2,
+        "threshold": 0.5,
+        "left": 1,
+        "right": 14,
+        "probability": 0.2548,
+        "samples": 2500
+      },
+      {
+        "feature": 0,
+        "threshold": 81.5,
+        "left": 2,
+        "right": 9,
+        "probability": 0.17917676,
+        "samples": 1239
+      },
+      {
+        "feature": 1,
+        "threshold": 61.5,
+        "left": 3,
+        "right": 6,
+        "probability": 0.12987013,
+        "samples": 847
+      },
+      {
+        "feature": 0,
+        "threshold": 49.5,
+        "left": 4,
+        "right": 5,
+        "probability": 0.10461538,
+        "samples": 650
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.07238606,
+        "samples": 373
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.14801444,
+        "samples": 277
+      },
+      {
+        "feature": 0,
+        "threshold": 51.5,
+        "left": 7,
+        "right": 8,
+        "probability": 0.21319797,
+        "samples": 197
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.15555556,
+        "samples": 135
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.33870968,
+        "samples": 62
+      },
+      {
+        "feature": 1,
+        "threshold": 59.5,
+        "left": 10,
+        "right": 13,
+        "probability": 0.28571429,
+        "samples": 392
+      },
+      {
+        "feature": 3,
+        "threshold": 502.0,
+        "left": 11,
+        "right": 12,
+        "probability": 0.25566343,
+        "samples": 309
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.14754098,
+        "samples": 61
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.28225806,
+        "samples": 248
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.39759036,
+        "samples": 83
+      },
+      {
+        "feature": 0,
+        "threshold": 44.5,
+        "left": 15,
+        "right": 22,
+        "probability": 0.32910389,
+        "samples": 1261
+      },
+      {
+        "feature": 1,
+        "threshold": 44.5,
+        "left": 16,
+        "right": 19,
+        "probability": 0.24733475,
+        "samples": 469
+      },
+      {
+        "feature": 1,
+        "threshold": 29.5,
+        "left": 17,
+        "right": 18,
+        "probability": 0.18032787,
+        "samples": 244
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.20930233,
+        "samples": 172
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.11111111,
+        "samples": 72
+      },
+      {
+        "feature": 3,
+        "threshold": 592.0,
+        "left": 20,
+        "right": 21,
+        "probability": 0.32,
+        "samples": 225
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.4,
+        "samples": 60
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.29090909,
+        "samples": 165
+      },
+      {
+        "feature": 1,
+        "threshold": 60.5,
+        "left": 23,
+        "right": 26,
+        "probability": 0.37752525,
+        "samples": 792
+      },
+      {
+        "feature": 3,
+        "threshold": 1862.5,
+        "left": 24,
+        "right": 25,
+        "probability": 0.34210526,
+        "samples": 608
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.3559633,
+        "samples": 545
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.22222222,
+        "samples": 63
+      },
+      {
+        "feature": 0,
+        "threshold": 88.5,
+        "left": 27,
+        "right": 28,
+        "probability": 0.49456522,
+        "samples": 184
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.44262295,
+        "samples": 122
+      },
+      {
+        "feature": -2,
+        "threshold": -2.0,
+        "left": -1,
+        "right": -1,
+        "probability": 0.59677419,
+        "samples": 62
+      }
+    ],
+    "featureImportance": {
+      "days_since_count": 0.366292115505754,
+      "movement_qty": 0.2264284497102349,
+      "manual_entry": 0.347380558052891,
+      "item_value": 0.059898876731120224
+    },
+    "metrics": {
+      "trainRows": 2500,
+      "testRows": 1500,
+      "excludedRows": 1000,
+      "trainCutoff": "2024-06-01",
+      "testStart": "2024-08-01",
+      "labelCutoff": "2024-08-01",
+      "auc": 0.6593,
+      "accuracy": 0.7347,
+      "precision": 0.6316,
+      "recall": 0.0872,
+      "brier": 0.1866,
+      "baselineBrier": 0.1999,
+      "baselineAccuracy": 0.7247,
+      "testEventRate": 0.2753,
+      "confusionMatrix": [
+        [
+          1066,
+          21
+        ],
+        [
+          377,
+          36
+        ]
+      ]
+    },
+    "limitations": "Temporal holdout on synthetic data only. January\u2013May training; June\u2013July excluded; August\u2013October test. Training labels must be known before August. Repeated entities may occur in both periods: this tests future records for known populations, not unseen suppliers or employees. Scores are uncalibrated tree frequencies, not established real-world probabilities. Model features are captured at record creation; outcomes, status, payment and completion fields are excluded. No automated approvals or personnel decisions."
+  },
+  "analysis": {
+    "rows": 5000,
+    "details": 5000,
+    "events": 5000,
+    "total": 212233900,
+    "median": 31612.5,
+    "p90": 99459.0,
+    "byStatus": [
+      {
+        "name": "Count verified",
+        "count": 1947,
+        "value": 81315206
+      },
+      {
+        "name": "Posted",
+        "count": 1519,
+        "value": 64518232
+      },
+      {
+        "name": "Quarantined",
+        "count": 1534,
+        "value": 66400462
+      }
+    ],
+    "byType": [
+      {
+        "name": "Adjustment in",
+        "count": 969,
+        "value": 40084262
+      },
+      {
+        "name": "Adjustment out",
+        "count": 978,
+        "value": 41230944
+      },
+      {
+        "name": "Issue",
+        "count": 510,
+        "value": 21777914
+      },
+      {
+        "name": "Receipt",
+        "count": 2048,
+        "value": 87933604
+      },
+      {
+        "name": "Return",
+        "count": 495,
+        "value": 21207176
+      }
+    ],
+    "months": [
+      {
+        "name": "2024-01",
+        "count": 500,
+        "value": 22015989
+      },
+      {
+        "name": "2024-02",
+        "count": 500,
+        "value": 20978724
+      },
+      {
+        "name": "2024-03",
+        "count": 500,
+        "value": 20543948
+      },
+      {
+        "name": "2024-04",
+        "count": 500,
+        "value": 21788789
+      },
+      {
+        "name": "2024-05",
+        "count": 500,
+        "value": 20728877
+      },
+      {
+        "name": "2024-06",
+        "count": 500,
+        "value": 21214736
+      },
+      {
+        "name": "2024-07",
+        "count": 500,
+        "value": 21534080
+      },
+      {
+        "name": "2024-08",
+        "count": 500,
+        "value": 20581662
+      },
+      {
+        "name": "2024-09",
+        "count": 500,
+        "value": 21283941
+      },
+      {
+        "name": "2024-10",
+        "count": 500,
+        "value": 21563154
+      }
+    ],
+    "labelled": 5000,
+    "eventsObserved": 1316,
+    "currency": "INR"
+  }
+}

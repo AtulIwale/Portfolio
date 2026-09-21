@@ -1,0 +1,25 @@
+{
+  "name": "atul-iwale-connected-aec-modules",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "data": "node scripts/generate-modules.mjs && node scripts/prepare-data.mjs",
+    "train": "python3 scripts/train-module-models.py",
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "dev": "npm run build && npm start",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0",
+    "jsdom": "26.1.0"
+  }
+}

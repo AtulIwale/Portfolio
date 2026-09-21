@@ -1,6 +1,6 @@
-.venv/
+node_modules/
+dist/
+outputs/
 __pycache__/
-*.pyc
+public/data/modules/*.json
 .env
-*.sqlite
-models/
