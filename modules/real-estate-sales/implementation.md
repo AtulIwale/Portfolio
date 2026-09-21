@@ -1,25 +1,23 @@
-# Implementation — Real Estate Sales
+# Project Management — Real Estate Sales
 
-Illustrative 12-week, two-site pilot; 60 person-days. Scope: the specified module types, master data, approval roles, migration, source-ID interfaces, UAT, training and cutover.
+**Work:** Planned unit migration, booking configuration, UAT and rollout costs. Illustrative two-site pilot; implementation has not been claimed as a client deployment.
 
-| Phase | Weeks | Effort | Rate INR/day | Cost INR | Exit gate |
-|---|---|---|---|---|---|
-| Discover | 1–2 | 10 days | 9,000 | 90,000 | Sign requirements and scope |
-| Configure | 3–5 | 15 days | 10,000 | 150,000 | Approve masters, types and authority |
-| Migrate & integrate | 6–8 | 15 days | 11,000 | 165,000 | Reconcile counts, balances and ID joins |
-| UAT & train | 9–10 | 10 days | 8,000 | 80,000 | Pass critical tests and train owners |
-| Cutover & stabilize | 11–12 | 10 days | 12,000 | 120,000 | Sponsor approves go-live and support |
+**Scope:** Apartment, Villa, Retail, Office; masters, approvals, interfaces, UAT and training.
 
-Base estimate INR 605,000; 15% contingency INR 90,750; total INR 695,750. Excludes licenses, hardware, taxes and statutory localization.
+| Phase | Weeks | Days | Cost (INR) |
+| --- | --- | --- | --- |
+| Discover | 1–2 | 10 | 90,000 |
+| Configure | 3–5 | 15 | 1,50,000 |
+| Migrate & integrate | 6–8 | 15 | 1,65,000 |
+| UAT & train | 9–10 | 10 | 80,000 |
+| Cutover & stabilize | 11–12 | 10 | 1,20,000 |
 
-## Migration
+**Budget:** 60 person-days; INR 6,05,000 base + 90,750 contingency = **6,95,750**. Excludes hardware, licenses, taxes and statutory localization.
 
-Units, price lists, reservations, signed bookings and collection allocations. Retain source-to-target ID mapping, reconcile totals, log rejected rows and obtain the process owner's sign-off.
+**Migrate:** Units, price lists, reservations, signed bookings and collection allocations. Reconcile counts, balances and source IDs.
 
-## Risk and acceptance
+**Main risk:** Duplicate unit reservations and incomplete installment migration.
 
-Duplicate unit reservations and incomplete installment migration. Use a trial migration and the module's [acceptance tests](business-analysis.md). Sales operations manager owns process acceptance; the data engineer owns migration; the controller owns financial reconciliation; the sponsor authorizes go/no-go.
+**Controls:** Sales operations manager signs off the process; sponsor approves scope changes and go-live. Signed requirements → approved mappings → reconciled migration → critical [UAT checks](business-analysis.md) passed. Freeze and back up source data before cutover; restore the source process if reconciliation fails. Close hypercare after ten working days without critical issues and with an agreed support owner.
 
-Changes require a logged request, scope/time/cost impact and sponsor approval before revising the baseline. Configuration follows signed requirements; migration follows signed mappings; failed critical UAT blocks cutover.
-
-Freeze source entry, back up extracts and configuration, reconcile open records and approve release. If critical reconciliation fails, stop release and restore the approved source process. Exit hypercare after ten working days without a critical issue, reconciled daily totals and a named support owner.
+[Module overview](README.md) · [Excel dataset](../../public/data/modules/real-estate-sales.xlsx)

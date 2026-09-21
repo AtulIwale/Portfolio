@@ -1,19 +1,14 @@
 # Real Estate Sales
 
-**5,000 synthetic primary records. Version AEC-DEMO-2026.1.** One unique unit sales enquiry / booking opportunity.
+One shared dataset across requirements, implementation planning, analysis and the working app. **5,000 synthetic records.** One unique unit sales enquiry / booking opportunity.
 
-The same record IDs connect the workbook, business requirements, implementation plan, analysis, trained model and app.
+| Area | What was done |
+| --- | --- |
+| [Business Analysis](business-analysis.md) | Mapped enquiry-to-booking workflows, discounts and collection controls. |
+| [Project Management](implementation.md) | Planned unit migration, booking configuration, UAT and rollout costs. |
+| [Data Analysis & Data Science](data-analysis.md) | Compared sales values, booking stages and opportunity outcomes. |
+| [Machine Learning & AI](machine-learning-ai.md) | Trained a booking-loss model and built a sales follow-up app. |
 
-- [Excel dataset](../../public/data/modules/real-estate-sales.xlsx)
-- [Business analysis](business-analysis.md)
-- [Implementation plan](implementation.md)
-- [Analysis and model evaluation](analysis-and-model.md)
-- [Working app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-real-estate-sales)
-- [App source](../../src/modules/ModulePages.js)
-- [Dataset generator](../../scripts/generate-modules.mjs)
-- [Training pipeline](../../scripts/train-module-models.py)
-- [Exported trained model](../../models/real-estate-sales.json)
+[Download Excel](https://raw.githubusercontent.com/AtulIwale/Portfolio/main/public/data/modules/real-estate-sales.xlsx) · [Open app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-real-estate-sales) · [Data notes](../../docs/dataset-notes.md)
 
-Reference concepts: Property sales.txt, process configuration and sales workflow. The supplied manual is not republished. All records, outcomes, thresholds and project estimates are demonstration assumptions.
-
-Run `npm ci && npm run data && npm run build && npm start` from the repository root to use the application locally.
+Reference concepts: Property sales.txt, process configuration and sales workflow. Implementation estimates are illustrative.

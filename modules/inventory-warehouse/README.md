@@ -1,19 +1,14 @@
 # Inventory & Warehouse Management
 
-**5,000 synthetic primary records. Version AEC-DEMO-2026.1.** One dated stock movement in an item/store ledger.
+One shared dataset across requirements, implementation planning, analysis and the working app. **5,000 synthetic records.** One dated stock movement in an item/store ledger.
 
-The same record IDs connect the workbook, business requirements, implementation plan, analysis, trained model and app.
+| Area | What was done |
+| --- | --- |
+| [Business Analysis](business-analysis.md) | Defined receipt, issue, location and stock-count controls. |
+| [Project Management](implementation.md) | Planned opening-stock migration, warehouse setup, testing and cutover. |
+| [Data Analysis & Data Science](data-analysis.md) | Analysed stock movements, record statuses and count exceptions. |
+| [Machine Learning & AI](machine-learning-ai.md) | Trained a stock-exception model and built a movement review app. |
 
-- [Excel dataset](../../public/data/modules/inventory-warehouse.xlsx)
-- [Business analysis](business-analysis.md)
-- [Implementation plan](implementation.md)
-- [Analysis and model evaluation](analysis-and-model.md)
-- [Working app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-inventory-warehouse)
-- [App source](../../src/modules/ModulePages.js)
-- [Dataset generator](../../scripts/generate-modules.mjs)
-- [Training pipeline](../../scripts/train-module-models.py)
-- [Exported trained model](../../models/inventory-warehouse.json)
+[Download Excel](https://raw.githubusercontent.com/AtulIwale/Portfolio/main/public/data/modules/inventory-warehouse.xlsx) · [Open app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-inventory-warehouse) · [Data notes](../../docs/dataset-notes.md)
 
-Reference concepts: Inventory.txt, pp. 1–2; Warehouse Management.txt, configuration and lot expiry. The supplied manual is not republished. All records, outcomes, thresholds and project estimates are demonstration assumptions.
-
-Run `npm ci && npm run data && npm run build && npm start` from the repository root to use the application locally.
+Reference concepts: Inventory.txt, pp. 1–2; Warehouse Management.txt, configuration and lot expiry. Implementation estimates are illustrative.

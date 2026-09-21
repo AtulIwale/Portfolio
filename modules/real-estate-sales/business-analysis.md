@@ -1,29 +1,23 @@
-# Business analysis — Real Estate Sales
+# Business Analysis — Real Estate Sales
 
-## AS-IS discovery scenario
+**Work:** Mapped enquiry-to-booking workflows, discounts and collection controls.
 
-Sales teams track enquiries in spreadsheets and reservation messages. Payment schedules and discount approvals are reconciled manually with finance.
+**Current-process scenario:** Sales teams track enquiries in spreadsheets and reservation messages. Payment schedules and discount approvals are reconciled manually with finance.
 
-Hypothetical scenario, not a claim about an actual company.
+**Proposed flow:** Enquiry → Availability → Reservation → Discount approval → Booking → Agreement → Installments → Handover.
 
-## TO-BE workflow
+| Control | Rule | Acceptance check |
+| --- | --- | --- |
+| Unit availability | One active booking per unit; cancellation must explicitly release the unit. | Attempt two active bookings for one unit and verify the second is blocked. |
+| Price and discount | Store approved discount separately from the list price. | An excessive discount must route to the sales head. |
+| Payment schedule | Schedule amounts must add to the contracted consideration. | Round installment amounts and reconcile the final residual. |
+| Collection allocation | Allocate receipts to identified installments; keep unapplied cash separate. | Partial collections cannot mark the full installment settled. |
+| Cancellation | A cancellation requires a reason and reviewed refund calculation. | Cancel a partly paid booking and verify receivable reversal/release. |
 
-Enquiry → Availability → Reservation → Discount approval → Booking → Agreement → Installments → Handover
+**Deliverables:** Lead-to-booking process and unit controls; Discount and installment rules; Sales-to-AR handoff tests.
 
-Process owner: Sales operations manager.
+**Owner / handoff:** Sales operations manager. Booked unit schedules can reference AR installments; customer IDs are fictional.
 
-| Requirement | Data concepts | Rule | Acceptance test |
-|---|---|---|---|
-| Unit availability | unit_id, booking_status | One active booking per unit; cancellation must explicitly release the unit. | Attempt two active bookings for one unit and verify the second is blocked. |
-| Price and discount | list_price, discount_pct | Store approved discount separately from the list price. | An excessive discount must route to the sales head. |
-| Payment schedule | booking_id, installment_no | Schedule amounts must add to the contracted consideration. | Round installment amounts and reconcile the final residual. |
-| Collection allocation | collected_amount, scheduled_amount | Allocate receipts to identified installments; keep unapplied cash separate. | Partial collections cannot mark the full installment settled. |
-| Cancellation | booking_status, refund_amount | A cancellation requires a reason and reviewed refund calculation. | Cancel a partly paid booking and verify receivable reversal/release. |
+Hypothetical discovery and proposed configuration; [dataset fields and assumptions](../../docs/dataset-notes.md).
 
-## Deliverables
-
-- Lead-to-booking process and unit controls
-- Discount and installment rules
-- Sales-to-AR handoff tests
-
-Booked unit schedules can reference AR installments; customer IDs are fictional.
+[Module overview](README.md) · [Excel dataset](../../public/data/modules/real-estate-sales.xlsx)

@@ -1,19 +1,14 @@
 # Construction Payroll
 
-**5,000 synthetic primary records. Version AEC-DEMO-2026.1.** One employee-month pay record linked 1:1 to HR attendance.
+One shared dataset across requirements, implementation planning, analysis and the working app. **5,000 synthetic records.** One employee-month pay record linked 1:1 to HR attendance.
 
-The same record IDs connect the workbook, business requirements, implementation plan, analysis, trained model and app.
+| Area | What was done |
+| --- | --- |
+| [Business Analysis](business-analysis.md) | Defined pay calculations, deductions, reconciliation and release controls. |
+| [Project Management](implementation.md) | Planned pay-element setup, parallel runs, UAT and cutover costs. |
+| [Data Analysis & Data Science](data-analysis.md) | Reconciled net pay, attendance links and payroll processing states. |
+| [Machine Learning & AI](machine-learning-ai.md) | Trained a payroll-correction model and built a pay review app. |
 
-- [Excel dataset](../../public/data/modules/construction-payroll.xlsx)
-- [Business analysis](business-analysis.md)
-- [Implementation plan](implementation.md)
-- [Analysis and model evaluation](analysis-and-model.md)
-- [Working app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-construction-payroll)
-- [App source](../../src/modules/ModulePages.js)
-- [Dataset generator](../../scripts/generate-modules.mjs)
-- [Training pipeline](../../scripts/train-module-models.py)
-- [Exported trained model](../../models/construction-payroll.json)
+[Download Excel](https://raw.githubusercontent.com/AtulIwale/Portfolio/main/public/data/modules/construction-payroll.xlsx) · [Open app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-construction-payroll) · [Data notes](../../docs/dataset-notes.md)
 
-Reference concepts: Payroll.txt, payroll elements; Timesheet & Payroll.txt, payroll groups and accounting. The supplied manual is not republished. All records, outcomes, thresholds and project estimates are demonstration assumptions.
-
-Run `npm ci && npm run data && npm run build && npm start` from the repository root to use the application locally.
+Reference concepts: Payroll.txt, payroll elements; Timesheet & Payroll.txt, payroll groups and accounting. Implementation estimates are illustrative.

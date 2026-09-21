@@ -1,19 +1,14 @@
 # Tendering & Contracts
 
-**5,000 synthetic primary records. Version AEC-DEMO-2026.1.** One tender package and its contract outcome.
+One shared dataset across requirements, implementation planning, analysis and the working app. **5,000 synthetic records.** One tender package and its contract outcome.
 
-The same record IDs connect the workbook, business requirements, implementation plan, analysis, trained model and app.
+| Area | What was done |
+| --- | --- |
+| [Business Analysis](business-analysis.md) | Defined bid comparisons, award approvals and contract variation controls. |
+| [Project Management](implementation.md) | Planned tender migration, approval setup, UAT and rollout costs. |
+| [Data Analysis & Data Science](data-analysis.md) | Compared package values, tender outcomes and monthly award activity. |
+| [Machine Learning & AI](machine-learning-ai.md) | Trained an award-delay model and built a tender review app. |
 
-- [Excel dataset](../../public/data/modules/tender-contracts.xlsx)
-- [Business analysis](business-analysis.md)
-- [Implementation plan](implementation.md)
-- [Analysis and model evaluation](analysis-and-model.md)
-- [Working app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-tender-contracts)
-- [App source](../../src/modules/ModulePages.js)
-- [Dataset generator](../../scripts/generate-modules.mjs)
-- [Training pipeline](../../scripts/train-module-models.py)
-- [Exported trained model](../../models/tender-contracts.json)
+[Download Excel](https://raw.githubusercontent.com/AtulIwale/Portfolio/main/public/data/modules/tender-contracts.xlsx) · [Open app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-tender-contracts) · [Data notes](../../docs/dataset-notes.md)
 
-Reference concepts: Contract Management.txt, pp. 1–4; Procurement.txt, Purchase Enquiry. The supplied manual is not republished. All records, outcomes, thresholds and project estimates are demonstration assumptions.
-
-Run `npm ci && npm run data && npm run build && npm start` from the repository root to use the application locally.
+Reference concepts: Contract Management.txt, pp. 1–4; Procurement.txt, Purchase Enquiry. Implementation estimates are illustrative.

@@ -1,19 +1,14 @@
 # Construction Assets — Fixed & Movable
 
-**5,000 synthetic primary records. Version AEC-DEMO-2026.1.** One asset-month snapshot for 500 assets across 10 months.
+One shared dataset across requirements, implementation planning, analysis and the working app. **5,000 synthetic records.** One asset-month snapshot for 500 assets across 10 months.
 
-The same record IDs connect the workbook, business requirements, implementation plan, analysis, trained model and app.
+| Area | What was done |
+| --- | --- |
+| [Business Analysis](business-analysis.md) | Defined asset registration, custody, maintenance and retirement controls. |
+| [Project Management](implementation.md) | Planned asset migration, maintenance setup, testing and implementation costs. |
+| [Data Analysis & Data Science](data-analysis.md) | Analysed depreciation, asset status and monthly operating records. |
+| [Machine Learning & AI](machine-learning-ai.md) | Trained a breakdown-risk model and built an asset review app. |
 
-- [Excel dataset](../../public/data/modules/construction-assets.xlsx)
-- [Business analysis](business-analysis.md)
-- [Implementation plan](implementation.md)
-- [Analysis and model evaluation](analysis-and-model.md)
-- [Working app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-construction-assets)
-- [App source](../../src/modules/ModulePages.js)
-- [Dataset generator](../../scripts/generate-modules.mjs)
-- [Training pipeline](../../scripts/train-module-models.py)
-- [Exported trained model](../../models/construction-assets.json)
+[Download Excel](https://raw.githubusercontent.com/AtulIwale/Portfolio/main/public/data/modules/construction-assets.xlsx) · [Open app](https://atul-iwale-fieldwork.iwaleatul.chatgpt.site/ai-app/module-construction-assets) · [Data notes](../../docs/dataset-notes.md)
 
-Reference concepts: Fixed Assets.txt, pp. 1–2; PLant.txt, process overview. The supplied manual is not republished. All records, outcomes, thresholds and project estimates are demonstration assumptions.
-
-Run `npm ci && npm run data && npm run build && npm start` from the repository root to use the application locally.
+Reference concepts: Fixed Assets.txt, pp. 1–2; PLant.txt, process overview. Implementation estimates are illustrative.
