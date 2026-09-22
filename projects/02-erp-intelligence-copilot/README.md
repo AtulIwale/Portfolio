@@ -17,7 +17,7 @@ Cost, procurement and settlement were chosen because they connect earned progres
 “Fully clean” means **no active source flags in this snapshot**, not an absence of historical issues or proof that every business risk has been tested. Latest-month cost risk comes from source labels; it does not rerun Project 1's historical two-month-streak model. A source-level flag can coexist with an aggregate CPI above 0.90.
 
 ### Project Management
-Scope: a single offline HTML file, all 30 projects, three domain panels, a project selector, portfolio summary and transaction-level evidence. Priority was complete joins and accurate active-versus-historical status before narrative generation. No server, external dependencies, live ERP connection or automated decisions are included. The requested project folder contains only index.html and this README.
+Scope: a single offline HTML file, all 30 projects, three domain panels, a project selector, portfolio summary and transaction-level evidence. Priority was complete joins and accurate active-versus-historical status before narrative generation. No server, external dependencies, live ERP connection or automated decisions are included. The project folder contains index.html, this README and the corrected AR/AP source workbook in data/.
 
 ### Data Analysis & Data Science
 - Join **all** fact_cost_value, fact_purchase_order and fact_invoice rows directly on project_id, using dim_project for project_name and region.
@@ -39,7 +39,7 @@ This project has **no separate synthetic dataset of its own**. It reads and join
 | --- | --- | ---: |
 | 01_Project_Cost_Margin_Intelligence(1).xlsx | Project/cost-code dimensions, cost facts and cost labels | 1,200 |
 | 06_Procurement_Subcontracting.xlsx | Vendor dimension, purchase orders and delivery-risk labels | 800 |
-| 07_Accounts_Receivable_Payable(1).xlsx | Customer/vendor dimensions, AR/AP invoices and settlement-risk labels | 1,000 |
+| [07_Accounts_Receivable_Payable_Corrected.xlsx](data/07_Accounts_Receivable_Payable_Corrected.xlsx) | Customer/vendor dimensions, AR/AP invoices and corrected settlement-risk labels; embedded in index.html | 1,000 |
 | 02_Construction_ERP_Intelligence_Copilot.xlsx | 30-project cross-reference sample and its dictionary | No new facts |
 
 Synthetic data patterned on real ERP structures. Dates are embedded as ISO dates, blank cells as null, and monetary values remain INR. The source files are not modified.
@@ -55,7 +55,7 @@ Under the active-flag definitions above:
 | Active cost flags / affected projects | 5 / 5 |
 | Historical delivery flags | 80 |
 | Unresolved delivery flags | 0 |
-| Active settlement flags / affected projects | 110 / 6 |
+| Active settlement flags / affected projects | 22 / 6 |
 
 The five cost-risk projects and six settlement-risk projects overlap on two projects, giving nine distinct affected projects. The 120 total cost flags include 115 historical records. All 80 delivery-risk orders have delivery dates, so they are shown but excluded from active risk.
 
