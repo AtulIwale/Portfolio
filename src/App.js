@@ -1,9 +1,0 @@
-import React,{useState,useEffect} from 'react';
-import {modules} from './modules/catalog.js';
-import {ModuleMatrix,ModuleApps,ModuleProject,ModuleApp} from './modules/ModulePages.js';
-const h=React.createElement;
-export function pageFor(path){const p=path.replace(/\.html$/,'').replace(/\/$/,'');if(p==='/ai-app')return h(ModuleApps);const m=modules.find(m=>p==='/modules/'+m.id||p==='/ai-app/module-'+m.id);if(m)return h(p.startsWith('/modules/')?ModuleProject:ModuleApp,{module:m});return h(ModuleMatrix);}
-export default function App({initialPath='/'}){const [pathname,setPathname]=useState(initialPath);useEffect(()=>{const onPop=()=>setPathname(location.pathname);window.addEventListener('popstate',onPop);return()=>window.removeEventListener('popstate',onPop);},[]);
- function navigate(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const a=e.target.closest('a[href]');if(!a||a.target||a.hasAttribute('download'))return;const url=new URL(a.href,location.href);if(url.origin!==location.origin||url.pathname.startsWith('/data/'))return;e.preventDefault();history.pushState({},'',url);setPathname(url.pathname);requestAnimationFrame(()=>{if(url.hash)document.getElementById(url.hash.slice(1))?.scrollIntoView();else window.scrollTo(0,0);});}
- return h('div',{onClick:navigate},h('header',{className:'app-header'},h('a',{href:'/'},'Atul Iwale · AEC module projects'),h('nav',{'aria-label':'Main navigation'},h('a',{href:'/process-projects.html'},'Process & Projects'),h('a',{href:'/ai-app.html'},'AI Apps'),h('a',{href:'https://github.com/AtulIwale/Portfolio',target:'_blank',rel:'noopener noreferrer'},'GitHub'))),h(React.Fragment,{key:pathname},pageFor(pathname)),h('footer',{className:'app-footer'},'Synthetic demonstration data · AEC-DEMO-2026.1'));
-}

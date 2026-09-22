@@ -1,6 +1,0 @@
-node_modules/
-dist/
-outputs/
-__pycache__/
-public/data/modules/*.json
-.env
