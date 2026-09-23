@@ -97,3 +97,63 @@ Read-only workbook audit confirmed unique IDs, complete joins and no tied servic
 Download this folder and open **index.html** in a modern browser. No installation, server or internet connection is required. Keep `README.md` and `data/` beside the HTML file for the source and documentation links.
 
 Filter by Fixed/Movable or search for an asset or log. Click a log ID for full source evidence and asset history. Export each displayed confirmed or data-quality worklist separately. Proactive checks remain a clearly labeled status table. The app never edits the workbook.
+
+---
+
+## Machine-learning upgrade: predicting breakdowns before they happen
+
+**Live app:** [ml.html](https://atuliwale.github.io/Portfolio/projects/09-construction-assets/ml.html) · **Notebook:** [notebooks/predictive_maintenance.ipynb](notebooks/predictive_maintenance.ipynb) · **Data:** [data/09_Construction_Assets_v2.xlsx](data/09_Construction_Assets_v2.xlsx)
+
+The rule above confirms a failure pattern only once it has fully happened. The upgrade asks the question a plant manager actually has on Monday morning: **which machines are likely to break down in the next four weeks, and which ones should the workshop inspect this week?**
+
+### Data added (same asset register, original sheets unchanged)
+| Sheet | Rows | What it holds |
+| --- | ---: | --- |
+| dim_asset_telematics | 80 | Telematics-fitted plant from `dim_asset`: make/model, year, diesel or electric, hydraulic system, opening hour meter, OEM service interval, hire-in rate |
+| fact_telemetry_weekly | 6,270 | Weekly readings Oct 2024 to Sep 2026: hours, load, vibration, operating temperature, hydraulic pressure, fault codes, monthly oil-iron samples, site city and project |
+| fact_maintenance_event | 1,186 | 725 preventive services, 70 planned corrective repairs, 249 breakdowns (root cause, downtime, cost) and 142 site transfers |
+
+Total stations and bar-cutting machines are not telematics-fitted, so they are excluded. The data is synthetic but built on realistic wear behaviour: faults develop over several weeks, heat and dust speed up wear, late servicing costs life, sensors drop out, and some damage is sudden and gives no warning.
+
+### Method
+1. **Label:** a breakdown in the next 4 weeks. Weeks when the machine is broken down or in transit are not scored.
+2. **Features (past data only):** 4-week averages, 6-week trends and readings compared with the machine's *own* normal level (weeks t−16 to t−4), last oil-iron result and its change, fault codes, hours since service, weeks since last repair, age, hour meter and class. 33 features in total.
+3. **Time-based split:** train Oct 2024 to Dec 2025, validation Jan to Mar 2026 (tuning, SVM calibration, threshold), test Apr to Aug 2026 (used once).
+4. **Baselines:** OEM alarm limits (vibration > 7.1 mm/s, temperature > 105 °C, pressure < 85%, 8+ fault codes) and a PM-overdue rule.
+5. **Models:** Logistic Regression, K-Nearest Neighbours, Decision Tree, Random Forest, **XGBoost**, **SVM (RBF kernel, Platt-calibrated)** and a Neural Network (MLP), each tuned on the validation months by PR-AUC.
+6. **Business evaluation:** missed breakdown = actual repair + replacement hire for the downtime; caught breakdown = planned repair at 35% of the repair cost + 1 day of hire; every alert = a Rs 6,000 inspection + half a day of hire.
+7. **Explainability:** SHAP values for XGBoost, globally and for each machine in the live worklist.
+
+### Results on the test months (Apr to Aug 2026)
+| Model | PR-AUC | ROC-AUC | Breakdowns caught with 10 inspections a week | Saving vs run-to-failure (cost-optimal threshold) |
+| --- | ---: | ---: | ---: | ---: |
+| **XGBoost** | **0.582** | 0.838 | **71%** | 50% |
+| Random Forest | 0.577 | 0.862 | 66% | 53% |
+| Neural Network (MLP) | 0.531 | 0.823 | 65% | 50% |
+| **SVM (RBF kernel)** | 0.514 | 0.820 | 60% | 49% |
+| Logistic Regression | 0.486 | 0.831 | 57% | 47% |
+| K-Nearest Neighbours | 0.446 | 0.800 | – | – |
+| Decision Tree | 0.397 | 0.760 | – | – |
+| OEM alarm limits | – | – | 16% caught (fires too late) | 4% |
+| Random ranking | 0.18 | 0.50 | 47% | – |
+
+At its cost-optimal threshold, XGBoost caught 69 of 82 test-period breakdowns (84%) with a median of 4 weeks' warning. That brought breakdown-related cost down from Rs 422 lakh to Rs 212 lakh. By root cause it caught 100% of bearing/gear wear, 95% of overheating, 87% of hydraulic and 85% of electrical failures, but only 20% of sudden external damage, which no sensor model can predict.
+
+### XGBoost vs SVM: what I learned
+- **Tree models suit this data better.** A third of the fleet has no hydraulic sensor, oil results come monthly, and telematics drops out. XGBoost learns what a missing value means. The SVM needs values imputed and every feature scaled, and an imputed median looks like a real reading.
+- **Interactions matter.** A temperature rise means different things for an electric hoist and a diesel excavator in a Nagpur summer. Trees split on both; an RBF kernel treats everything as one distance.
+- **The SVM is still useful.** It is far better than the alarm limits, and it gives an independent second opinion. When the two models disagree strongly, that machine is worth a closer look.
+- **Ranking beats thresholds.** A workshop has limited capacity, so "inspect the top 10 each week" is the realistic operating rule, and that is where the gap between models shows most clearly.
+
+### Limits
+The telemetry is synthetic with known wear physics, so real fleets will be noisier. The rupee savings depend on the inspection and planned-repair cost assumptions and on a five-month test window. The models are trained up to Dec 2025 and should be retrained quarterly against real breakdown reports.
+
+### Files added
+| File | Purpose |
+| --- | --- |
+| `ml.html` | Live worklist, machine history charts, what-if sliders, model comparison and cost simulator. XGBoost and the SVM run in the browser, and a self-check matches the Python scores |
+| `notebooks/predictive_maintenance.ipynb` | Audit, sensor analysis, features, seven models, business evaluation, SHAP and export |
+| `model/pdm_export.json` | 400 XGBoost trees, 1,285 SVM support vectors, calibration, test predictions and machine histories |
+| `data/09_Construction_Assets_v2.xlsx` | Original four sheets unchanged, plus telematics, maintenance events and a data dictionary |
+
+Author: Atul Iwale
