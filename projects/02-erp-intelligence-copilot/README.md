@@ -69,3 +69,55 @@ Open index.html in any browser, or view it live at [Pages link](https://atuliwal
 GitHub Pages serves this project from the main branch and /(root), once the repository's Pages deployment succeeds.
 
 Select a project, review the three panels, and click any source-ID button to inspect its record. Press Escape or Close to dismiss the evidence dialog. No installation or internet connection is needed for the local file.
+
+---
+
+## AI upgrade: ERP Copilot chatbot (RAG + text-to-SQL)
+
+**Live chat:** [chat.html](https://atuliwale.github.io/Portfolio/projects/02-erp-intelligence-copilot/chat.html) · **Notebook:** [notebooks/copilot_rag.ipynb](notebooks/copilot_rag.ipynb) · **Data:** [data/02_ERP_Copilot_v2.xlsx](data/02_ERP_Copilot_v2.xlsx)
+
+The dashboard above shows risk for a project you pick. The Copilot lets a project controls or finance user ask a question in plain English instead, for example "status of invoice no 45", "how much receivable is unpaid for Surat Hospital Campus 1?", "which projects have CPI below 0.9?" or "any high-risk clauses in CON012?". It answers from the same ERP tables used across this portfolio (projects, purchase orders, invoices, earned value and contract clauses) and shows the records behind every answer.
+
+### How it works
+1. **Knowledge base.** 2,630 records from four ERP modules are turned into one plain-language document each, with linked IDs (project, vendor, contract) kept as metadata.
+2. **Query clean-up.** Short IDs are normalised ("PO 85" → PO000085, "invoice no 45" → INV000045) and typos are corrected against the knowledge-base vocabulary, with protected words so "worth" is never changed to "north".
+3. **Intent router.** A logistic-regression classifier, trained on masked question shapes (IDs and names replaced by placeholders) plus a small domain lexicon for synonyms, decides whether the question is a record lookup, a calculation or out of scope.
+4. **Retrieval (lookups).** Entity-aware BM25: extract IDs and names, boost the record itself and its linked documents, then rank the rest by BM25.
+5. **Text-to-SQL (calculations).** Slots are filled from the question and one of eight parameterised SQL queries runs on SQLite. The SQL and the source rows are shown to the user.
+6. **Guardrails and grounding.** Questions outside the data, and IDs that do not exist, are declined rather than guessed. Every number in an answer must appear in a cited source.
+
+The browser app is a JavaScript port of the same pipeline and runs fully offline with no API key. A parity check replays 174 notebook questions in the browser and matches the Python route, answer and sources on all 174.
+
+### Results (held-out questions with wordings not used in training)
+
+| Component | Result |
+| --- | ---: |
+| Retrieval Recall@1: pure vector search (LSA) | 0.352 |
+| Retrieval Recall@1: hybrid BM25 + LSA (RRF) | 0.463 |
+| Retrieval Recall@1: TF-IDF cosine | 0.826 |
+| Retrieval Recall@1: BM25 | 0.878 |
+| Retrieval Recall@1: **entity-aware BM25 (used)** | **1.000** |
+| Intent router test accuracy | 0.921 |
+| SQL answer matches gold (given the correct intent) | 100% of 224 |
+| Off-topic or not-in-data questions declined | 14 of 14 |
+| In-scope questions wrongly declined | 0 of 215 |
+| Answers whose numbers are traceable to a source | 100% |
+| **End-to-end correct: overall / lookups / calculations / declines** | **94.8% / 100% / 85.0% / 100%** |
+
+### What I learned
+- Pure embedding-style search is weak on ERP data because the questions are about IDs, not meaning. Extracting the entity first and filtering on it matters more than the choice of vector model.
+- The main remaining error is the router on wordings it never saw. "What is PRJ004 worth?" is routed to a lookup of the project record instead of the contract-value calculation. The value is still in the retrieved record, but the evaluation counts it as wrong. More real question logs would fix this more reliably than a bigger model.
+- **Data-quality finding:** the vendor master holds each supplier twice (30 names, 60 vendor IDs), so supplier history is aggregated by name.
+
+### Limits
+The data is synthetic and the evaluation questions come from templates, so real users will phrase things more freely. A production version would add real question logs, a larger router training set and, optionally, an LLM to word answers more fluently under the same citation rules.
+
+### Files added
+| File | Purpose |
+| --- | --- |
+| `chat.html` | Offline chatbot with route label, SQL used, source rows, retrieved records and evaluation tables |
+| `notebooks/copilot_rag.ipynb` | Knowledge base, retrieval comparison, router, text-to-SQL, guardrails and evaluation |
+| `model/copilot_export.json` | Index, router weights, SQL templates and tables exported for the browser |
+| `data/02_ERP_Copilot_v2.xlsx` | Source tables plus retrieval, SQL and out-of-scope evaluation sets |
+
+Author: Atul Iwale
