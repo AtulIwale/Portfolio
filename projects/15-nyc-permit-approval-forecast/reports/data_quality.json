@@ -1,0 +1,23 @@
+{
+  "raw_rows": 131515,
+  "duplicate_filing_numbers": 128,
+  "distinct_jobs": 32086,
+  "initial_filings": 32060,
+  "initial_missing_filing_date": 180,
+  "approved_before_filed": 21,
+  "plan_exam_initial_filings": 29123,
+  "plan_exam_approved_share": 0.742,
+  "plan_exam_withdrawn": 846,
+  "declared_cost_zero_share": 0.195,
+  "filing_date_range": [
+    "2021-03-01",
+    "2026-09-22"
+  ],
+  "split_sizes_plan_exam": {
+    "train": 10907,
+    "recent (not used for testing)": 8125,
+    "test": 5708,
+    "validation": 2599,
+    "warm-up (not modelled)": 1784
+  }
+}
