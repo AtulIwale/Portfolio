@@ -1,0 +1,8 @@
+pandas>=2.0
+numpy
+scipy
+scikit-learn>=1.4
+scikit-survival>=0.23
+xgboost>=2.0
+matplotlib
+nbformat
