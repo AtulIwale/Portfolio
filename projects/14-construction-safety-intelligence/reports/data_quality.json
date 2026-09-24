@@ -1,0 +1,35 @@
+{
+  "raw_rows": 105996,
+  "construction_rows": 19021,
+  "date_min": "2015-01-02",
+  "date_max": "2025-11-28",
+  "bad_dates": 0,
+  "event_codes_distinct": 348,
+  "event_code_lengths": {
+    "2": 399,
+    "3": 3952,
+    "4": 14670
+  },
+  "duplicate_narratives": 3,
+  "missing_secondary_source": 8921,
+  "short_narratives_under_40_chars": 22,
+  "employer_names_redacted": 51,
+  "unknown_cause": 381,
+  "cause_groups": {
+    "Fall to lower level": 6806,
+    "Struck by or against object": 4706,
+    "Caught in or crushed": 2285,
+    "Vehicle or mobile equipment": 1429,
+    "Electrical": 959,
+    "Slip, trip or same-level fall": 881,
+    "Heat stress": 605,
+    "Fire, explosion or burn": 497,
+    "Other": 472,
+    "Unknown (not usable)": 381
+  },
+  "split_sizes": {
+    "train": 14138,
+    "test": 3257,
+    "validation": 1626
+  }
+}
