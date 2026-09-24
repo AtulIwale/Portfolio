@@ -1,0 +1,54 @@
+{
+ "lead": "The same 3,204 test reports, coded blind by an OpenAI model (gpt-6-luna) from the nine cause definitions. Where the LLM and the classic model agree (85% of reports), the coding matches OSHA 89% of the time, so a person only needs to review the 15% where they disagree.",
+ "columns": [
+  "Method",
+  "Accuracy",
+  "Macro-F1",
+  "Training data needed",
+  "Cost per 1,000 reports"
+ ],
+ "rows": [
+  [
+   "Logistic regression (in this app)",
+   "83.8%",
+   "0.832",
+   "14,000 coded reports",
+   "free"
+  ],
+  [
+   "LLM zero-shot",
+   "81.4%",
+   "0.827",
+   "none, definitions only",
+   "$0.14"
+  ],
+  [
+   "LLM few-shot",
+   "81.6%",
+   "0.826",
+   "10 examples",
+   "$0.23"
+  ],
+  [
+   "Both agree \u2192 auto-code",
+   "89.1%",
+   "",
+   "covers 85% of reports",
+   ""
+  ]
+ ],
+ "fall_height": [
+  {
+   "method": "Rule: first height in the text",
+   "height found": 0.781,
+   "band matches OSHA (when found)": 0.758,
+   "band matches OSHA (overall)": 0.592
+  },
+  {
+   "method": "LLM: height of the fall",
+   "height found": 0.668,
+   "band matches OSHA (when found)": 0.985,
+   "band matches OSHA (overall)": 0.658
+  }
+ ]
+}
