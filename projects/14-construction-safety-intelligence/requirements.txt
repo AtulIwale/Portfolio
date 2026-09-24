@@ -1,0 +1,8 @@
+pandas>=2.0
+numpy
+scikit-learn>=1.4
+matplotlib
+tensorflow>=2.15   # notebook 2 neural networks only
+openai>=1.0        # LLM step only
+python-dotenv
+nbformat
