@@ -232,9 +232,6 @@ html.enh-pal-open{overflow:hidden}
 .enh-glow{background-image:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 9%,transparent),transparent 60%)}
 body.books .book-cover{transition:transform .2s ease-out,box-shadow .3s var(--ease);will-change:transform}
 
-/* Hero image gets room for parallax */
-.home .lake-hero{overflow:hidden}
-.home .lake-hero-image{will-change:transform;transition:transform .1s linear}
 
 /* Insight meta chips */
 .enh-meta{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
@@ -259,6 +256,5 @@ body.books .book-cover{transition:transform .2s ease-out,box-shadow .3s var(--ea
 
 @media (prefers-reduced-motion:reduce){
   .enh-reveal{opacity:1;transform:none}
-  .home .lake-hero-image{transform:none!important}
   ::view-transition-old(root),::view-transition-new(root){animation:none}
 }

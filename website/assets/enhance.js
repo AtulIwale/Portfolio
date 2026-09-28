@@ -180,19 +180,6 @@
       var cover = e.target.closest && e.target.closest('.book-cover');
       if (cover && !cover.contains(e.relatedTarget)) cover.style.transform = '';
     });
-
-    var hero = doc.querySelector('.lake-hero-image');
-    if (hero && window.innerWidth > 900) {
-      var ticking = false;
-      window.addEventListener('scroll', function () {
-        if (ticking) return; ticking = true;
-        requestAnimationFrame(function () {
-          ticking = false;
-          var y = Math.min(window.scrollY, 800);
-          hero.style.transform = 'translate3d(0,' + (y * 0.12).toFixed(1) + 'px,0) scale(1.04)';
-        });
-      }, { passive: true });
-    }
   }
 
   /* ---------- 5. reading time on insight articles ---------- */
