@@ -1,0 +1,162 @@
+/* ==========================================================================
+   typography.css — the type system (loaded last)
+
+   Three voices, each with one job:
+     Display  Instrument Serif   headlines, section titles, project and card titles
+     Text     Manrope            body copy, navigation, buttons, UI
+     Label    IBM Plex Mono      labels, metrics, captions, dates, chips
+
+   One scale, few steps:
+     display-xl  hero headline            clamp(46 → 86)  / 1.00
+     display-l   page titles              clamp(42 → 74)  / 1.02
+     display-m   section titles           clamp(34 → 54)  / 1.05
+     title       project / card titles    26  (22 on phones) / 1.15
+     lead        intros                   18.5 / 1.6
+     body        running text             16  / 1.65
+     ui          nav, buttons, links      14.5 / 1.3   (600)
+     metric      stats and figures        clamp(32 → 46) mono
+     label       eyebrows, chips          11.5 mono uppercase, +0.08em
+     caption     figure captions          10.5 mono uppercase, +0.06em
+   ========================================================================== */
+
+:root{
+  --display:'Instrument Serif','Iowan Old Style','Times New Roman',Georgia,serif;
+  --sans:'Manrope','Segoe UI',system-ui,-apple-system,sans-serif;
+  --plex:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --serif:var(--display);
+  --mono:var(--plex);
+
+  --fs-display-xl:clamp(46px,5.4vw,86px);
+  --fs-display-l:clamp(42px,5vw,74px);
+  --fs-display-m:clamp(34px,3.7vw,54px);
+  --fs-title:26px;
+  --fs-lead:18.5px;
+  --fs-body:16px;
+  --fs-ui:14.5px;
+  --fs-metric:clamp(32px,3.1vw,46px);
+  --fs-label:11.5px;
+  --fs-caption:10.5px;
+}
+@media (max-width:759px){:root{--fs-title:22px;--fs-lead:17px}}
+
+/* Instrument Serif has one weight: never let the browser fake a bold */
+html{font-synthesis:none}
+
+/* ---------------------------------------------------------------------------
+   TEXT — Manrope everywhere by default
+   --------------------------------------------------------------------------- */
+body{font-family:var(--sans)!important;font-size:var(--fs-body);line-height:1.65;font-feature-settings:"ss01","cv11";letter-spacing:-.003em}
+p,li,dd,td,input,select,textarea,button,label{font-family:var(--sans)}
+strong,b{font-weight:650}
+
+/* ---------------------------------------------------------------------------
+   DISPLAY — every headline and title in Instrument Serif, regular weight
+   --------------------------------------------------------------------------- */
+h1,h2,h3,
+.identity-name,.page-intro h1,
+.editorial-section h2,.editorial-heading h2,.decision-introduction h2,.exp-modules-section h2,
+.site-bottom-cta h2,.contact-compose h2,.case-study summary h2,.delivery h2,
+.insight-card h2,.insight-article h2,.book-cover h2,
+.capability-card h3,.help-card h3,.selected-work-card h3,.exp-stage-card h3,.exp-career-card h3,
+.audience-selector-title,.df-detail h3,
+.projects-table-wrap .project-row .project-name,
+.email-large,.site-bottom-home>span:last-child{
+  font-family:var(--display)!important;font-weight:400!important;font-stretch:normal!important;font-style:normal}
+
+/* display-xl: the hero */
+body.home .lake-hero-copy .identity-name,body.home .lake-hero-copy h1{
+  font-size:var(--fs-display-xl)!important;line-height:1!important;letter-spacing:-.018em!important}
+/* the accent phrase becomes a true italic instead of an underline */
+.home .hero-accent{font-style:italic!important;text-decoration:none!important;color:var(--ink)!important;letter-spacing:-.01em}
+
+/* display-l: page titles */
+html body.inner-page .inner-title-band h1,.page-intro h1,body.transformation .page-intro h1{
+  font:400 var(--fs-display-l)/1.02 var(--display)!important;letter-spacing:-.015em!important;max-width:16ch!important}
+
+/* display-m: section titles */
+.editorial-section h2,.editorial-heading h2,.decision-introduction h2,.exp-modules-section h2,.contact-compose h2,.delivery h2{
+  font-size:var(--fs-display-m)!important;line-height:1.05!important;letter-spacing:-.012em!important}
+.site-bottom-cta h2{font-size:clamp(30px,2.9vw,42px)!important;line-height:1.1!important;letter-spacing:-.01em!important}
+.projects-table-wrap .projects-table tbody::before{font:400 clamp(30px,2.7vw,40px)/1.1 var(--display)!important;letter-spacing:-.01em}
+.experience-timeline-page .exp-career>h2,.exp-sidebar-card h2{font-size:clamp(30px,2.6vw,38px)!important;line-height:1.1!important}
+
+/* italics inside headlines are part of the voice, not an override */
+h1 em,h2 em,h3 em{font-family:var(--display)!important;font-style:italic!important;font-weight:400!important}
+
+/* title: cards, projects, roles */
+.capability-card h3,.help-card h3,.selected-work-card h3,.exp-stage-card h3,.insight-card h2,
+.audience-selector-title,.projects-table-wrap .project-row .project-name,.df-detail h3,.case-study summary h2{
+  font-size:var(--fs-title)!important;line-height:1.15!important;letter-spacing:-.005em!important}
+.exp-career-card h3{font-size:23px!important;line-height:1.2!important}
+.insight-article h2{font-size:clamp(28px,2.6vw,34px)!important;line-height:1.15!important}
+.case-study summary h2{font-size:clamp(28px,3vw,40px)!important;line-height:1.08!important}
+.book-cover h2{font-size:clamp(30px,2.6vw,38px)!important;line-height:1.05!important}
+.email-large{font-size:clamp(34px,3.4vw,48px)!important;letter-spacing:-.01em!important}
+
+/* ---------------------------------------------------------------------------
+   LEAD and BODY
+   --------------------------------------------------------------------------- */
+body.home .lake-hero-copy .identity-introduction,
+html body.inner-page .inner-title-band .container>p:not(.eyebrow):not(.projects-eyebrow),
+.decision-introduction p,.exp-lead,.inner-hero-intro{
+  font:400 var(--fs-lead)/1.6 var(--sans)!important;letter-spacing:-.005em!important}
+.help-card .help-description,.selected-work-card p,.capability-card p,.insight-card p,.audience-selector-summary,
+.audience-detail-tile p,.projects-table-wrap .project-row .project-value,.book-description p,.case-body p,.insight-article p{
+  font-family:var(--sans)!important;font-size:15.5px!important;line-height:1.65!important}
+.insight-article p{font-size:17px!important;line-height:1.75!important}
+
+/* ---------------------------------------------------------------------------
+   UI — navigation, buttons, links (Manrope, medium/semibold)
+   --------------------------------------------------------------------------- */
+.desktop-nav>a:not(.nav-cta){font:500 var(--fs-ui)/1.3 var(--sans)!important;letter-spacing:0}
+.desktop-nav>a[aria-current="page"]:not(.nav-cta){font-weight:650!important}
+.nav-cta,.button,.button-dark,.site-bottom-cta a.site-bottom-cta-button,.enh-copy{
+  font:600 var(--fs-ui)/1.2 var(--sans)!important;letter-spacing:.005em!important}
+.cs-open,.audience-actions a,.insight-card-action,.text-link,.projects-link,.home-proof-summary a{
+  font-family:var(--sans)!important;font-weight:600!important;font-size:14px!important;letter-spacing:0!important}
+.site-header .brand>span:last-child{font:700 13px/1.2 var(--sans)!important;letter-spacing:.14em!important}
+.site-header .brand-sub{font:400 10.5px/1.3 var(--plex)!important;letter-spacing:.08em!important}
+.site-header .brand-mark,.site-bottom-mark{font:400 19px/1 var(--display)!important;letter-spacing:0!important}
+.site-menu nav a{font:400 clamp(34px,9vw,44px)/1.1 var(--display)!important}
+.projects-filters button{font:600 13px/1 var(--sans)!important;letter-spacing:.01em!important;text-transform:none!important}
+.site-bottom-pages a,.site-bottom-social a{font:500 15px/1.4 var(--sans)!important}
+.site-bottom-home>span:last-child{font-size:26px!important;letter-spacing:-.005em}
+.form-field label,body.contact label{font:600 14px/1.3 var(--sans)!important}
+body.contact :is(input,select,textarea){font:400 16px/1.4 var(--sans)!important}
+
+/* ---------------------------------------------------------------------------
+   LABEL — mono only for labels, metrics, captions and technical detail
+   --------------------------------------------------------------------------- */
+.eyebrow,.projects-eyebrow,.help-number,.audience-detail-label,.insight-meta span,.exp-date,.exp-stage-number,
+.page-kicker .mono,.case-no,.projects-table-wrap .project-row .project-group,.projects-table-wrap .project-row .project-number,
+.hero-positioning,.menu-number,.enh-meta span,.home-proof-grid dd,.exp-stats dd,.projects-stats dt,.book-meta,.book-baseline>span,
+.projects-table-wrap .projects-table tbody::after,.delivery ol li::marker{
+  font-family:var(--plex)!important;font-size:var(--fs-label)!important;font-weight:500!important;
+  letter-spacing:.08em!important;text-transform:uppercase;line-height:1.5!important}
+.home-proof-grid dd,.exp-stats dd,.projects-stats dt{font-weight:400!important;color:var(--text-muted)!important}
+
+/* chips and tags: labels, a touch smaller */
+.status-chip,.project-ml-tag,.tags span,.hero-topic-tags li,.exp-capability button,.book-progress{
+  font-family:var(--plex)!important;font-size:10.5px!important;font-weight:500!important;letter-spacing:.07em!important;text-transform:uppercase}
+.exp-tools li,.exp-skill-groups li{font:500 12.5px/1.3 var(--sans)!important;letter-spacing:0!important;text-transform:none!important}
+
+/* metrics: the numbers carry the credibility */
+body.home .home-proof-grid dt,.experience-timeline-page .exp-stats dt,.projects-stats dd{
+  font:400 var(--fs-metric)/1 var(--plex)!important;letter-spacing:-.045em!important;font-variant-numeric:tabular-nums;color:var(--ink)!important}
+.projects-table-wrap .project-row::after{font:400 clamp(28px,2.4vw,36px)/1.05 var(--plex)!important;letter-spacing:-.04em!important}
+html body.home .selected-work-card::before{font:400 12px/2.1 var(--plex)!important;letter-spacing:.04em}
+
+/* captions: quiet, technical, consistent */
+.fig figcaption,body.home .lake-hero::before{
+  font:400 var(--fs-caption)/1.5 var(--plex)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--text-muted)!important}
+.small-note,.form-note,.exp-capability-hint,.flow-interaction-hint{font:400 13px/1.55 var(--sans)!important}
+
+/* ---------------------------------------------------------------------------
+   Mobile rhythm
+   --------------------------------------------------------------------------- */
+@media (max-width:759px){
+  body.home .lake-hero-copy .identity-name,body.home .lake-hero-copy h1{font-size:clamp(40px,11.5vw,52px)!important;line-height:1.02!important}
+  html body.inner-page .inner-title-band h1,.page-intro h1,body.transformation .page-intro h1{font-size:clamp(38px,11vw,50px)!important}
+  .editorial-section h2,.editorial-heading h2,.decision-introduction h2,.exp-modules-section h2,.contact-compose h2{font-size:clamp(32px,9vw,40px)!important}
+  .projects-table-wrap .project-row::after{font-size:30px!important}
+}
