@@ -1,0 +1,538 @@
+/* ==========================================================================
+   drawing.css — "The Drawing Set"
+   The site presented like a set of construction drawings: ruled, annotated,
+   numbered. Loaded last on every page. CSS only, so the prerendered React
+   markup, filters, tabs and forms are untouched.
+
+   Order follows the portfolio-design skill:
+   1 typography · 2 spacing & layout · 3 hero · 4 projects · 5 navigation · 6 mobile
+   ========================================================================== */
+
+:root{
+  --paper:#F5F1E9;
+  --ink:#1F2E36;                 /* headlines, strong rules */
+  --text:#2D4653;
+  --text-muted:#56656D;
+  --rule:color-mix(in srgb,var(--ink) 18%,transparent);
+  --rule-strong:color-mix(in srgb,var(--ink) 82%,transparent);
+  --redline:#C8572A;             /* safety orange: markers only */
+  --display:'Archivo','Arial Narrow',Arial,sans-serif;
+  --plex:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --gut:32px;
+}
+@media (max-width:759px){:root{--gut:20px}}
+
+/* ==========================================================================
+   1. TYPOGRAPHY
+   ========================================================================== */
+body{background:var(--paper);color:var(--text)}
+h1,h2,h3,
+.identity-name,
+.page-intro h1,
+.editorial-section h2,
+.site-bottom-cta h2{font-family:var(--display);font-stretch:92%;color:var(--ink)}
+
+h1,.identity-name{font-weight:700!important;letter-spacing:-.028em!important;line-height:1.02!important}
+html body.inner-page .inner-title-band h1,
+.page-intro h1{font:700 clamp(40px,5.2vw,76px)/1.0 var(--display)!important;font-stretch:92%!important;letter-spacing:-.03em!important;max-width:18ch!important}
+
+.editorial-section h2,.exp-modules-section h2,.site-bottom-cta h2,
+.editorial-heading h2,.decision-introduction h2,.contact-compose h2{
+  font-weight:700!important;font-size:clamp(32px,3.8vw,54px)!important;line-height:1.04!important;letter-spacing:-.025em!important}
+.site-bottom-cta h2{font-size:clamp(26px,2.6vw,36px)!important}
+
+h3,.capability-card h3,.insight-card h2,.book-cover h2,.exp-stage-card h3{font-family:var(--display);font-weight:650;letter-spacing:-.012em}
+
+/* Labels, eyebrows and every figure read like drawing annotation */
+.eyebrow,.projects-eyebrow,.help-number,.status-chip,.project-ml-tag,.audience-detail-label,
+.insight-meta span,.book-meta,.book-baseline>span,.exp-date,.exp-stage-number,.exp-capability,
+.projects-stats dt,.home-proof-grid dd,.exp-stats dd,.enh-meta span,.case-no,.page-kicker .mono,
+.brand-sub,.selected-work-card .status-chip,.menu-number,.projects-filters button,.hero-topic-tags li{
+  font-family:var(--plex)!important;letter-spacing:.06em}
+.eyebrow,.projects-eyebrow{font-size:12px!important;font-weight:500!important;text-transform:uppercase}
+
+/* one redline mark instead of the highlighter */
+.home .hero-accent{background:none!important;color:var(--ink)!important;
+  text-decoration:underline;text-decoration-color:var(--redline);text-decoration-thickness:.09em;text-underline-offset:.14em}
+
+/* ==========================================================================
+   2. SPACING & LAYOUT — rules instead of cards
+   ========================================================================== */
+
+/* Tinted rounded panels become plain paper, edge to edge */
+html body :is(.inner-title-band,.exp-modules-section),
+html body.home .editorial-home>section:nth-of-type(even),
+html body.inner-page main :is(.inner-title-band,.exp-modules-section){
+  background:transparent!important;border-radius:0!important;width:100%!important;margin:0!important;box-shadow:none!important}
+
+/* Generic card treatment → flat, square, ruled */
+:is(.capability-card,.insight-card,.exp-career-card,.exp-stage-card,.exp-sidebar-card,.exp-sidebar,
+    .audience-selector-card,.contact-compose,.pp-capability,.pp-table-wrap,.home-proof-grid>div,
+    .projects-stats>div,.experience-timeline-page .exp-stats>div,.audience-detail-panel,.df-surface,
+    .contact-direct>.contact-availability){
+  border-radius:0!important;box-shadow:none!important}
+@media (hover:hover){:is(.capability-card,.insight-card,.exp-stage-card,.help-card):hover{transform:none!important;box-shadow:none!important}}
+
+/* Section rhythm: every home section opens on a heavy rule with a detail-callout number */
+.editorial-home{counter-reset:sheet}
+.editorial-home>.editorial-section{counter-increment:sheet;padding-block:clamp(64px,8vw,112px)!important}
+.editorial-home>.editorial-section>.container{position:relative;border-top:2px solid var(--ink);padding-top:28px!important}
+.editorial-home>.editorial-section>.container::before{
+  content:counter(sheet,decimal-leading-zero);position:absolute;right:var(--gut);top:-19px;
+  width:36px;height:36px;display:grid;place-items:center;border:1.5px solid var(--ink);border-radius:50%;
+  background:var(--paper);font:500 12px/1 var(--plex);color:var(--ink)}
+.editorial-home>.editorial-section>.container::after{ /* callout leader */
+  content:"";position:absolute;right:calc(var(--gut) + 36px);top:-1px;width:28px;height:2px;background:var(--paper)}
+/* retire the earlier orange tick above headings */
+.editorial-home .editorial-section h2:not(.visually-hidden)::before,.exp-modules-section h2::before{display:none!important}
+.editorial-home .editorial-section h2:not(.visually-hidden),.exp-modules-section h2{padding-top:0!important}
+
+/* ---- Home: stats become the drawing title block ---- */
+body.home .home-proof{padding:0 0 8px!important}
+body.home .home-proof>.container{border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);padding-top:0!important}
+body.home .home-proof-grid{gap:0!important;grid-template-columns:repeat(5,minmax(0,1fr))!important}
+body.home .home-proof-grid>div{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;padding:22px 24px 20px!important}
+body.home .home-proof-grid>div:first-child{border-left:0!important;padding-left:0!important}
+body.home .home-proof-grid dt{font:500 clamp(34px,3.4vw,48px)/1 var(--plex)!important;letter-spacing:-.04em!important;color:var(--ink)!important}
+body.home .home-proof-grid dd{font:500 11px/1.5 var(--plex)!important;text-transform:uppercase;letter-spacing:.08em!important;color:var(--text-muted)!important;margin-top:10px!important}
+body.home .home-proof-summary{margin:0!important;padding:12px 0!important;border-top:1px solid var(--rule);font:400 12px/1.5 var(--plex)!important;letter-spacing:.03em}
+body.home .home-proof-summary a{color:var(--text-muted)}
+body.home .home-proof-summary a:hover{color:var(--ink)}
+
+/* ---- How I help: four ruled columns ---- */
+.home .help-grid{gap:0!important;border-bottom:1px solid var(--rule);margin-top:40px!important}
+.home .help-grid .help-card{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;border-top:0!important;padding:4px 28px 28px!important}
+.home .help-grid .help-card:first-child{border-left:0!important;padding-left:0!important}
+.home .help-card .help-number{font-size:12px!important;color:var(--redline)!important}
+.home .help-card h3{font-size:24px!important}
+.home .help-card .cs-open{border-top:1px solid var(--rule)!important;color:var(--ink)!important;font-weight:600}
+.home .help-card .cs-open:hover{color:var(--accent)!important}
+
+/* ---- Decision flow: the one dark sheet ---- */
+html body.home .editorial-home>section.decision-flow-section{background:var(--ink)!important;color:#E8ECEE}
+.decision-flow-section>.container{border-top-color:rgba(255,255,255,.55)!important}
+.decision-flow-section>.container::before{background:var(--ink)!important;color:#fff!important;border-color:rgba(255,255,255,.8)!important}
+.decision-flow-section>.container::after{background:var(--ink)!important}
+.decision-flow-section h2{color:#fff!important}
+.decision-flow-section .decision-introduction p,.decision-flow-section .flow-interaction-hint{color:rgba(232,236,238,.78)!important}
+.decision-flow-section .df-surface{background:var(--paper)!important;border:0!important}
+
+/* ---- Who I help: tabs as a ruled strip ---- */
+.editorial-audience h2{border-bottom:0!important;padding-bottom:0!important}
+.editorial-audience .audience-selector{gap:0!important;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:32px}
+.editorial-audience .audience-selector-card{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;padding:22px 24px!important;position:relative}
+.editorial-audience .audience-selector-card:first-child{border-left:0!important;padding-left:0!important}
+.editorial-audience .audience-selector-card::after{display:none!important}
+.editorial-audience .audience-selector-card[aria-selected="true"]{box-shadow:inset 0 3px 0 var(--redline)!important}
+.editorial-audience .audience-selector-card[aria-selected="true"] .audience-selector-title{color:var(--ink)}
+.editorial-audience .audience-selector-card[aria-selected="false"] .audience-selector-title{color:var(--text-muted)}
+.editorial-audience .audience-selector-card:hover .audience-selector-title{color:var(--ink)}
+.editorial-audience .audience-selector-title{font-family:var(--display);font-stretch:92%;font-weight:650}
+.editorial-audience .audience-detail-panel{background:transparent!important;padding:32px 0 0!important;gap:0!important}
+.editorial-audience .audience-detail-tile{padding:0 24px;border-left:1px solid var(--rule)}
+.editorial-audience .audience-detail-tile:first-child{border-left:0;padding-left:0}
+.editorial-audience .audience-detail-icon{background:transparent!important;border:1px solid var(--rule);border-radius:0!important}
+.editorial-audience .audience-detail-label{color:var(--redline)!important}
+
+/* ---- Selected work: a drawing register ---- */
+.home .selected-work-swipe-hint{display:none!important}
+.home #selected-work .container>p:not(.selected-work-swipe-hint){font:400 13px/1.6 var(--plex);color:var(--text-muted);margin-top:14px}
+html body.home .selected-work-grid{display:block!important;overflow:visible!important;margin-top:28px!important;border-top:1px solid var(--ink);counter-reset:work;padding:0!important}
+html body.home .selected-work-card{
+  display:grid!important;grid-template-columns:56px minmax(0,1.05fr) minmax(0,1.6fr) 150px;
+  grid-template-areas:"no title desc link" "no chip desc link";column-gap:28px;align-items:start;
+  counter-increment:work;padding:24px 0!important;border:0!important;border-bottom:1px solid var(--rule)!important;background:transparent!important;
+  transition:background-color .2s}
+html body.home .selected-work-card::before{content:counter(work,decimal-leading-zero);grid-area:no;font:500 13px/1.9 var(--plex);color:var(--text-muted)}
+html body.home .selected-work-card h3{grid-area:title;margin:0 0 10px!important;font-size:22px!important}
+html body.home .selected-work-card .status-chip{grid-area:chip;justify-self:start;margin:0!important}
+html body.home .selected-work-card p{grid-area:desc;margin:0!important;color:var(--text-muted)}
+html body.home .selected-work-card .cs-open{grid-area:link;justify-self:end;margin:0!important;min-height:0!important;font-weight:600;color:var(--ink)}
+@media (hover:hover){html body.home .selected-work-card:hover{background:color-mix(in srgb,var(--ink) 3.5%,transparent)!important}
+  html body.home .selected-work-card:hover h3{color:var(--accent)}}
+.home .selected-work-all{margin-top:28px!important;text-align:left!important}
+
+/* ---- Three ways to work with me: ruled columns ---- */
+.home .work-with-me-grid{gap:0!important;margin-top:36px}
+body.home .work-with-me-grid .capability-card{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;padding:0 28px 8px!important}
+body.home .work-with-me-grid .capability-card:first-child{border-left:0!important;padding-left:0!important}
+body.home .work-with-me-grid .eyebrow{color:var(--redline)!important}
+body.home .work-with-me-grid .audience-actions a{color:var(--ink);font-weight:600}
+
+/* ---- Chips, tags and buttons: square, stamped ---- */
+.status-chip,.project-ml-tag,.hero-topic-tags li,.projects-filters button,.exp-capability,.book-progress,.tags span,.exp-tools li,.exp-skill-groups li{
+  border-radius:2px!important}
+.status-chip{font-size:10.5px!important;font-weight:500!important;text-transform:uppercase;padding:4px 8px!important}
+.status-real-data{background:var(--success)!important;border-color:var(--success)!important;color:#fff!important}
+.status-flagship{background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important}
+.status-coverage{background:transparent!important;border:1px solid var(--rule-strong)!important;color:var(--ink)!important}
+.project-ml-tag{font-size:10.5px!important;text-transform:uppercase;border-color:var(--rule-strong)!important;color:var(--ink)!important}
+.hero-topic-tags li{font-size:12px!important;text-transform:uppercase;background:transparent!important;backdrop-filter:none!important;border-color:var(--rule-strong)!important}
+.button,.nav-cta,.site-bottom-cta a.site-bottom-cta-button,.button-dark,.enh-copy,.selected-work-all .button{border-radius:2px!important}
+.button-lime,.nav-cta,.button-dark{background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important}
+.button-lime:hover,.nav-cta:hover,.button-dark:hover{background:var(--accent)!important;border-color:var(--accent)!important}
+.hero-secondary,.selected-work-all .button{background:transparent!important;border:1px solid var(--ink)!important;color:var(--ink)!important}
+.nav-cta:hover,.button:hover,.site-bottom-cta-button:hover{transform:none!important;box-shadow:none!important}
+
+/* ---- Inner-page title bands: a sheet title, not a panel ---- */
+html body.inner-page main .inner-title-band{padding:clamp(56px,7vw,96px) 0 clamp(40px,5vw,64px)!important;border-bottom:2px solid var(--ink)!important}
+html body.inner-page main .inner-title-band::before{opacity:.55;-webkit-mask-image:linear-gradient(100deg,transparent 45%,#000 95%)!important;mask-image:linear-gradient(100deg,transparent 45%,#000 95%)!important}
+html body.inner-page .inner-title-band :is(.eyebrow,.projects-eyebrow){color:var(--ink)!important}
+html body.inner-page .inner-title-band :is(.eyebrow,.projects-eyebrow)::before{
+  width:auto!important;height:auto!important;background:none!important;border-radius:0!important;
+  padding:3px 7px;border:1px solid var(--ink);font:500 11px/1 var(--plex);color:var(--ink)}
+body.process-projects .inner-title-band .eyebrow::before{content:"A-01"}
+body.projects .inner-title-band :is(.eyebrow,.projects-eyebrow)::before{content:"A-02"}
+body.experience .inner-title-band .eyebrow::before{content:"A-03"}
+body.writing .inner-title-band .eyebrow::before{content:"A-04"}
+body.books .inner-title-band .eyebrow::before{content:"A-05"}
+body.contact .inner-title-band .eyebrow::before{content:"A-06"}
+html body.inner-page .inner-title-band .container>p:not(.eyebrow):not(.projects-eyebrow){font-size:19px!important;max-width:60ch!important}
+
+/* ---- Experience ---- */
+.experience-timeline-page .exp-stats{gap:0!important;border-top:2px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important;margin-top:0!important}
+.experience-timeline-page .exp-stats>div{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;padding:22px 24px!important}
+.experience-timeline-page .exp-stats>div:first-child{border-left:0!important;padding-left:0!important}
+.experience-timeline-page .exp-stats dt{font:500 clamp(34px,3.4vw,46px)/1 var(--plex)!important;letter-spacing:-.04em!important;color:var(--ink)!important}
+.experience-timeline-page .exp-stats dd{font:500 11px/1.5 var(--plex)!important;text-transform:uppercase;letter-spacing:.08em!important}
+.experience-timeline-page .exp-career-card{background:transparent!important;border:0!important;border-top:1px solid var(--rule)!important;padding:22px 0 22px 4px!important}
+.experience-timeline-page .exp-sidebar,.experience-timeline-page .exp-sidebar-card{background:transparent!important;border:0!important}
+.experience-timeline-page .exp-sidebar-card{border-top:2px solid var(--ink)!important;padding:24px 0 0!important}
+.experience-timeline-page .exp-modules-section{padding-block:clamp(56px,7vw,96px)!important}
+.experience-timeline-page .exp-modules-section>.container{border-top:2px solid var(--ink);padding-top:28px!important}
+.experience-timeline-page .exp-modules-grid{gap:0!important}
+.experience-timeline-page .exp-stage-card{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;padding:4px 22px 8px!important}
+.experience-timeline-page .exp-stage-card:first-child{border-left:0!important;padding-left:0!important}
+.experience-timeline-page .exp-stage-card>svg{color:var(--redline)!important}
+
+/* ---- Approach matrix ---- */
+.pp-table-wrap{border:0!important;border-top:2px solid var(--ink)!important;background:transparent!important}
+.pp-table-wrap :is(th,td){background:transparent!important;border-color:var(--rule)!important}
+.pp-table-wrap thead th{font-family:var(--display)!important;font-stretch:92%;font-size:19px!important;color:var(--ink)!important}
+.pp-table-wrap tbody th{font:500 11px/1.5 var(--plex)!important;text-transform:uppercase;letter-spacing:.08em;color:var(--ink)!important}
+.pp-capability{background:transparent!important;border:0!important;border-top:2px solid var(--ink)!important;padding:20px 0!important}
+
+/* ---- Insights index: ruled columns ---- */
+.insights-index .insights-grid{gap:0!important;border-top:2px solid var(--ink)}
+.insights-index .insight-card{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important}
+.insights-index .insight-card:first-child{border-left:0!important}
+.insights-index .insight-card:first-child .insight-card-copy{padding-left:0!important}
+.insights-index .insight-card h2{font-size:26px!important}
+.insight-meta span:first-child{color:var(--redline)}
+.insight-article h2::before{background:var(--redline)!important;border-radius:0!important}
+
+/* ---- Books: objects keep their form, corners go square ---- */
+body.books .book-cover{border-radius:2px!important}
+body.books .book-cover h2{font-family:var(--display)!important;font-stretch:88%}
+body.books .upcoming-notice{border-bottom:1px solid var(--rule)}
+
+/* ---- Contact ---- */
+body.contact .contact-compose{background:transparent!important;border:0!important;border-top:2px solid var(--ink)!important;padding:28px 0 0!important}
+body.contact .contact-direct>.contact-availability{background:transparent!important;border:0!important;border-top:1px solid var(--rule)!important;border-left:0!important;padding:18px 0 0!important}
+body.contact :is(input,select,textarea){border-radius:2px!important;background:transparent!important;border-color:var(--rule-strong)!important}
+body.contact :is(input,select,textarea):focus{background:#fff!important}
+.email-large{font-family:var(--display)!important;font-stretch:92%;color:var(--ink)!important}
+
+/* ---- Digital transformation (already editorial): align type ---- */
+.case-study summary h2{font-family:var(--display);font-stretch:92%}
+
+/* ==========================================================================
+   3. HERO
+   ========================================================================== */
+body.home .identity-hero{padding-bottom:40px!important}
+body.home .lake-hero{
+  --frame-w:min(40vw,560px);
+  --frame-r:max(var(--gut),calc((100vw - 1344px)/2 + var(--gut)));
+  height:auto!important;min-height:0!important;padding:clamp(56px,7vw,96px) 0 clamp(64px,8vw,104px);align-items:flex-start!important}
+body.home .lake-hero::after{ /* crop-marked frame around the photo */
+  content:""!important;display:block!important;position:absolute;z-index:0;inset:auto;
+  top:calc(clamp(56px,7vw,96px) - 12px);bottom:calc(clamp(64px,8vw,104px) + 22px);right:calc(var(--frame-r) - 12px);width:calc(var(--frame-w) + 24px);
+  background:
+    linear-gradient(var(--ink),var(--ink)) 0 0/14px 1.5px, linear-gradient(var(--ink),var(--ink)) 0 0/1.5px 14px,
+    linear-gradient(var(--ink),var(--ink)) 100% 0/14px 1.5px, linear-gradient(var(--ink),var(--ink)) 100% 0/1.5px 14px,
+    linear-gradient(var(--ink),var(--ink)) 0 100%/14px 1.5px, linear-gradient(var(--ink),var(--ink)) 0 100%/1.5px 14px,
+    linear-gradient(var(--ink),var(--ink)) 100% 100%/14px 1.5px, linear-gradient(var(--ink),var(--ink)) 100% 100%/1.5px 14px!important;
+  background-repeat:no-repeat!important;pointer-events:none}
+body.home .lake-hero::before{ /* figure caption */
+  content:"FIG. 01 — PROJECT DATA REVIEW WITH A SITE TEAM";position:absolute;z-index:1;
+  right:var(--frame-r);bottom:clamp(64px,8vw,104px);width:var(--frame-w);
+  display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid var(--ink);
+  font:500 11px/1.4 var(--plex);letter-spacing:.08em;color:var(--text-muted)}
+body.home .lake-hero-image{
+  position:absolute!important;inset:auto!important;z-index:0!important;
+  top:clamp(56px,7vw,96px)!important;bottom:calc(clamp(64px,8vw,104px) + 34px)!important;right:var(--frame-r)!important;
+  width:var(--frame-w)!important;height:auto!important;object-fit:cover;object-position:68% 40%!important;
+  filter:saturate(.88) contrast(1.02)}
+body.home .lake-hero-copy{position:relative;z-index:1}
+body.home .lake-hero-copy h1{max-width:calc(100% - var(--frame-w) - 64px)!important}
+body.home .lake-hero-copy .identity-name{font-size:clamp(40px,4.6vw,70px)!important}
+body.home .lake-hero-copy .identity-introduction{max-width:min(46ch,calc(100% - var(--frame-w) - 80px))!important;font-size:18px!important;line-height:1.7!important;color:var(--text)!important}
+body.home .hero-positioning{color:var(--ink)!important;font-size:12px!important}
+body.home .hero-positioning::before{background:var(--redline)!important;height:1.5px!important}
+body.home .hero-topic-tags{max-width:calc(100% - var(--frame-w) - 64px)}
+body.home .hero-primary-actions{gap:12px!important}
+
+/* ==========================================================================
+   4. PROJECTS — a drawing register
+   ========================================================================== */
+.projects-stats{gap:0!important;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+.projects-stats>div{background:transparent!important;border:0!important;border-left:1px solid var(--rule)!important;padding:20px 24px!important}
+.projects-stats>div:first-child{border-left:0!important;padding-left:0!important}
+.projects-stats dd{font:500 clamp(34px,3.4vw,46px)/1 var(--plex)!important;letter-spacing:-.04em;color:var(--ink)!important}
+.projects-stats dt{font-size:11px!important;text-transform:uppercase;letter-spacing:.08em!important}
+.projects-filters{gap:6px!important}
+.projects-filters button{font-size:12px!important;text-transform:uppercase;background:transparent!important;border:1px solid var(--rule-strong)!important;color:var(--ink)!important}
+.projects-filters button[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important}
+
+.projects-table-wrap{overflow:visible!important;border:0!important}
+.projects-table-wrap .projects-table,
+.projects-table-wrap .projects-table tbody{display:block;width:100%;min-width:0!important}
+.projects-table-wrap .projects-table colgroup{display:none}
+.projects-table-wrap .projects-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.projects-table-wrap .projects-table tbody{margin-top:56px}
+.projects-table-wrap .projects-table tbody:first-of-type{margin-top:36px}
+.projects-table-wrap .projects-table tbody::before{
+  display:flex;justify-content:space-between;align-items:baseline;padding-bottom:12px;border-bottom:2px solid var(--ink);
+  font:700 clamp(22px,2vw,28px)/1.1 var(--display);font-stretch:92%;letter-spacing:-.015em;color:var(--ink)}
+.projects-table-wrap .projects-table tbody:first-of-type::before{content:"Built on real public data"}
+.projects-table-wrap .projects-table tbody:nth-of-type(2)::before{content:"Flagship apps"}
+.projects-table-wrap .projects-table tbody:nth-of-type(3)::before{content:"Coverage"}
+.projects-table-wrap .projects-table tbody::after{display:block;font:500 11px/1.5 var(--plex);letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);padding-top:10px}
+.projects-table-wrap .projects-table tbody:first-of-type::after{content:"OSHA injury reports · NYC Department of Buildings filings"}
+.projects-table-wrap .projects-table tbody:nth-of-type(2)::after{content:"Full ERP apps with machine learning · synthetic data on real ERP schemas"}
+.projects-table-wrap .projects-table tbody:nth-of-type(3)::after{content:"Documented on GitHub"}
+.projects-table-wrap .projects-table tbody:not(:has(.project-row:not([hidden]))){display:none}
+
+.projects-table-wrap .projects-table .project-row{
+  display:grid;column-gap:28px;align-items:start;
+  grid-template-columns:48px minmax(0,1fr) minmax(0,1.7fr) 150px 150px;
+  grid-template-areas:"no group value metric links" "no name value metric links" "no status value metric links";
+  grid-template-rows:auto auto 1fr;
+  padding:26px 0!important;background:transparent!important;border:0!important;border-bottom:1px solid var(--rule)!important;transition:background-color .2s}
+.projects-table-wrap .projects-table .project-row[hidden]{display:none!important}
+@media (hover:hover){.projects-table-wrap .projects-table .project-row:hover{background:color-mix(in srgb,var(--ink) 3.5%,transparent)!important}
+  .projects-table-wrap .projects-table .project-row:hover .project-name{color:var(--accent)!important}}
+.projects-table-wrap .projects-table .project-row>*{display:block;width:auto!important;padding:0!important;border:0!important;min-width:0;background:none!important}
+.projects-table-wrap .project-row .project-number{grid-area:no;font:500 13px/1.8 var(--plex)!important;color:var(--text-muted)!important}
+.projects-table-wrap .project-row .project-group{grid-area:group;font:500 11px/1.6 var(--plex)!important;text-transform:uppercase;letter-spacing:.08em;color:var(--redline)!important;margin-bottom:6px}
+.projects-table-wrap .project-row .project-name{grid-area:name;font:650 21px/1.2 var(--display)!important;font-stretch:92%;letter-spacing:-.012em;color:var(--ink)!important;transition:color .2s}
+.projects-table-wrap .project-row .project-status{grid-area:status;margin-top:12px}
+.projects-table-wrap .project-row .project-badges{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:6px;align-items:center!important;justify-content:flex-start!important}
+.projects-table-wrap .project-row .project-badges>*{margin:0!important}
+.projects-table-wrap .project-row .project-value{grid-area:value;font-size:15px!important;line-height:1.65!important;color:var(--text-muted)!important}
+.projects-table-wrap .project-row .project-value strong{color:var(--ink);font-weight:600;background:none}
+.projects-table-wrap .project-row::after{ /* headline figure, lifted from the text by enhance.js */
+  content:attr(data-metric);grid-area:metric;grid-row:1/4;align-self:start;
+  font:500 clamp(24px,2.2vw,32px)/1.05 var(--plex);letter-spacing:-.03em;color:var(--ink);overflow-wrap:anywhere}
+.projects-table-wrap .project-row[data-metric]::after{border-top:2px solid var(--redline);padding-top:8px}
+.projects-table-wrap .project-row .project-link-cell{grid-area:links;justify-self:end}
+.projects-table-wrap .project-row .projects-links{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.projects-table-wrap .project-row .projects-link{font:600 13px/1.2 var(--sans)!important;color:var(--ink)!important;text-decoration:none;border-bottom:1px solid var(--rule-strong);padding-bottom:2px}
+.projects-table-wrap .project-row .projects-link:hover{color:var(--accent)!important;border-bottom-color:var(--accent)}
+.projects-table-wrap .project-row .projects-link[href*="github.io"]{color:var(--accent)!important;border-bottom-color:var(--accent)}
+
+/* ==========================================================================
+   5. NAVIGATION
+   ========================================================================== */
+.site-header{border-bottom:1px solid var(--ink)!important;background:var(--paper)!important}
+.site-header .brand-mark{border-radius:2px!important;background:var(--ink)!important;box-shadow:inset 0 -3px 0 var(--redline)!important;font-family:var(--display)!important}
+.site-header .brand>span:last-child{font-family:var(--display);font-stretch:92%;font-weight:700;letter-spacing:.02em;color:var(--ink)}
+.site-header .brand-sub{font-weight:400!important;font-size:10.5px!important;color:var(--text-muted)!important;letter-spacing:.08em!important}
+.desktop-nav{gap:4px!important}
+.desktop-nav>a:not(.nav-cta){display:inline-flex;align-items:baseline;gap:6px;padding:8px 10px!important;color:var(--text)!important;font-weight:500}
+.desktop-nav>a:not(.nav-cta)::before{font:500 10px/1 var(--plex);color:var(--text-muted);letter-spacing:.04em}
+.desktop-nav>a[href$="approach.html"]::before{content:"01"}
+.desktop-nav>a[href$="projects.html"]::before{content:"02"}
+.desktop-nav>a[href$="experience.html"]::before{content:"03"}
+.desktop-nav>a[href$="blog.html"]::before{content:"04"}
+.desktop-nav>a:not(.nav-cta)::after{left:10px!important;right:10px!important;bottom:0!important;height:2px!important;background:var(--redline)!important;border-radius:0!important}
+.desktop-nav>a[aria-current="page"]:not(.nav-cta){color:var(--ink)!important;font-weight:600}
+.desktop-nav>a[aria-current="page"]:not(.nav-cta)::before{color:var(--redline)}
+.desktop-nav>a[aria-current="page"]:not(.nav-cta)::after{transform:scaleX(1)!important}
+.desktop-nav .nav-cta{margin-left:12px}
+.site-menu{border-radius:0!important}
+.site-menu .menu-number{color:var(--redline)!important}
+.site-menu nav a{font-family:var(--display);font-stretch:92%;font-weight:700}
+
+/* footer + floating controls + palette: square to match */
+.site-bottom-mark{border-radius:2px!important}
+.site-bottom-home>span:last-child{font-family:var(--display);font-stretch:92%;font-weight:700}
+.enh-fab,.enh-top{border-radius:2px!important;border-color:var(--ink)!important;background:var(--paper)!important;backdrop-filter:none!important;box-shadow:none!important}
+.enh-fab{font-family:var(--plex)!important;font-size:12px!important;text-transform:uppercase;letter-spacing:.04em}
+.enh-palette{border-radius:2px!important;border-color:var(--ink)!important}
+.enh-pal-list [role=option]{border-radius:0!important}
+.enh-pal-list [role=option][aria-selected=true]{box-shadow:inset 3px 0 0 var(--redline)!important}
+.enh-progress{background:var(--redline)!important;height:2px!important}
+
+/* subtler reveal: rules and text settle, nothing floats */
+.enh-reveal{transform:translateY(8px)!important}
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    /* section rules draw across as they scroll into view */
+    .editorial-home>.editorial-section>.container,
+    .experience-timeline-page .exp-modules-section>.container{
+      border-top-color:transparent!important;
+      background:linear-gradient(var(--dwg-rule,var(--ink)),var(--dwg-rule,var(--ink))) 0 0/100% 2px no-repeat;background-origin:border-box;
+      animation:dwg-draw linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+    .decision-flow-section>.container{--dwg-rule:rgba(255,255,255,.55)}
+  }
+}
+@keyframes dwg-draw{from{background-size:0% 2px}to{background-size:100% 2px}}
+
+/* ==========================================================================
+   6. MOBILE & TABLET
+   ========================================================================== */
+@media (max-width:1100px){
+  body.home .lake-hero{--frame-w:36vw}
+  html body.home .selected-work-card{grid-template-columns:44px minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"no title desc" "no chip desc" "no link desc"}
+  html body.home .selected-work-card .cs-open{justify-self:start;margin-top:12px!important}
+  .projects-table-wrap .projects-table .project-row{grid-template-columns:44px minmax(0,1fr) minmax(0,1.5fr) 130px;
+    grid-template-areas:"no group value metric" "no name value metric" "no status value metric" "no links value metric"}
+  .projects-table-wrap .project-row .project-link-cell{justify-self:start;margin-top:14px}
+  .projects-table-wrap .project-row .projects-links{flex-direction:row;flex-wrap:wrap;gap:14px}
+  .projects-table-wrap .project-row::after{grid-row:1/5}
+}
+@media (max-width:900px){
+  .home .help-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .home .help-grid .help-card:nth-child(3){border-left:0!important;padding-left:0!important}
+  .home .help-grid .help-card{border-top:1px solid var(--rule)!important;padding-top:20px!important}
+  .home .help-grid .help-card:nth-child(-n+2){border-top:0!important;padding-top:4px!important}
+}
+@media (max-width:759px){
+  /* hero: copy first, then the framed photo with its caption */
+  body.home .lake-hero{padding:36px 0 0!important;display:flex!important;flex-direction:column}
+  body.home .lake-hero::after{display:none!important}
+  body.home .lake-hero::before{position:relative;order:2;right:auto;bottom:auto;width:auto;margin:10px var(--gut) 0;font-size:10px}
+  body.home .lake-hero-image{position:relative!important;order:1;top:auto!important;bottom:auto!important;right:auto!important;
+    width:calc(100% - 2*var(--gut))!important;height:280px!important;margin:32px var(--gut) 0;border:1px solid var(--ink)}
+  body.home .lake-hero-copy h1,body.home .lake-hero-copy .identity-introduction,body.home .hero-topic-tags{max-width:none!important}
+  body.home .lake-hero-copy .identity-name{font-size:clamp(36px,10vw,46px)!important}
+  body.home .hero-topic-tags{display:flex!important;flex-wrap:wrap;gap:6px!important}
+  body.home .hero-topic-tags li{width:auto!important}
+
+  /* title blocks: 2 columns with rules */
+  body.home .home-proof-grid,.experience-timeline-page .exp-stats,.projects-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.home .home-proof-grid>div,.experience-timeline-page .exp-stats>div,.projects-stats>div{padding:18px 16px!important;border-top:1px solid var(--rule)!important}
+  body.home .home-proof-grid>div:nth-child(odd),.experience-timeline-page .exp-stats>div:nth-child(odd),.projects-stats>div:nth-child(odd){border-left:0!important;padding-left:0!important}
+  body.home .home-proof-grid>div:nth-child(-n+2),.experience-timeline-page .exp-stats>div:nth-child(-n+2),.projects-stats>div:nth-child(-n+2){border-top:0!important}
+  body.home .home-proof-grid>div:last-child{grid-column:1/-1;border-left:0!important;padding-left:0!important}
+
+  .editorial-home>.editorial-section{padding-block:56px!important}
+  .editorial-home>.editorial-section>.container::before{width:32px;height:32px;top:-17px}
+
+  /* ruled columns stack into ruled rows */
+  .home .help-grid,.home .work-with-me-grid,.insights-index .insights-grid,.experience-timeline-page .exp-modules-grid{grid-template-columns:1fr!important}
+  .home .help-grid .help-card,body.home .work-with-me-grid .capability-card,.insights-index .insight-card,.experience-timeline-page .exp-stage-card{
+    border-left:0!important;padding-left:0!important;padding-right:0!important;border-top:1px solid var(--rule)!important;padding-top:20px!important}
+  .home .help-grid .help-card:first-child,body.home .work-with-me-grid .capability-card:first-child,.insights-index .insight-card:first-child,.experience-timeline-page .exp-stage-card:first-child{border-top:0!important}
+  .insights-index .insight-card .insight-card-copy{padding-left:0!important;padding-right:0!important}
+  body.home .work-with-me-grid .capability-card{padding-bottom:24px!important}
+
+  .editorial-audience .audience-selector{border-bottom:0}
+  .editorial-audience .audience-selector-card{border-left:1px solid var(--rule)!important;padding:18px!important}
+  .editorial-audience .audience-selector-card:first-child{padding-left:0!important}
+  .editorial-audience .audience-detail-tile{border-left:0;padding:0}
+
+  html body.home .selected-work-card{grid-template-columns:34px minmax(0,1fr);grid-template-areas:"no chip" "no title" "no desc" "no link";padding:22px 0!important}
+  html body.home .selected-work-card .status-chip{margin-bottom:10px!important}
+
+  .projects-table-wrap .projects-table .project-row{grid-template-columns:34px minmax(0,1fr);column-gap:12px;
+    grid-template-areas:"no group" "no name" "no metric" "no value" "no status" "no links";grid-template-rows:none}
+  .projects-table-wrap .project-row::after{grid-row:auto;margin:14px 0 12px;font-size:26px}
+  .projects-table-wrap .project-row:not([data-metric])::after{display:none}
+  .projects-table-wrap .project-row .project-status{margin-top:14px}
+  .projects-table-wrap .projects-table tbody::after{font-size:10px}
+
+  .experience-timeline-page .exp-stage-card{padding-bottom:16px!important}
+  .desktop-nav>a:not(.nav-cta)::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){.enh-reveal{transform:none!important}}
+
+/* ==========================================================================
+   Review fixes
+   ========================================================================== */
+/* flattened panels: restore the standard gutter (the old inset maths left 8px) */
+html body :is(.inner-title-band,.exp-modules-section,body.home .editorial-home>section:nth-of-type(even))>.container.container.container{
+  max-width:1344px!important;padding-left:var(--gut)!important;padding-right:var(--gut)!important}
+
+/* rules sit on the content width, not the padded container box */
+.editorial-home>.editorial-section>.container,
+.experience-timeline-page .exp-modules-section>.container{
+  border-top:0!important;
+  background:linear-gradient(var(--dwg-rule,var(--ink)),var(--dwg-rule,var(--ink))) var(--gut) 0/calc(100% - 2*var(--gut)) 2px no-repeat}
+.decision-flow-section>.container{--dwg-rule:rgba(255,255,255,.55)}
+.editorial-home>.editorial-section>.container::after{display:none}
+.editorial-home>.editorial-section>.container::before{box-shadow:0 0 0 6px var(--paper)}
+.decision-flow-section>.container::before{box-shadow:0 0 0 6px var(--ink)!important}
+@keyframes dwg-draw{from{background-size:0% 2px}to{background-size:calc(100% - 2*var(--gut)) 2px}}
+body.home .home-proof>.container{border:0!important}
+body.home .home-proof-grid{border-top:2px solid var(--ink)}
+body.home .home-proof-summary{border-bottom:1px solid var(--ink)}
+.experience-timeline-page .exp-stats{border:0!important;
+  background:linear-gradient(var(--ink),var(--ink)) var(--gut) 0/calc(100% - 2*var(--gut)) 2px no-repeat,
+             linear-gradient(var(--ink),var(--ink)) var(--gut) 100%/calc(100% - 2*var(--gut)) 1px no-repeat!important}
+.experience-timeline-page .exp-stats>div:first-child{padding-left:0!important}
+
+/* title band: no bottom rule (the content below opens with its own heavy rule) */
+html body.inner-page main .inner-title-band{border-bottom:0!important;padding-bottom:clamp(32px,4vw,48px)!important}
+html body.inner-page .inner-title-band h1{color:var(--ink)!important}
+html body.inner-page main .inner-title-band+section{padding-top:0!important}
+/* sheet numbers */
+html body.inner-page .inner-title-band :is(.eyebrow,.projects-eyebrow)::before{content:"A-00"!important}
+html body.process-projects .inner-title-band .eyebrow::before{content:"A-01"!important}
+html body.projects .inner-title-band :is(.eyebrow,.projects-eyebrow)::before{content:"A-02"!important}
+html body.experience .inner-title-band .eyebrow::before{content:"A-03"!important}
+html body.writing .inner-title-band .eyebrow::before{content:"A-04"!important}
+html body.books .inner-title-band .eyebrow::before{content:"A-05"!important}
+html body.contact .inner-title-band .eyebrow::before{content:"A-06"!important}
+.insights-index,.books-section,.contact-section{padding-top:8px!important}
+body.books .upcoming-notice{border-top:2px solid var(--ink);padding-top:20px}
+
+/* hero photo fills its frame */
+body.home .lake-hero-image{height:calc(100% - clamp(56px,7vw,96px) - clamp(64px,8vw,104px) - 34px)!important}
+
+/* selected work: row numbers + clean links */
+html body.home .selected-work-card::before{content:counter(work,decimal-leading-zero)!important;display:block!important;position:static!important;
+  width:auto!important;height:auto!important;background:none!important;border:0!important;inset:auto!important}
+html body.home .selected-work-card .cs-open{border:0!important;padding:0!important}
+html body.home .selected-work-card .cs-open::before,html body.home .selected-work-card .cs-open::after{display:none!important}
+
+/* bottom banner heading stays white on teal */
+.site-bottom-cta h2{color:#fff!important}
+
+/* career: square tags, ink markers */
+.experience-timeline-page .exp-capability button{border-radius:2px!important;font:500 11px/1.4 var(--plex)!important;letter-spacing:.06em;background:transparent!important;border-color:var(--rule-strong)!important;color:var(--ink)!important}
+.experience-timeline-page .exp-capability button:hover,.experience-timeline-page .exp-capability button[aria-expanded="true"]{background:var(--ink)!important;color:#fff!important}
+.experience-timeline-page .exp-career-timeline::before{background:var(--rule-strong)!important;width:1px!important}
+.experience-timeline-page .exp-career-timeline>li::before{border-radius:0!important;background:var(--ink)!important;box-shadow:0 0 0 4px var(--paper)!important}
+
+/* floating search waits until the hero is scrolled past on phones */
+@media (max-width:759px){
+  .enh-fab{opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s,transform .25s}
+  .enh-fab.is-on{opacity:1;pointer-events:auto;transform:none}
+}
+body.home .lake-hero-image{transform:none!important;max-height:none!important}
+html body.home .selected-work-card::before{transform:none!important;transition:none!important}
+body.home .lake-hero-copy .identity-name{font-size:clamp(40px,4.2vw,62px)!important}
+@media (min-width:760px){body.home .lake-hero-copy{padding-top:0!important;padding-bottom:0!important}}
+body.home .lake-hero-image{object-position:86% 40%!important}
+@media (max-width:759px){body.home .lake-hero::before{align-self:stretch}}
+/* digital transformation: sheet header on paper, results as a ruled callout */
+body.transformation .page-intro.photo-backed{background:transparent!important;border-bottom:2px solid var(--ink)!important}
+body.transformation .page-intro h1{font-size:clamp(44px,5.6vw,84px)!important;max-width:none!important}
+body.transformation .page-intro .page-kicker .eyebrow{color:var(--ink)!important}
+body.transformation .crosshair{color:var(--redline)!important}
+.case-result{gap:0!important;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+.case-result>div,.case-result>div:last-child{background:transparent!important;color:var(--text)!important;padding:20px 24px 22px 0!important}
+.case-result>div:last-child{border-left:1px solid var(--rule);padding-left:24px!important}
+.case-result>div:last-child p{color:var(--ink)!important;font-weight:500}
+.case-result .eyebrow,.case-result>div:last-child .eyebrow{color:var(--redline)!important}
+.tags span{font-family:var(--plex)!important;font-size:11px!important;text-transform:uppercase;letter-spacing:.05em}
+
+/* headings with an <em> keep one typeface */
+.contact-compose h2 em,.delivery h2 em,.page-intro h1 em{font-family:inherit!important;font-weight:inherit!important;font-style:normal}
+
+/* project filters wrap on phones instead of running off the edge */
+@media (max-width:759px){.projects-filters{flex-wrap:wrap!important;overflow:visible!important}
+  .case-result{grid-template-columns:1fr!important}
+  .case-result>div:last-child{border-left:0;border-top:1px solid var(--rule);padding-left:0!important}}

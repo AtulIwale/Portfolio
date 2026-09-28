@@ -157,28 +157,13 @@
     });
   }
 
-  /* ---------- 4. pointer spotlight + book tilt ---------- */
-  function initPointerFx() {
-    if (!finePointer || reduceMotion) return;
-    var glowSel = '.capability-card, .insight-card, .exp-career-card, .exp-stage-card, .audience-selector-card, .contact-compose';
-    doc.addEventListener('pointermove', function (e) {
-      var card = e.target.closest && e.target.closest(glowSel);
-      if (card) {
-        var r = card.getBoundingClientRect();
-        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-        card.classList.add('enh-glow');
-      }
-      var cover = e.target.closest && e.target.closest('.book-cover');
-      if (cover) {
-        var b = cover.getBoundingClientRect();
-        var x = (e.clientX - b.left) / b.width - 0.5, y = (e.clientY - b.top) / b.height - 0.5;
-        cover.style.transform = 'perspective(900px) rotateY(' + (x * 10).toFixed(2) + 'deg) rotateX(' + (-y * 8).toFixed(2) + 'deg) translateY(-4px)';
-      }
-    }, { passive: true });
-    doc.addEventListener('pointerout', function (e) {
-      var cover = e.target.closest && e.target.closest('.book-cover');
-      if (cover && !cover.contains(e.relatedTarget)) cover.style.transform = '';
+  /* ---------- 4. project register: lift each headline figure ---------- */
+  function initRegister() {
+    Array.prototype.forEach.call(doc.querySelectorAll('.project-row'), function (row) {
+      var strong = row.querySelector('.project-value strong');
+      if (!strong) return;
+      var m = /^[\d.,]+\s*(%|days?\b)?/.exec(strong.textContent.trim());
+      if (m) row.setAttribute('data-metric', m[0].trim());
     });
   }
 
@@ -301,6 +286,10 @@
       var o = e.target.closest('[role=option]'); if (o && +o.dataset.i !== active) { active = +o.dataset.i; move(0); }
     });
     fab.addEventListener('click', open);
+    var fabTick = false;
+    function fabVis() { fabTick = false; fab.classList.toggle('is-on', window.scrollY > window.innerHeight * 0.6); }
+    window.addEventListener('scroll', function () { if (!fabTick) { fabTick = true; requestAnimationFrame(fabVis); } }, { passive: true });
+    fabVis();
     doc.addEventListener('keydown', function (e) {
       var typing = /INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || '') || (e.target && e.target.isContentEditable);
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? close() : open(); }
@@ -310,7 +299,7 @@
 
   function boot() {
     root.classList.add('enh');
-    var steps = [initScrollUi, initPalette, initReveal, initCountUp, initPointerFx, initReadingTime, initCopyEmail];
+    var steps = [initScrollUi, initPalette, initReveal, initCountUp, initRegister, initReadingTime, initCopyEmail];
     steps.forEach(function (fn) { try { fn(); } catch (err) { if (window.console) console.warn('[enhance]', fn.name, err); } });
   }
   // Wait for the page to finish loading so React hydration has completed before we touch the DOM.
