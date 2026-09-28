@@ -1,0 +1,46 @@
+/* ==========================================================================
+   palette.css — colours taken from the hero image (loaded last)
+   The photo is cool blue-greys, slate and charcoal with warm cream light:
+   the site's original palette. No near-black, no orange.
+   ========================================================================== */
+:root{
+  --paper:#F5F1E9;            /* warm cream light */
+  --bg-cream:#F5F1E9;
+  --bg-blue:#E7EEF1;          /* pale blue-grey, the whiteboard */
+  --surface:#FFFDFA;
+  --text:#2D4653;             /* slate blue: headlines and body */
+  --ink:#2D4653;              /* replaces the near-black */
+  --text-muted:#586C76;
+  --line:#A7B4BA;
+  --accent:#3F7285;           /* lake blue: buttons, links, markers */
+  --redline:#3F7285;          /* markers now use the accent, not orange */
+  --warm:#3F7285;
+  --warm-soft:color-mix(in srgb,#3F7285 18%,transparent);
+  --rule:color-mix(in srgb,#2D4653 20%,transparent);
+  --rule-strong:color-mix(in srgb,#2D4653 70%,transparent);
+  --success:#2F6B4F;
+}
+
+/* primary buttons return to lake blue; hover deepens to slate */
+.button-lime,.nav-cta,.button-dark,.projects-filters button[aria-pressed="true"]{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+.button-lime:hover,.nav-cta:hover,.button-dark:hover{background:var(--text)!important;border-color:var(--text)!important}
+.hero-secondary,.selected-work-all .button{border-color:var(--accent)!important;color:var(--accent)!important}
+.status-flagship{background:var(--accent)!important;border-color:var(--accent)!important}
+
+/* headlines in slate blue, the hero accent phrase in lake blue */
+h1,h2,h3,.identity-name,.email-large,.projects-table-wrap .projects-table tbody::before{color:var(--text)!important}
+.home .hero-accent{color:var(--accent)!important}
+.decision-flow-section h2,.site-bottom-cta h2{color:#fff!important}
+
+/* the dark sheet is slate, matching the footer */
+html body.home .editorial-home>section.decision-flow-section{background:var(--text)!important}
+.decision-flow-section>.container::before{background:var(--text)!important}
+.decision-flow-section>.container::before{box-shadow:0 0 0 6px var(--text)!important}
+
+/* brand marks */
+.site-header .brand-mark{background:var(--text)!important;box-shadow:inset 0 -3px 0 var(--accent)!important}
+.site-bottom-mark{box-shadow:inset 0 -3px 0 var(--accent)!important}
+
+/* hero: the original photo, in its frame, centred on Atul */
+body.home .lake-hero-image{object-position:72% 42%!important;filter:none!important}
+body.home .lake-hero::before{content:"FIG. 01 \2014  PROJECT DATA REVIEW WITH A SITE TEAM"!important}
