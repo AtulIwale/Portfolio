@@ -11,7 +11,7 @@
   var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 
   var PAGES = [
-    { t: 'Home', d: 'Data & AI for construction', h: 'index.html', k: 'start overview' },
+    { t: 'Home', d: 'Process, data & AI for construction', h: 'index.html', k: 'start overview' },
     { t: 'Approach', d: 'How I work across AEC decisions', h: 'approach.html', k: 'method process ba pm' },
     { t: 'Projects', d: 'All 15 projects, filterable', h: 'projects.html', k: 'portfolio work ml' },
     { t: 'Experience', d: 'Career, ERP modules, education & tools', h: 'experience.html', k: 'cv resume career skills' },
