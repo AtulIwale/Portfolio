@@ -404,3 +404,14 @@ body.books .book-cover{transition:transform .2s ease-out,box-shadow .3s var(--ea
   .editorial-audience .audience-detail-tile p{grid-column:2;margin:0}
   .editorial-audience .audience-detail-tile .audience-detail-label{margin-bottom:2px}
 }
+
+/* Bottom CTA: full-bleed band joined to the footer (no inset, no rounding),
+   with the same side gutters as the header and footer at every width */
+html body .site-bottom-cta,
+html body.inner-page .site-bottom-cta{width:100%!important;max-width:none!important;margin:0!important;border-radius:0!important;padding:56px 0}
+html body .site-bottom-cta.site-bottom-cta.site-bottom-cta>.container.container{max-width:1344px!important;padding-left:32px!important;padding-right:32px!important}
+@media (max-width:759px){
+  html body .site-bottom-cta,html body.inner-page .site-bottom-cta{padding:40px 0}
+  html body .site-bottom-cta.site-bottom-cta.site-bottom-cta>.container.container{padding-left:20px!important;padding-right:20px!important}
+}
+html body .site-bottom-cta+.site-bottom-footer{margin-top:0;border-top:0}
