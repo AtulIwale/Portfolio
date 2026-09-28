@@ -365,7 +365,6 @@ body.home .hero-primary-actions{gap:12px!important}
 .enh-progress{background:var(--redline)!important;height:2px!important}
 
 /* subtler reveal: rules and text settle, nothing floats */
-.enh-reveal{transform:translateY(8px)!important}
 @media (prefers-reduced-motion:no-preference){
   @supports (animation-timeline:view()){
     /* section rules draw across as they scroll into view */
@@ -446,7 +445,6 @@ body.home .hero-primary-actions{gap:12px!important}
   .experience-timeline-page .exp-stage-card{padding-bottom:16px!important}
   .desktop-nav>a:not(.nav-cta)::before{display:none}
 }
-@media (prefers-reduced-motion:reduce){.enh-reveal{transform:none!important}}
 
 /* ==========================================================================
    Review fixes

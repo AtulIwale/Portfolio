@@ -1,0 +1,194 @@
+/* ==========================================================================
+   motion.css — restrained motion for "The Drawing Set"
+   Native CSS (transitions, keyframes, scroll-driven where supported) plus the
+   IntersectionObserver in enhance.js. No animation library: the site is
+   prerendered React and only transform / opacity / clip-path are animated.
+   Everything that moves is inside prefers-reduced-motion: no-preference.
+   ========================================================================== */
+
+:root{
+  --m-ease:cubic-bezier(.22,.61,.36,1);      /* soft ease-out, no overshoot */
+  --m-ease-io:cubic-bezier(.65,0,.35,1);     /* for reveals that wipe */
+  --m-fast:.18s;
+  --m-base:.28s;
+  --m-slow:.7s;
+}
+
+/* Colour and border changes are always soft (not motion, so no media query) */
+a,button,.button,.nav-cta,.status-chip,.projects-filters button,.audience-selector-card,
+.exp-capability button,.projects-link,.site-bottom-cta-button,input,select,textarea{
+  transition:color var(--m-fast) ease,background-color var(--m-fast) ease,border-color var(--m-fast) ease,box-shadow var(--m-fast) ease}
+
+@media (prefers-reduced-motion:no-preference){
+
+  html{scroll-behavior:smooth}
+
+  /* ---------------------------------------------------------------------
+     1. Sections entering the viewport — fade + short rise, batched stagger
+     --------------------------------------------------------------------- */
+  .enh-reveal{opacity:0;transform:translate3d(0,14px,0);
+    transition:opacity var(--m-slow) var(--m-ease),transform var(--m-slow) var(--m-ease)!important;
+    transition-delay:var(--enh-delay,0ms)!important}
+  .enh-reveal.is-in{opacity:1;transform:none!important}
+
+  /* project rows returning after a filter change */
+  .enh-enter{animation:m-rise .42s var(--m-ease) var(--enh-delay,0ms) both}
+
+  /* ---------------------------------------------------------------------
+     2. Hero — a quiet on-load sequence (CSS only, runs on first paint)
+     --------------------------------------------------------------------- */
+  body.home .lake-hero-copy>*{animation:m-rise .8s var(--m-ease) backwards}
+  body.home .lake-hero-copy>.hero-positioning{animation-delay:.05s}
+  body.home .lake-hero-copy>h1{animation:m-mask .95s var(--m-ease) .12s backwards}
+  body.home .lake-hero-copy>.identity-introduction{animation-delay:.34s}
+  body.home .lake-hero-copy>.hero-topic-tags{animation-delay:.44s}
+  body.home .lake-hero-copy>.hero-primary-actions{animation-delay:.52s}
+  body.home .lake-hero-image{animation:m-wipe .9s var(--m-ease-io) .15s backwards}
+  body.home .lake-hero::after,body.home .lake-hero::before{animation:m-fade .6s var(--m-ease) .9s backwards}
+  body.home .home-proof-grid>div{animation:m-rise .6s var(--m-ease) backwards}
+  body.home .home-proof-grid>div:nth-child(1){animation-delay:.6s}
+  body.home .home-proof-grid>div:nth-child(2){animation-delay:.66s}
+  body.home .home-proof-grid>div:nth-child(3){animation-delay:.72s}
+  body.home .home-proof-grid>div:nth-child(4){animation-delay:.78s}
+  body.home .home-proof-grid>div:nth-child(5){animation-delay:.84s}
+
+  /* inner-page sheet titles use the same language, shorter */
+  body.inner-page .inner-title-band .container>*,
+  body.transformation .page-intro .container>*{animation:m-rise .7s var(--m-ease) backwards}
+  body.inner-page .inner-title-band .container>:nth-child(1){animation-delay:.04s}
+  body.inner-page .inner-title-band .container>h1,
+  body.transformation .page-intro h1{animation:m-mask .9s var(--m-ease) .1s backwards}
+  body.inner-page .inner-title-band .container>:nth-child(3),
+  body.inner-page .inner-title-band .container>:nth-child(4){animation-delay:.28s}
+
+  /* ---------------------------------------------------------------------
+     3. Navigation — underline draws in from the left, leaves to the right
+     --------------------------------------------------------------------- */
+  .desktop-nav>a:not(.nav-cta)::after{transform-origin:right center!important;transition:transform .35s var(--m-ease)!important}
+  .desktop-nav>a:not(.nav-cta):hover::after,.desktop-nav>a:not(.nav-cta):focus-visible::after{transform:scaleX(1)!important;transform-origin:left center!important}
+  .desktop-nav>a:not(.nav-cta)::before{transition:color var(--m-base) ease}
+  .desktop-nav>a:not(.nav-cta):hover::before{color:var(--redline)}
+  .site-header .brand-mark{transition:box-shadow var(--m-base) var(--m-ease)}
+  .site-header .brand:hover .brand-mark{box-shadow:inset 0 -5px 0 var(--redline)!important}
+
+  /* ---------------------------------------------------------------------
+     4. Buttons — colour eases, the arrow nudges toward its direction
+     --------------------------------------------------------------------- */
+  :is(.button,.nav-cta,.button-dark,.hero-secondary) .arrow{transition:transform var(--m-base) var(--m-ease)}
+  :is(.button,.nav-cta,.button-dark,.hero-secondary):hover .arrow,
+  :is(.button,.nav-cta,.button-dark,.hero-secondary):focus-visible .arrow{transform:translate(2px,-2px)}
+  :is(.button,.nav-cta,.button-dark,.site-bottom-cta-button,.enh-copy):active{transform:translateY(1px)!important}
+
+  /* ---------------------------------------------------------------------
+     5. Text links — a hairline underline draws in
+     --------------------------------------------------------------------- */
+  :is(.cs-open,.audience-actions a,.home-proof-summary a,.site-bottom-pages a,.site-bottom-social a,
+      .contact-direct a,.text-link,.insight-card-action,.site-bottom-footer-bottom a){
+    text-decoration:none!important;
+    background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;
+    background-position:0 100%;background-size:0 1px;
+    transition:background-size .35s var(--m-ease),color var(--m-fast) ease!important}
+  :is(.cs-open,.audience-actions a,.home-proof-summary a,.site-bottom-pages a,.site-bottom-social a,
+      .contact-direct a,.text-link,.insight-card-action,.site-bottom-footer-bottom a):is(:hover,:focus-visible),
+  .insight-card:hover .insight-card-action{background-size:100% 1px}
+  .projects-link{transition:color var(--m-fast) ease,border-color var(--m-fast) ease!important}
+
+  /* ---------------------------------------------------------------------
+     6. Icons — lift a couple of pixels and take the redline
+     --------------------------------------------------------------------- */
+  .audience-selector-card svg,.audience-detail-icon,.site-bottom-social-icon,.exp-stage-card>svg{transition:transform var(--m-base) var(--m-ease),color var(--m-base) ease}
+  .audience-selector-card:hover svg{transform:translateY(-2px);color:var(--redline)}
+  .audience-detail-tile:hover .audience-detail-icon{transform:translateY(-2px);color:var(--redline);border-color:var(--redline)!important}
+  .site-bottom-social a:hover .site-bottom-social-icon{transform:translateY(-2px)}
+  .exp-stage-card:hover>svg{transform:translateY(-2px)}
+
+  /* ---------------------------------------------------------------------
+     7. Projects — register rows: redline marker, tint, figure rises
+     --------------------------------------------------------------------- */
+  .projects-table-wrap .projects-table .project-row,html body.home .selected-work-card{position:relative}
+  .projects-table-wrap .projects-table .project-row::before,
+  html body.home .selected-work-card::after{
+    content:"";position:absolute;left:-14px;top:22px;bottom:22px;width:2px;background:var(--redline);
+    transform:scaleY(0);transform-origin:top;transition:transform .35s var(--m-ease)}
+  .projects-table-wrap .project-row::after{transition:transform .35s var(--m-ease),border-color .35s ease}
+  .projects-table-wrap .project-row .project-name,html body.home .selected-work-card h3{transition:color var(--m-base) ease,transform .35s var(--m-ease)}
+  @media (hover:hover){
+    .projects-table-wrap .projects-table .project-row:hover::before,
+    html body.home .selected-work-card:hover::after{transform:scaleY(1)}
+    .projects-table-wrap .projects-table .project-row:hover::after{transform:translateY(-3px)}
+    .projects-table-wrap .projects-table .project-row:hover .project-name,
+    html body.home .selected-work-card:hover h3{transform:translateX(3px)}
+  }
+
+  /* help columns and "three ways" columns: the heading nudges, link underline draws */
+  .home .help-card h3,body.home .work-with-me-grid h3,.insights-index .insight-card h2{transition:color var(--m-base) ease,transform .35s var(--m-ease)}
+  @media (hover:hover){
+    .home .help-card:hover h3,body.home .work-with-me-grid .capability-card:hover h3,.insights-index .insight-card:hover h2{transform:translateX(3px);color:var(--accent)}
+    .home .help-card:hover .cs-open{background-size:100% 1px}
+  }
+
+  /* books are objects: they lift, nothing rotates */
+  body.books .book-cover{transition:transform .45s var(--m-ease),box-shadow .45s var(--m-ease)!important}
+  @media (hover:hover){body.books .book-card:hover .book-cover{transform:translateY(-4px)!important;box-shadow:0 18px 36px -18px rgba(31,46,54,.45)!important}}
+
+  /* ---------------------------------------------------------------------
+     8. Images — a gentle zoom inside a fixed frame
+        scale 1.04 with a matching clip keeps the visible box the same size
+     --------------------------------------------------------------------- */
+  @media (max-width:759px){body.home .lake-hero-copy>*{max-width:none}}
+  body.home .lake-hero-image{transition:transform 1.1s var(--m-ease),clip-path 1.1s var(--m-ease),filter .6s ease!important;clip-path:inset(0)}
+  @media (hover:hover){
+    /* only the photo triggers it: the copy column stops short of the frame */
+    body.home .lake-hero-copy{pointer-events:none}
+    body.home .lake-hero-copy>*{pointer-events:auto;max-width:calc(100% - var(--frame-w) - 64px)}
+    body.home .lake-hero-image:hover{transform:scale(1.04)!important;clip-path:inset(1.923%);filter:saturate(1) contrast(1.03)}
+  }
+
+  /* ---------------------------------------------------------------------
+     9. Soft state changes
+     --------------------------------------------------------------------- */
+  /* Who I help: the detail panel and its four items settle in when a tab changes */
+  .editorial-audience .audience-detail-panel:not([hidden]){animation:m-fade .3s var(--m-ease) both}
+  .editorial-audience .audience-detail-panel:not([hidden]) .audience-detail-tile{animation:m-rise .45s var(--m-ease) backwards}
+  .editorial-audience .audience-detail-tile:nth-child(2){animation-delay:.05s}
+  .editorial-audience .audience-detail-tile:nth-child(3){animation-delay:.1s}
+  .editorial-audience .audience-detail-tile:nth-child(4){animation-delay:.15s}
+  .editorial-audience .audience-selector-card{transition:box-shadow .3s var(--m-ease),color var(--m-fast) ease}
+
+  /* decision flow: explanation cross-fades on step change */
+  #df-stage-detail.enh-swap>*{animation:m-rise .32s var(--m-ease) both}
+  #df-stage-detail.enh-swap>*:nth-child(2){animation-delay:.04s}
+
+  /* case studies open smoothly */
+  .case-study[open]>.case-body{animation:m-rise .45s var(--m-ease) both}
+  .case-study .plus{transition:transform var(--m-base) var(--m-ease)}
+
+  /* project filters: the pressed state slides colour, rows ease back in (enh-enter) */
+  .projects-filters button{transition:background-color .22s ease,color .22s ease,border-color .22s ease!important}
+
+  /* mobile menu and palette */
+  .site-menu[open]{animation:m-fade .25s var(--m-ease) both}
+  .site-menu[open] nav a{animation:m-rise .45s var(--m-ease) backwards}
+  .site-menu[open] nav a:nth-child(2){animation-delay:.04s}
+  .site-menu[open] nav a:nth-child(3){animation-delay:.08s}
+  .site-menu[open] nav a:nth-child(4){animation-delay:.12s}
+  .site-menu[open] nav a:nth-child(5){animation-delay:.16s}
+
+  /* form fields: focus ring eases in */
+  body.contact :is(input,select,textarea){transition:border-color .2s ease,box-shadow .25s var(--m-ease),background-color .2s ease}
+}
+
+@keyframes m-rise{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
+@keyframes m-fade{from{opacity:0}to{opacity:1}}
+@keyframes m-mask{ /* headline rises through a mask */
+  from{opacity:0;transform:translate3d(0,.35em,0);clip-path:inset(0 0 100% 0)}
+  to{opacity:1;transform:none;clip-path:inset(-10% -5% -20% -5%)}}
+@keyframes m-wipe{ /* the photo is uncovered left to right, like a sheet unrolled */
+  from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* Reduced motion: nothing moves, nothing waits */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .enh-reveal{opacity:1!important;transform:none!important}
+}

@@ -97,32 +97,83 @@
     update();
   }
 
-  /* ---------- 2. reveal on scroll ---------- */
+  /* ---------- 2. reveal on scroll (batched stagger) ---------- */
   function initReveal() {
     if (reduceMotion || !('IntersectionObserver' in window)) return;
     var sel = [
       'main .editorial-heading', 'main h2:not(.visually-hidden)', '.help-card', '.selected-work-card',
       '.work-with-me-grid > *', '.audience-selector-card', '.home-proof-grid > div', '.decision-flow-host',
-      '.insight-card', '.book-card', '.exp-career-card', '.exp-stage-card', '.exp-stats > *',
-      '.projects-stats > *', '.case-study', '.insight-article section', '.pp-capability', '.contact-compose',
+      '.insight-card', '.book-card', '.exp-career-card', '.exp-stage-card', '.exp-stats > *', '.exp-sidebar-card',
+      '.projects-stats > *', '.projects-filters', '.project-row', '.case-study', '.insight-article section',
+      '.pp-table-wrap', '.pp-capability', '.contact-compose', '.contact-direct', '.upcoming-notice',
       '.site-bottom-cta-inner'
     ].join(',');
     var items = Array.prototype.slice.call(doc.querySelectorAll(sel)).filter(function (n) {
       return !n.closest('.site-header, .site-menu, .inner-title-band, .lake-hero-copy');
     });
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      // elements that arrive together reveal in reading order, 60ms apart
+      var batch = entries.filter(function (e) { return e.isIntersecting; })
+        .sort(function (x, y) { return (x.boundingClientRect.top - y.boundingClientRect.top) || (x.boundingClientRect.left - y.boundingClientRect.left); });
+      batch.forEach(function (e, i) {
+        e.target.style.setProperty('--enh-delay', Math.min(i, 6) * 60 + 'ms');
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
     var vh = window.innerHeight;
     items.forEach(function (n) {
-      var r = n.getBoundingClientRect();
-      if (r.top < vh * 0.95) return;            // already on screen: leave it alone
-      var sib = n.parentElement ? Array.prototype.indexOf.call(n.parentElement.children, n) : 0;
-      n.style.setProperty('--enh-delay', Math.min(sib, 5) * 70 + 'ms');
+      if (n.getBoundingClientRect().top < vh * 0.92) return;   // already on screen: never hide it
       n.classList.add('enh-reveal');
       io.observe(n);
+    });
+  }
+
+  /* ---------- 2b. soft state changes ---------- */
+  function restart(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+  function initStateMotion() {
+    if (reduceMotion || !('MutationObserver' in window)) return;
+    // project filters: rows that come back into view ease in, staggered
+    var table = doc.querySelector('.projects-table');
+    if (table) {
+      var pending = [], timer;
+      new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          var row = m.target;
+          if (m.attributeName === 'hidden' && !row.hidden && row.classList.contains('project-row')) pending.push(row);
+        });
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          pending.forEach(function (row, i) {
+            row.style.setProperty('--enh-delay', Math.min(i, 8) * 40 + 'ms');
+            row.classList.remove('enh-reveal'); row.classList.add('is-in');
+            restart(row, 'enh-enter');
+          });
+          pending = [];
+        }, 0);
+      }).observe(table, { attributes: true, attributeFilter: ['hidden'], subtree: true });
+    }
+    // decision flow: the explanation cross-fades when a step is chosen
+    var detail = doc.getElementById('df-stage-detail');
+    if (detail) {
+      new MutationObserver(function () { restart(detail, 'enh-swap'); })
+        .observe(detail, { childList: true, subtree: true, characterData: true });
+    }
+  }
+
+  /* ---------- 2c. smooth in-page scrolling ---------- */
+  function initSmoothAnchors() {
+    doc.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href*="#"]');
+      if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      var url = new URL(a.href, location.href);
+      if (url.pathname.replace(/\.html$|\/$/, '') !== location.pathname.replace(/\.html$|\/$/, '')) return;
+      var id = decodeURIComponent(url.hash.slice(1));
+      var target = id === 'top' ? doc.body : doc.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      history.pushState(null, '', url.hash);
     });
   }
 
@@ -299,7 +350,7 @@
 
   function boot() {
     root.classList.add('enh');
-    var steps = [initScrollUi, initPalette, initReveal, initCountUp, initRegister, initReadingTime, initCopyEmail];
+    var steps = [initScrollUi, initPalette, initReveal, initStateMotion, initSmoothAnchors, initCountUp, initRegister, initReadingTime, initCopyEmail];
     steps.forEach(function (fn) { try { fn(); } catch (err) { if (window.console) console.warn('[enhance]', fn.name, err); } });
   }
   // Wait for the page to finish loading so React hydration has completed before we touch the DOM.
