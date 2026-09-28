@@ -45,7 +45,9 @@ html{font-synthesis:none}
 /* ---------------------------------------------------------------------------
    TEXT — Manrope everywhere by default
    --------------------------------------------------------------------------- */
-body{font-family:var(--sans)!important;font-size:var(--fs-body);line-height:1.65;font-feature-settings:"ss01","cv11";letter-spacing:-.003em}
+body{font-family:var(--sans)!important;font-size:var(--fs-body);line-height:1.65;letter-spacing:0;word-spacing:.01em}
+/* no negative tracking on running text: Manrope is set as drawn */
+p,li,dd,td,.help-description,.project-value{letter-spacing:0!important}
 p,li,dd,td,input,select,textarea,button,label{font-family:var(--sans)}
 strong,b{font-weight:650}
 
@@ -99,7 +101,7 @@ h1 em,h2 em,h3 em{font-family:var(--display)!important;font-style:italic!importa
 body.home .lake-hero-copy .identity-introduction,
 html body.inner-page .inner-title-band .container>p:not(.eyebrow):not(.projects-eyebrow),
 .decision-introduction p,.exp-lead,.inner-hero-intro{
-  font:400 var(--fs-lead)/1.6 var(--sans)!important;letter-spacing:-.005em!important}
+  font:400 var(--fs-lead)/1.6 var(--sans)!important;letter-spacing:0!important}
 .help-card .help-description,.selected-work-card p,.capability-card p,.insight-card p,.audience-selector-summary,
 .audience-detail-tile p,.projects-table-wrap .project-row .project-value,.book-description p,.case-body p,.insight-article p{
   font-family:var(--sans)!important;font-size:15.5px!important;line-height:1.65!important}
@@ -159,4 +161,28 @@ html body.home .selected-work-card::before{font:400 12px/2.1 var(--plex)!importa
   html body.inner-page .inner-title-band h1,.page-intro h1,body.transformation .page-intro h1{font-size:clamp(38px,11vw,50px)!important}
   .editorial-section h2,.editorial-heading h2,.decision-introduction h2,.exp-modules-section h2,.contact-compose h2{font-size:clamp(32px,9vw,40px)!important}
   .projects-table-wrap .project-row::after{font-size:30px!important}
+}
+
+/* ---------------------------------------------------------------------------
+   Review pass: Instrument Serif is a condensed display face — it is kept for
+   large headlines only. Small titles move to Manrope semibold, which also
+   sharpens the hierarchy (display → title → body → label).
+   --------------------------------------------------------------------------- */
+.capability-card h3,.help-card h3,.selected-work-card h3,.exp-stage-card h3,.exp-career-card h3,
+.audience-selector-title,.projects-table-wrap .project-row .project-name,.work-with-me-grid h3{
+  font-family:var(--sans)!important;font-weight:650!important;letter-spacing:-.012em!important}
+.help-card h3,.work-with-me-grid h3,.projects-table-wrap .project-row .project-name,html body.home .selected-work-card h3{font-size:20px!important;line-height:1.3!important}
+.audience-selector-title{font-size:18px!important;line-height:1.3!important}
+.exp-career-card h3,.exp-stage-card h3{font-size:17.5px!important;line-height:1.35!important}
+
+/* the serif is drawn narrow: do not tighten it further */
+body.home .lake-hero-copy .identity-name,body.home .lake-hero-copy h1{letter-spacing:-.008em!important}
+html body.inner-page .inner-title-band h1,.page-intro h1,body.transformation .page-intro h1,
+.editorial-section h2,.editorial-heading h2,.decision-introduction h2,.exp-modules-section h2,.contact-compose h2,.delivery h2,
+.site-bottom-cta h2,.projects-table-wrap .projects-table tbody::before,.insight-card h2,.insight-article h2,.case-study summary h2,.book-cover h2,.df-detail h3,.email-large{
+  letter-spacing:0!important}
+.insight-card h2{font-size:30px!important;line-height:1.1!important}
+.df-detail h3{font-size:28px!important;line-height:1.1!important}
+@media (max-width:759px){
+  .help-card h3,.work-with-me-grid h3,.projects-table-wrap .project-row .project-name,html body.home .selected-work-card h3{font-size:19px!important}
 }
