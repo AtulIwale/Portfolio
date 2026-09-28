@@ -1,0 +1,16 @@
+ATULIWALE.COM — COMPLETE STATIC WEBSITE
+
+Upload this ZIP into the public_html directory for atuliwale.com and extract it there.
+index.html, assets/ and react/ must sit directly inside public_html, not inside an extra folder.
+The site is already built. No Node.js, npm installation or build step is needed on hosting.
+Enable HTTPS for atuliwale.com in your hosting control panel.
+
+The design, content, photos, fonts and interactions are preserved.
+Social-sharing URLs in this export point to https://atuliwale.com.
+The included .htaccess supports extensionless page URLs as well as .html URLs.
+
+The contact form uses the existing external FormSubmit service for hello@atuliwale.com.
+Google Fonts are loaded externally, as on the existing site. Internet access is required for these services.
+The contact form may require email confirmation from FormSubmit when used on a new domain.
+
+This export does not change the currently published site.

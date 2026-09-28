@@ -1,0 +1,29 @@
+/* Shared by the two business-transformation project pages only. */
+.business-projects .page-intro h1{font-size:clamp(3rem,5.3vw,5.5rem);max-width:22ch;line-height:1.08;}
+.business-projects .intro-foot p{max-width:62ch;}
+.business-portfolio{padding-block:clamp(40px,5vw,76px);}
+.portfolio-intro{display:flex;justify-content:space-between;align-items:baseline;gap:20px 48px;margin-bottom:30px;}
+.portfolio-intro .eyebrow{font-size:.875rem;}
+.portfolio-intro p{font-size:.875rem;line-height:1.7;max-width:60ch;color:var(--text-muted);}
+.portfolio-case{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(32px,5vw,80px);padding-block:clamp(32px,4vw,52px);border-top:1px solid var(--line);scroll-margin-top:110px;}
+.portfolio-case:last-child{border-bottom:1px solid var(--line);}
+.portfolio-case header{min-width:0;}
+.portfolio-case .eyebrow{font-size:.8125rem;line-height:1.6;color:var(--text-muted);}
+.portfolio-case h2{font:600 clamp(1.875rem,1.5rem + 1vw,2.625rem)/1.18 var(--sans);letter-spacing:-.035em;margin:18px 0 24px;overflow-wrap:break-word;}
+.portfolio-case .tags{margin:0;gap:8px;}
+.portfolio-case .tags span{font-size:.8125rem;}
+.portfolio-case-body{min-width:0;}
+.portfolio-case-body>p{font-size:1.0625rem;line-height:1.75;color:var(--text-muted);margin:0 0 26px;max-width:66ch;}
+.portfolio-case dl{display:grid;gap:24px;margin:0;}
+.portfolio-case dt{font:600 1rem/1.5 var(--sans);color:var(--text);margin:0 0 8px;}
+.portfolio-case dd{font-size:1rem;line-height:1.75;margin:0;max-width:70ch;}
+.portfolio-value{border-left:2px solid var(--text);padding-left:20px;}
+@media(max-width:760px){
+ .business-projects .page-intro h1{font-size:clamp(2.5rem,8vw,3.75rem);}
+ .portfolio-intro{display:block;margin-bottom:24px;}
+ .portfolio-intro p{margin-top:14px;}
+ .portfolio-case{grid-template-columns:1fr;gap:24px;}
+ .portfolio-case h2{font-size:1.875rem;max-width:24ch;margin:12px 0 18px;}
+ .portfolio-case-body>p{font-size:1rem;}
+}
+@media print{.portfolio-case{break-inside:avoid;}.business-portfolio{padding-block:20px;}}

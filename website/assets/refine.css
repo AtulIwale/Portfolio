@@ -1,0 +1,168 @@
+/* ==========================================================================
+   refine.css — final design pass
+   Loaded last on every page. CSS-only, so the prerendered React markup
+   hydrates unchanged. Keeps the Alpine palette (ivory / lake blue / slate)
+   and adds one warm "site-marker" accent used only for decoration.
+   ========================================================================== */
+
+:root{
+  --warm:#C8672F;                 /* decorative only: bars, ticks, highlights */
+  --warm-soft:color-mix(in srgb,var(--warm) 22%,transparent);
+  --shadow-sm:0 1px 2px rgba(45,70,83,.05),0 1px 1px rgba(45,70,83,.03);
+  --shadow-md:0 2px 4px rgba(45,70,83,.04),0 12px 28px -8px rgba(45,70,83,.16);
+  --grid-line:color-mix(in srgb,var(--accent) 9%,transparent);
+  --ring:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent);
+}
+
+/* ---- Base polish -------------------------------------------------------- */
+html{scroll-padding-top:104px}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+p,li,dd{text-wrap:pretty}
+::selection{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--text)}
+:where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.home-proof-grid dt,.home-proof-grid dd,.exp-stat,.projects-stat{font-variant-numeric:tabular-nums}
+
+/* ---- Header: a real monogram instead of a bare "AI" word ---------------- */
+.site-header .brand{gap:14px;align-items:center}
+.site-header .brand-mark{
+  display:grid;place-items:center;flex:0 0 auto;
+  width:44px;height:44px;border-radius:10px;
+  background:var(--text);color:var(--bg-cream);
+  font:700 17px/1 var(--sans);letter-spacing:-.02em;
+  box-shadow:inset 0 -3px 0 var(--warm);
+}
+.site-header .brand-sub{letter-spacing:.06em}
+.desktop-nav>a:not(.nav-cta){position:relative;transition:color .2s}
+.desktop-nav>a:not(.nav-cta)::after{
+  content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)
+}
+.desktop-nav>a:not(.nav-cta):hover::after{transform:scaleX(1)}
+.desktop-nav>a[aria-current="page"]:not(.nav-cta){color:var(--text);font-weight:600}
+.nav-cta,.button,.site-bottom-cta-button{transition:transform .2s var(--ease),box-shadow .2s,background-color .2s,border-color .2s}
+.nav-cta:hover,.button:hover,.site-bottom-cta-button:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.nav-cta:active,.button:active,.site-bottom-cta-button:active{transform:none}
+
+/* ---- Home hero ---------------------------------------------------------- */
+.home .hero-accent{
+  background:linear-gradient(transparent 70%,var(--warm-soft) 70%,var(--warm-soft) 92%,transparent 92%);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;padding-inline:.04em
+}
+.home .hero-positioning{display:flex;align-items:center;gap:12px}
+.home .hero-positioning::before{content:"";width:28px;height:2px;border-radius:2px;background:var(--warm);flex:0 0 auto}
+.home .hero-topic-tags li{background:color-mix(in srgb,var(--surface) 70%,transparent);backdrop-filter:blur(4px)}
+
+/* ---- Section headings get a consistent site-marker tick ------------------ */
+.editorial-home .editorial-section h2:not(.visually-hidden),
+.exp-modules-section h2{position:relative;padding-top:22px}
+.editorial-home .editorial-section h2:not(.visually-hidden)::before,
+.exp-modules-section h2::before{
+  content:"";position:absolute;left:0;top:0;width:36px;height:3px;border-radius:3px;background:var(--warm)
+}
+
+/* ---- Inner-page title bands: tighter, with a subtle blueprint grid ------- */
+html body.inner-page main .inner-title-band{
+  min-height:0;padding:72px 0 64px;display:block;position:relative;overflow:hidden;isolation:isolate
+}
+html body.inner-page main .inner-title-band::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:32px 32px;
+  -webkit-mask-image:linear-gradient(100deg,transparent 30%,#000 85%);
+          mask-image:linear-gradient(100deg,transparent 30%,#000 85%);
+}
+html body.inner-page .inner-title-band :is(.eyebrow,.projects-eyebrow){display:flex;align-items:center;gap:12px}
+html body.inner-page .inner-title-band :is(.eyebrow,.projects-eyebrow)::before{
+  content:"";width:28px;height:2px;border-radius:2px;background:var(--warm);flex:0 0 auto
+}
+html body.inner-page .inner-title-band h1{max-width:20ch;margin:14px 0 18px}
+html body.inner-page .inner-title-band .container>p:not(.eyebrow):not(.projects-eyebrow){max-width:62ch}
+@media (min-width:760px) and (max-width:1023px){html body.inner-page main .inner-title-band{padding:56px 0 48px}}
+@media (max-width:759px){html body.inner-page main .inner-title-band{padding:36px 0 32px}}
+
+/* ---- Cards: soft depth + lift on hover ---------------------------------- */
+.capability-card,.insight-card,.home-proof-grid>div,.exp-role,.pp-capability{box-shadow:var(--shadow-sm)}
+.capability-card,.insight-card{transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s}
+@media (hover:hover){
+  .capability-card:hover,.insight-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+}
+.cs-open,.audience-actions a,.insight-card-action{transition:color .2s,gap .2s}
+.selected-work-card .cs-open:hover,.help-card .cs-open:hover{color:var(--text)}
+.insight-card-action>span{transition:transform .25s var(--ease)}
+.insight-card:hover .insight-card-action>span{transform:translateX(4px)}
+
+/* ---- Insight articles: readable measure --------------------------------- */
+.insight-reading .container>.insight-article,
+.insight-reading .container>.text-link{max-width:70ch}
+.insight-article section+section{margin-top:44px}
+.insight-article h2{position:relative;padding-left:18px}
+.insight-article h2::before{content:"";position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:3px;background:var(--warm)}
+
+/* ---- E-books: covers that read like covers ------------------------------ */
+body.books .book-card{background:transparent;border:0;box-shadow:none;display:flex;flex-direction:column}
+body.books .book-cover{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:28px 28px 28px 40px;min-height:400px;
+  box-shadow:var(--shadow-md);transition:transform .3s var(--ease),box-shadow .3s var(--ease)
+}
+body.books .book-cover::before{ /* spine */
+  content:"";position:absolute;left:0;top:0;bottom:0;width:12px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--text) 85%,transparent),var(--text));
+}
+body.books .book-cover::after{ /* blueprint grid */
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:24px 24px;
+  -webkit-mask-image:linear-gradient(to top,#000,transparent 70%);mask-image:linear-gradient(to top,#000,transparent 70%)
+}
+body.books .cover-1{background:color-mix(in srgb,var(--accent) 16%,var(--bg-blue))}
+body.books .cover-2{background:color-mix(in srgb,var(--warm) 10%,var(--bg-cream))}
+body.books .book-cover h2{font-size:clamp(28px,2.4vw,36px);font-weight:650;margin-top:48px}
+body.books .book-baseline{padding-top:24px;border-top:1px solid color-mix(in srgb,var(--text) 25%,transparent)}
+body.books .book-baseline>span,
+body.books .book-baseline>span:last-child{font:600 12px/1.4 var(--sans);letter-spacing:.12em;color:var(--text-muted)}
+body.books .book-baseline::after{content:"";width:28px;height:3px;border-radius:3px;background:var(--warm)}
+@media (hover:hover){body.books .book-card:hover .book-cover{transform:translateY(-4px) rotate(-.4deg)}}
+body.books .book-description{padding:24px 4px 0;display:flex;flex-direction:column;flex:1}
+body.books .book-description .text-link{margin-top:auto}
+body.books .book-description .book-progress{align-self:flex-start}
+
+/* ---- Contact: lead with the email, then the alternatives ---------------- */
+body.contact .contact-direct{display:flex;flex-direction:column}
+body.contact .contact-direct>.eyebrow{order:0}
+body.contact .contact-direct>.email-large{order:1;margin-top:20px}
+body.contact .contact-direct>p:not(.email-large):not(:has(a)){order:2}
+body.contact .contact-direct>p:has(a){order:3;margin-top:8px}
+body.contact .contact-direct>.contact-availability{order:4;margin-top:48px;padding:20px 24px;border:1px solid var(--line);border-left:3px solid var(--success);border-radius:12px;background:var(--surface)}
+body.contact .contact-availability .eyebrow{display:flex;align-items:center;gap:8px}
+body.contact .contact-availability .eyebrow::before{
+  content:"";width:8px;height:8px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--success) 18%,transparent)
+}
+body.contact .contact-compose{padding:32px;border:1px solid var(--line);border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm)}
+body.contact :is(input,select,textarea){transition:border-color .2s,box-shadow .2s;background:var(--bg-cream)}
+body.contact :is(input,select,textarea):focus{outline:none;border-color:var(--accent);box-shadow:var(--ring);background:var(--surface)}
+@media (max-width:759px){body.contact .contact-compose{padding:20px}}
+
+/* ---- Bottom CTA: quiet texture so it doesn't read as a flat slab -------- */
+.site-bottom-cta{position:relative;overflow:hidden;isolation:isolate}
+.site-bottom-cta::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:32px 32px;
+  -webkit-mask-image:linear-gradient(100deg,transparent 40%,#000);mask-image:linear-gradient(100deg,transparent 40%,#000)
+}
+.site-bottom-cta h2{letter-spacing:-.02em}
+
+/* ---- Footer ------------------------------------------------------------- */
+.site-bottom-mark{box-shadow:inset 0 -3px 0 var(--warm)}
+.site-bottom-footer a{transition:color .2s,opacity .2s}
+.site-bottom-pages a:hover,.site-bottom-social a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+
+/* ---- Motion preferences ------------------------------------------------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}
+  .capability-card:hover,.insight-card:hover,body.books .book-card:hover .book-cover{transform:none}
+}

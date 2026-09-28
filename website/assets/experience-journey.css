@@ -1,0 +1,59 @@
+/* Experience is a native reading page: no pinning, video or animation library. */
+.experience-page-index{display:flex;flex-wrap:wrap;gap:12px 32px;padding-block:22px;border-bottom:1px solid var(--line);}
+.experience-page-index a{display:inline-flex;align-items:center;min-height:44px;font-size:16px;font-weight:500;border-bottom:1px solid var(--text);}
+.experience-record,.experience-role-record,.experience-qualifications,.journey-entry{scroll-margin-top:112px;}
+.experience-record-grid{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(0,1.7fr);gap:clamp(40px,5vw,80px);align-items:start;}
+.experience-record-intro{min-width:0;}
+.experience .experience-section-title{font:600 clamp(2.25rem,1.5rem + 2.5vw,3.5rem)/1.14 var(--sans);letter-spacing:-.035em;overflow-wrap:anywhere;margin:20px 0 26px;}
+.experience-record-intro>.eyebrow,.experience-qualifications>.container>.eyebrow{font-size:14px;}
+.experience-record-intro>p{font-size:16px;line-height:1.75;margin-top:20px;}
+.experience-record-intro>.text-link{margin-top:26px;min-height:44px;}
+.experience-record .experience-record-intro>.eyebrow,.experience-qualifications>.container>.eyebrow{color:var(--accent);}
+.experience-phases,.experience-roles{min-width:0;}
+.experience .journey-entry{border-color:var(--line);}
+.experience .journey-entry:last-child{border-color:var(--line);}
+.experience .journey-entry>summary{padding-block:28px;grid-template-columns:30px minmax(0,1fr) 24px;gap:22px;}
+.experience .journey-entry>summary .mono{font-size:14px;color:var(--text-muted);}
+.experience .journey-entry>summary h3{font-size:clamp(1.625rem,1.3rem + 1vw,2rem);font-weight:600;line-height:1.25;overflow-wrap:anywhere;}
+.experience .journey-entry[open]>summary h3,.experience .journey-entry[open]>summary .mono{color:var(--accent);}
+.journey-entry-body{padding:0 0 32px 52px;}
+.journey-entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;}
+.journey-entry-grid h4{font:600 1.25rem/1.45 var(--sans);letter-spacing:-.01em;color:var(--text);margin:0 0 14px;}
+.journey-entry-grid p{font-size:16px;line-height:1.75;}
+.journey-entry-media{margin:26px 0 0;max-width:560px;}
+.journey-entry-media img{width:100%;height:auto;aspect-ratio:2.6;object-fit:cover;border:1px solid var(--line);background:var(--surface);}
+#journey-phase-3 .journey-entry-media img{object-fit:contain;background:var(--text);}
+.journey-entry-media figcaption{font:400 12px/1.6 var(--mono);color:var(--text-muted);text-align:right;margin-top:8px;}
+.experience-role-context{padding-bottom:30px;}
+.experience-role-context p{font-size:16px;line-height:1.75;color:var(--text-muted);margin:0 0 18px;}
+.experience-role-context p:last-child{font-size:14px;margin-bottom:0;}
+.experience-roles .career-role h3{font-size:clamp(1.5rem,1.2rem + .8vw,1.875rem);font-weight:600;line-height:1.25;}
+.experience-roles .analysis-note>.eyebrow{font-size:14px;font-weight:500;}
+.experience-qualification-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;margin-bottom:48px;}
+.experience .experience-qualification-grid .qualification{display:block;width:auto;max-width:none;margin:0;padding-top:24px;border-color:var(--line);}
+.experience-qualification-grid .qualification>span{font-size:20px;line-height:1.4;color:var(--text);}
+.experience-qualification-grid .qualification p{font-size:16px;color:var(--text-muted);}
+.experience-skills{border-block:1px solid var(--line);scroll-margin-top:112px;}
+.experience-skills>summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:64px;padding-block:22px;}
+.experience-skills>summary h3{font-size:26px;line-height:1.3;overflow-wrap:anywhere;}
+.experience-skills>summary .plus{flex:none;}
+.experience-skills>div{padding-bottom:24px;}
+.experience-skill-group{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding-block:20px;border-top:1px solid var(--line);}
+.experience-skill-group h4{font:600 18px/1.5 var(--sans);color:var(--accent);margin:0;}
+.experience-skill-group ul{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0;}
+.experience-skill-group li{font-size:14px;line-height:1.5;padding:7px 12px;border:1px solid var(--line);border-radius:3px;background:var(--surface);}
+@media(max-width:1100px){.experience-record-grid{grid-template-columns:1fr;gap:38px;}.experience-record-intro{max-width:70ch;}}
+@media(max-width:760px){
+ .experience-page-index{gap:8px 24px;padding-block:16px;}
+ .experience-page-index a{font-size:14px;}
+ .experience .experience-section-title{font-size:clamp(2rem,1.4rem + 3vw,2.625rem);}
+ .experience .journey-entry>summary{grid-template-columns:24px minmax(0,1fr) 20px;gap:14px;}
+ .experience .journey-entry>summary h3{font-size:24px;}
+ .journey-entry-body{padding-left:0;}
+ .journey-entry-grid{grid-template-columns:1fr;gap:26px;}
+ .journey-entry-grid h4{font-size:20px;}
+ .experience-qualification-grid{grid-template-columns:1fr;gap:30px;}
+ .experience-skill-group{grid-template-columns:1fr;gap:14px;}
+ .experience-skills>summary h3{font-size:24px;}
+}
+@media print{.experience-page-index,.journey-entry-media{display:none;}.experience-record-grid,.journey-entry-grid{display:block;}.experience .experience-record,.experience .experience-qualifications{background:var(--surface);color:var(--text);}.experience .experience-record p,.experience .experience-record h3,.experience .experience-record h4,.experience-qualification-grid .qualification p,.experience-qualification-grid .qualification>span{color:var(--text)!important;}.experience-record-grid{break-inside:auto;}.journey-entry-body{padding-left:0;}}
