@@ -94,15 +94,6 @@ a,button,.button,.nav-cta,.status-chip,.projects-filters button,.audience-select
   .projects-link{transition:color var(--m-fast) ease,border-color var(--m-fast) ease!important}
 
   /* ---------------------------------------------------------------------
-     6. Icons — lift a couple of pixels and take the redline
-     --------------------------------------------------------------------- */
-  .audience-selector-card svg,.audience-detail-icon,.site-bottom-social-icon,.exp-stage-card>svg{transition:transform var(--m-base) var(--m-ease),color var(--m-base) ease}
-  .audience-selector-card:hover svg{transform:translateY(-2px);color:var(--redline)}
-  .audience-detail-tile:hover .audience-detail-icon{transform:translateY(-2px);color:var(--redline);border-color:var(--redline)!important}
-  .site-bottom-social a:hover .site-bottom-social-icon{transform:translateY(-2px)}
-  .exp-stage-card:hover>svg{transform:translateY(-2px)}
-
-  /* ---------------------------------------------------------------------
      7. Projects — register rows: redline marker, tint, figure rises
      --------------------------------------------------------------------- */
   .projects-table-wrap .projects-table .project-row,html body.home .selected-work-card{position:relative}
@@ -120,13 +111,6 @@ a,button,.button,.nav-cta,.status-chip,.projects-filters button,.audience-select
     html body.home .selected-work-card:hover h3{transform:translateX(3px)}
   }
 
-  /* help columns and "three ways" columns: the heading nudges, link underline draws */
-  .home .help-card h3,body.home .work-with-me-grid h3,.insights-index .insight-card h2{transition:color var(--m-base) ease,transform .35s var(--m-ease)}
-  @media (hover:hover){
-    .home .help-card:hover h3,body.home .work-with-me-grid .capability-card:hover h3,.insights-index .insight-card:hover h2{transform:translateX(3px);color:var(--accent)}
-    .home .help-card:hover .cs-open{background-size:100% 1px}
-  }
-
   /* books are objects: they lift, nothing rotates */
   body.books .book-cover{transition:transform .45s var(--m-ease),box-shadow .45s var(--m-ease)!important}
   @media (hover:hover){body.books .book-card:hover .book-cover{transform:translateY(-4px)!important;box-shadow:0 18px 36px -18px rgba(31,46,54,.45)!important}}
@@ -142,6 +126,20 @@ a,button,.button,.nav-cta,.status-chip,.projects-filters button,.audience-select
     body.home .lake-hero-copy{pointer-events:none}
     body.home .lake-hero-copy>*{pointer-events:auto;max-width:calc(100% - var(--frame-w) - 64px)}
     body.home .lake-hero-image:hover{transform:scale(1.04)!important;clip-path:inset(1.923%);filter:saturate(1) contrast(1.03)}
+  }
+
+
+  /* ---------------------------------------------------------------------
+     Figures unroll left to right as they enter, like a sheet being laid out;
+     the caption follows. Hovering a figure (or its project row) zooms gently.
+     --------------------------------------------------------------------- */
+  .fig-unroll .fig-img{clip-path:inset(0 100% 0 0);transition:clip-path .9s var(--m-ease-io) var(--fig-delay,0ms)}
+  .fig-unroll figcaption{opacity:0;transition:opacity .5s var(--m-ease) calc(var(--fig-delay,0ms) + .45s)}
+  .fig-unroll.is-in .fig-img{clip-path:inset(0 0 0 0)}
+  .fig-unroll.is-in figcaption{opacity:1}
+  .fig-img img{transition:transform .8s var(--m-ease)}
+  @media (hover:hover){
+    .fig:hover .fig-img img,.project-row:hover .fig-strip--one .fig-img img,.selected-work-card:hover .fig--thumb img{transform:scale(1.03)}
   }
 
   /* ---------------------------------------------------------------------

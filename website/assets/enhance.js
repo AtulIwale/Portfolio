@@ -218,6 +218,85 @@
     });
   }
 
+  /* ---------- 4b. figures from the real work ---------- */
+  var IMG = 'assets/work/';
+  var FIG = {
+    'p14-wide':   [1600, 869,  'FIG. 14.1 — Coding a real 2024 OSHA report in the browser', 'Construction Safety Intelligence app: an OSHA incident narrative with the model coding it as Struck by or against object, matching OSHA’s own coder'],
+    'p14-detail': [900, 851,   'FIG. 14.2 — The words that drove the call', 'Model coding panel showing cause probabilities and the incident words that pushed the prediction'],
+    'p14-heat':   [1400, 545,  'FIG. 14.3 — Hazard mix by trade', 'Heat table of injury causes as a share of each trade’s reports'],
+    'p15-wide':   [1600, 894,  'FIG. 15.1 — Forecasting a Brooklyn new-building filing', 'NYC Permit Approval Forecast app: filing inputs and the forecast panel'],
+    'p15-detail': [900, 900,   'FIG. 15.2 — About 237 days, with 90 / 180 / 365-day odds', 'Forecast panel: median of about 237 days to approval, 21%, 41% and 64% chance of approval within 90, 180 and 365 days'],
+    'p15-curve':  [900, 613,   'FIG. 15.3 — Kaplan–Meier approval curves by job type', 'Share of filings approved by days since filing, one curve per job type'],
+    'p13-hero':   [1072, 1440, 'FIG. 13.0 — Estimated construction cost', 'Cost Plan Estimator result: \u20B928,047 per square metre with its range and cost drivers'],
+    'p13-wide':   [1600, 1118, 'FIG. 13.1 — Feasibility estimate with its P10–P90 range', 'Cost Plan Estimator: building inputs beside the estimated cost per square metre, range and cost drivers'],
+    'p05-detail': [900, 769,   'FIG. 05.1 — A clause rated High risk, and why', 'Clause Risk Reader: an indemnity clause rated High risk at 98%, with the words the network relied on highlighted'],
+    'p03-detail': [1400, 689,  'FIG. 03.1 — Delays and stuck submittals at a glance', 'Site Progress dashboard: 50 activities, 31 delayed, 300 submittals, 25 stuck, and the delayed-activities list'],
+    'p01-detail': [1400, 710,  'FIG. 01.1 — Mumbai Metro Viaduct: forecast against CPI', 'Final-cost forecast month by month against the CPI formula, and the planned, earned and actual cost S-curve'],
+    'p04-detail': [900, 1563,  'FIG. 04.1 — Why this wage line needs a check', 'Payroll anomaly detail: a worker’s scores and reason codes compared with normal'],
+    'p02-detail': [1400, 852,  'FIG. 02.1 — “Is invoice 45 paid?” answered from the record', 'ERP Copilot chat: the question, the retrieved invoice record and suggested questions']
+  };
+  var ROW_FIGS = {
+    '14-': { set: ['p14-wide', 'p14-detail', 'p14-heat'] },
+    '15-': { set: ['p15-wide', 'p15-detail', 'p15-curve'] },
+    '13-': { one: 'p13-wide' }, '05-': { one: 'p05-detail' }, '03-': { one: 'p03-detail' },
+    '01-': { one: 'p01-detail' }, '04-': { one: 'p04-detail' }, '02-': { one: 'p02-detail' }
+  };
+  var WORK_THUMBS = {
+    'Construction Safety Intelligence': 'p14-detail', 'NYC Permit Approval Forecast': 'p15-detail',
+    'Project Cost & Margin Intelligence': 'p01-detail', 'Cost Plan Estimation (ML)': 'p13-hero',
+    'Construction ERP Intelligence Copilot': 'p02-detail', 'Contract Lifecycle Intelligence': 'p05-detail'
+  };
+  function figure(key, opts) {
+    var f = FIG[key], fig = el('figure', { class: 'fig' + (opts && opts.cls ? ' ' + opts.cls : '') });
+    var frame = el('div', { class: 'fig-img' });
+    frame.appendChild(el('img', { src: IMG + key + '.webp', width: f[0], height: f[1], alt: f[3], loading: 'lazy', decoding: 'async' }));
+    fig.appendChild(frame);
+    if (!(opts && opts.noCaption)) fig.appendChild(el('figcaption', null, esc(f[2])));
+    fig.style.setProperty('--ar', (f[0] / f[1]).toFixed(3));
+    fig.style.setProperty('--nw', f[0]);
+    return fig;
+  }
+  function initFigures() {
+    Array.prototype.forEach.call(doc.querySelectorAll('.project-row'), function (row) {
+      var spec = ROW_FIGS[(row.id || '').slice(0, 3)];
+      if (!spec || row.querySelector('.project-figs')) return;
+      var cell = el('td', { class: 'project-figs' });
+      var strip = el('div', { class: 'fig-strip' + (spec.set ? ' fig-strip--set' : ' fig-strip--one') });
+      (spec.set || [spec.one]).forEach(function (k) { strip.appendChild(figure(k)); });
+      cell.appendChild(strip);
+      row.appendChild(cell);
+      row.classList.add('has-figs');
+    });
+    Array.prototype.forEach.call(doc.querySelectorAll('.selected-work-card'), function (card) {
+      var h = card.querySelector('h3'), key = h && WORK_THUMBS[h.textContent.trim()];
+      if (!key || card.querySelector('.fig')) return;
+      card.appendChild(figure(key, { cls: 'fig--thumb', noCaption: true }));
+    });
+    var side = doc.querySelector('.experience-timeline-page .exp-sidebar-card');
+    if (side && !side.querySelector('.fig--portrait')) {
+      var pf = el('figure', { class: 'fig fig--portrait' });
+      var pfi = el('div', { class: 'fig-img' });
+      pfi.appendChild(el('img', { src: 'assets/people/portrait-4x5.webp', width: 480, height: 600, alt: 'Atul Iwale', loading: 'lazy', decoding: 'async' }));
+      pf.appendChild(pfi);
+      pf.appendChild(el('figcaption', null, 'Atul Iwale · PMP · Photo 2023'));
+      side.insertBefore(pf, side.firstChild);
+    }
+    // figures unroll as they enter the viewport
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    var vh = window.innerHeight;
+    var io = new IntersectionObserver(function (entries) {
+      entries.filter(function (e) { return e.isIntersecting; }).forEach(function (e, i) {
+        var sib = e.target.parentElement ? Array.prototype.indexOf.call(e.target.parentElement.children, e.target) : 0;
+        e.target.style.setProperty('--fig-delay', (Math.min(sib, 3) * 90) + 'ms');
+        e.target.classList.add('is-in'); io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.15 });
+    Array.prototype.forEach.call(doc.querySelectorAll('.fig'), function (f) {
+      if (f.getBoundingClientRect().top < vh * 0.9) return;
+      f.classList.add('fig-unroll'); io.observe(f);
+    });
+  }
+
   /* ---------- 5. reading time on insight articles ---------- */
   function initReadingTime() {
     var article = doc.querySelector('.insight-article');
@@ -350,7 +429,7 @@
 
   function boot() {
     root.classList.add('enh');
-    var steps = [initScrollUi, initPalette, initReveal, initStateMotion, initSmoothAnchors, initCountUp, initRegister, initReadingTime, initCopyEmail];
+    var steps = [initScrollUi, initPalette, initFigures, initReveal, initStateMotion, initSmoothAnchors, initRegister, initReadingTime, initCopyEmail];
     steps.forEach(function (fn) { try { fn(); } catch (err) { if (window.console) console.warn('[enhance]', fn.name, err); } });
   }
   // Wait for the page to finish loading so React hydration has completed before we touch the DOM.

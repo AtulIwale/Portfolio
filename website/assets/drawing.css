@@ -534,3 +534,70 @@ body.transformation .crosshair{color:var(--redline)!important}
 @media (max-width:759px){.projects-filters{flex-wrap:wrap!important;overflow:visible!important}
   .case-result{grid-template-columns:1fr!important}
   .case-result>div:last-child{border-left:0;border-top:1px solid var(--rule);padding-left:0!important}}
+
+/* ==========================================================================
+   Figures from the real work (visual-assets)
+   Every image is a numbered figure cut from one of the project apps.
+   ========================================================================== */
+.fig{margin:0;min-width:0}
+.fig-img{position:relative;overflow:hidden;background:#fff;border:1px solid var(--rule-strong)}
+.fig-img img{display:block;width:100%;height:auto}
+.fig figcaption{margin-top:8px;font:500 10.5px/1.45 var(--plex);letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+
+/* hero: the Cost Plan Estimator result, set like a sheet in its frame */
+body.home .lake-hero-image{object-position:50% 0!important;filter:none!important;background:var(--paper);box-shadow:0 0 0 1px var(--rule-strong)}
+body.home .lake-hero::before{content:"FIG. 01 \2014  COST PLAN ESTIMATOR \00B7  \20B9 28,047 PER M\00B2  \00B7  PROJECT 13"!important}
+
+/* byline: a small real portrait beside the name */
+body.home .hero-positioning{gap:14px!important}
+body.home .hero-positioning::before{width:40px!important;height:40px!important;flex:0 0 40px;
+  background:url("people/portrait-sq.webp") center/cover no-repeat,var(--ink)!important;border:1px solid var(--ink);border-radius:0!important}
+
+/* experience sidebar portrait */
+.experience-timeline-page .fig--portrait{margin:0 0 28px}
+.experience-timeline-page .fig--portrait .fig-img{max-width:280px;border-color:var(--ink)}
+
+/* projects register: figure row under the text */
+.projects-table-wrap .projects-table .project-row.has-figs{
+  grid-template-areas:"no group value metric links" "no name value metric links" "no status value metric links" "no figs figs figs figs"}
+.projects-table-wrap .project-row .project-figs{grid-area:figs;margin-top:26px}
+.fig-strip{display:flex;gap:16px;align-items:flex-start}
+.fig-strip--set .fig{flex:var(--ar) 1 0}          /* widths follow aspect ratio, so heights match and nothing is cropped */
+.fig-strip--one .fig{flex:0 1 min(640px,62%)}
+.fig-strip--one .fig-img{max-height:380px}
+.fig-strip--one .fig-img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40px;background:linear-gradient(transparent,#fff);pointer-events:none}
+.projects-table tbody .project-row.has-figs:nth-child(even) .fig-strip--one{justify-content:flex-end}
+
+/* selected work on home: a thumbnail per row */
+html body.home .selected-work-card{grid-template-columns:56px minmax(0,1fr) minmax(0,1.35fr) 220px!important;
+  grid-template-areas:"no title desc thumb" "no chip desc thumb" "no link desc thumb"!important}
+html body.home .selected-work-card .cs-open{justify-self:start!important;margin-top:14px!important}
+.fig--thumb{grid-area:thumb;align-self:start}
+.fig--thumb .fig-img{aspect-ratio:16/10}
+.fig--thumb .fig-img img{height:100%;object-fit:cover;object-position:0 0}
+
+@media (max-width:1100px){
+  .projects-table-wrap .projects-table .project-row.has-figs{
+    grid-template-areas:"no group value metric" "no name value metric" "no status value metric" "no links value metric" "no figs figs figs"}
+  html body.home .selected-work-card{grid-template-columns:44px minmax(0,1fr) minmax(0,1.2fr) 180px!important}
+}
+@media (max-width:759px){
+  .projects-table-wrap .projects-table .project-row.has-figs{
+    grid-template-areas:"no group" "no name" "no metric" "no value" "no status" "no links" "no figs"}
+  .fig-strip--set{flex-wrap:wrap;gap:12px}
+  .fig-strip--set .fig:first-child{flex-basis:100%}
+  .fig-strip--one .fig{flex-basis:100%}
+  .projects-table tbody .project-row.has-figs:nth-child(even) .fig-strip--one{justify-content:flex-start}
+  html body.home .selected-work-card{grid-template-columns:34px minmax(0,1fr)!important;
+    grid-template-areas:"no chip" "no title" "no desc" "no thumb" "no link"!important}
+  .fig--thumb{margin-top:14px}
+  .fig--thumb .fig-img{aspect-ratio:16/9}
+  .experience-timeline-page .fig--portrait .fig-img{max-width:200px}
+}
+body.home .lake-hero-image{-webkit-mask-image:none!important;mask-image:none!important;opacity:1!important}
+/* thumbnails zoom into the headline corner of each panel so they read at small size */
+.fig--thumb .fig-img img{width:210%!important;max-width:none;height:auto!important;object-fit:unset!important}
+@media (max-width:759px){.fig--thumb .fig-img img{width:150%!important}}
+/* single figures share one text scale: width follows each capture's native width */
+.fig-strip--one .fig{flex:0 1 calc(var(--nw,1400) * .42px)!important}
+@media (max-width:759px){.fig-strip--one .fig{flex-basis:100%!important}}
