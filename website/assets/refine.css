@@ -395,3 +395,12 @@ body.books .book-cover{transition:transform .2s ease-out,box-shadow .3s var(--ea
 .projects-table-wrap .projects-table .project-row .project-status{text-align:left}
 .projects-table-wrap .projects-table .project-row .project-badges{flex-direction:row!important;justify-content:flex-start!important;align-items:center!important}
 .projects-table-wrap .projects-table .project-row .project-badges>*{margin:0!important}
+
+/* Who I help: one column of detail tiles on phones so each reads in ~3 lines */
+@media (max-width:600px){
+  .editorial-audience .audience-detail-panel{grid-template-columns:1fr;gap:20px;padding:24px 20px}
+  .editorial-audience .audience-detail-tile{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:start}
+  .editorial-audience .audience-detail-tile .audience-detail-icon{grid-row:span 2}
+  .editorial-audience .audience-detail-tile p{grid-column:2;margin:0}
+  .editorial-audience .audience-detail-tile .audience-detail-label{margin-bottom:2px}
+}
