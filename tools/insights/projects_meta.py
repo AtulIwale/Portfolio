@@ -219,4 +219,9 @@ IMAGE_ALT = {
  'insight-forecasting-final-cost': 'A partly built reinforced-concrete frame at dusk, with two lit tower cranes and two workers in hi-vis walking across the wet slab.',
  'insight-material-price-escalation': 'A materials yard with bundles of steel reinforcement bars, stacked timber and covered cement bags, and a delivery truck at the gate.',
  'insight-construction-payments': 'A site office desk at dusk with stacked folders, a calculator, a mug and a hard hat, looking out onto a lit construction site.',
+ 'insight-booking-cancellations': 'A residential sales gallery with a lit scale model of apartment towers, lounge chairs by the window and real towers under construction outside.',
+ 'insight-attendance-before-payroll': 'Workers in hard hats and hi-vis vests walking through a site entrance turnstile at dawn, past a wall-mounted attendance terminal.',
+ 'insight-rework-bad-data': 'Two workers in PPE repairing a precast concrete beam with a dust-extracted grinder and patching tools, with a gantry crane behind.',
+ 'insight-inventory-records': 'A storekeeper in hi-vis checking pipe fittings on steel shelving in a construction store, with cable coils, bins and blank tags.',
+ 'insight-predictive-maintenance': 'A technician with a torch inspecting the hydraulic lines on an excavator arm in an open workshop bay, with a tool trolley alongside.',
 }
