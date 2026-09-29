@@ -43,3 +43,100 @@ p,li,dd{color:inherit}
 .site-bottom-mark{box-shadow:none!important}
 .status-flagship{background:var(--accent)!important;border-color:var(--accent)!important}
 .enh-progress{background:var(--sage)!important}
+
+/* ==========================================================================
+   Inner pages speak the same language as the redesigned homepage:
+   quiet mono label, serif title at the homepage scale, serif figures,
+   the green palette for every mark, and the same closing band.
+   ========================================================================== */
+:root{--rd-serif:'Instrument Serif','Iowan Old Style',Georgia,serif;--rd-sans:'Manrope','Segoe UI',system-ui,sans-serif;
+  --rd-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;--rd-ease:cubic-bezier(.22,.61,.36,1)}
+
+/* page title band: no drawing-sheet tag, no grid, homepage type scale */
+html body.inner-page main .inner-title-band::before{display:none!important}
+html body.inner-page main .inner-title-band{border-bottom:0!important;padding:clamp(48px,6vw,88px) 0 clamp(32px,4vw,56px)!important}
+html body.inner-page main :is(.inner-title-band,.page-intro) :is(.eyebrow,.projects-eyebrow){
+  font:500 11px/1.5 var(--rd-mono)!important;letter-spacing:.24em!important;text-transform:uppercase;color:var(--text)!important}
+html body.inner-page main :is(.inner-title-band,.page-intro) :is(.eyebrow,.projects-eyebrow)::before{content:none!important;display:none!important}
+html body.inner-page main :is(.inner-title-band,.page-intro) .page-kicker .mono{font:500 11px/1.5 var(--rd-mono)!important;letter-spacing:.16em!important;color:var(--text-muted)!important}
+html body.inner-page main :is(.inner-title-band,.page-intro) h1{
+  font:400 clamp(44px,4.3vw,66px)/1.02 var(--rd-serif)!important;font-stretch:normal!important;letter-spacing:-.012em!important;
+  color:var(--text)!important;max-width:18ch!important;margin-top:22px!important}
+html body.writing main .page-intro:not(.inner-hero) h1{max-width:24ch!important}
+html body.inner-page main .inner-title-band .container>p:not(.eyebrow):not(.projects-eyebrow),
+html body.inner-page main .inner-title-band .inner-hero-intro{
+  font:400 18px/1.6 var(--rd-sans)!important;color:var(--text-muted)!important;max-width:58ch!important;margin-top:26px!important}
+
+/* stats strips: serif figures on a hairline strip, as on the homepage */
+html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats){
+  gap:0!important;border-top:1px solid var(--rule-strong)!important;border-bottom:1px solid var(--rule)!important}
+html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats)>div{
+  border:0!important;border-left:1px solid var(--rule)!important;border-radius:0!important;background:transparent!important;padding:28px 24px 26px!important}
+html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats)>div:first-child{border-left:0!important;padding-left:0!important}
+html body.inner-page .projects-stats dd,
+html body.inner-page .experience-timeline-page .exp-stats dt{
+  font:400 clamp(44px,4vw,58px)/1 var(--rd-serif)!important;letter-spacing:-.01em!important;color:var(--text)!important;
+  font-variant-numeric:lining-nums tabular-nums}
+html body.inner-page .projects-stats dt,
+html body.inner-page .experience-timeline-page .exp-stats dd{
+  font:500 11px/1.5 var(--rd-mono)!important;letter-spacing:.16em!important;text-transform:uppercase;color:var(--text-muted)!important;margin-top:14px!important}
+
+/* process steps: one green palette instead of four colours and orange */
+html body .steps,
+html body .steps.steps--project-management,
+html body .steps.steps--data-analytics,
+html body .steps.steps--machine-learning{--steps-accent:var(--accent)!important;color:var(--text)!important;font-family:var(--rd-sans)!important}
+html body .steps>li::before{background:var(--paper)!important;border-width:1.5px!important}
+html body .steps>li:not(:last-child)::after{width:1px!important;left:10.5px!important;opacity:.35!important}
+html body .steps>li:last-child::before{background:var(--sage)!important;border-color:var(--sage)!important;color:#fff!important}
+
+/* closing band: same deep green, serif line, light button and arch panel */
+html body .site-bottom-cta{background:var(--green-deep)!important;padding:clamp(72px,8vw,112px) 0 clamp(64px,7vw,96px)!important}
+html body .site-bottom-cta::before{content:""!important;position:absolute!important;inset:0!important;z-index:-1!important;opacity:1!important;
+  -webkit-mask-image:none!important;mask-image:none!important;background-size:auto!important;
+  background:linear-gradient(90deg,var(--green-deep) 0%,var(--green-deep) 48%,rgba(30,46,40,.55) 72%,rgba(30,46,40,.2) 100%)!important}
+html body .site-bottom-cta::after{content:"";position:absolute;top:0;right:0;bottom:0;width:48%;z-index:-2;
+  background:url("arch-panel.webp") 50% 30%/cover no-repeat;filter:grayscale(.5) contrast(1.05) brightness(.85)}
+html body .site-bottom-cta-inner{align-items:flex-end!important;gap:32px!important}
+html body .site-bottom-cta h2{font:400 clamp(38px,4.2vw,60px)/1.02 var(--rd-serif)!important;font-stretch:normal!important;letter-spacing:-.01em!important;
+  color:#F4F2EE!important;max-width:18ch}
+html body .site-bottom-cta p{margin-top:16px!important;color:#D2D7D1!important;font:400 16.5px/1.6 var(--rd-sans)!important;max-width:48ch}
+html body .site-bottom-cta a.site-bottom-cta-button{display:inline-flex!important;align-items:center;justify-content:center;min-height:52px;padding:0 26px!important;
+  background:#F4F2EE!important;color:var(--green-deep)!important;border:1px solid #F4F2EE!important;border-radius:2px!important;
+  font:600 15px/1 var(--rd-sans)!important;white-space:nowrap;box-shadow:none!important;transform:none!important;transition:background-color .25s,color .25s}
+html body .site-bottom-cta a.site-bottom-cta-button:hover{background:transparent!important;color:#F4F2EE!important}
+
+/* filters, tags and section links in the homepage's square, hairline style */
+html body.inner-page .projects-filters button{border-radius:2px!important;border-color:var(--rule-strong)!important;font:500 12px/1 var(--rd-mono)!important;letter-spacing:.08em!important}
+html body.inner-page .projects-filters button[aria-pressed="true"]{background:var(--accent)!important;border-color:var(--accent)!important;color:#F4F2EE!important}
+
+@media (max-width:680px){
+  html body.inner-page main :is(.inner-title-band,.page-intro) h1{font-size:clamp(40px,11vw,52px)!important;max-width:none!important}
+  html body.inner-page main .inner-title-band .container>p:not(.eyebrow):not(.projects-eyebrow),
+  html body.inner-page main .inner-title-band .inner-hero-intro{font-size:16.5px!important}
+  html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats)>div{padding:22px 16px 20px!important;border-top:1px solid var(--rule)!important}
+  html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats)>div:nth-child(odd){border-left:0!important;padding-left:0!important}
+  html body.inner-page :is(.projects-stats,.experience-timeline-page .exp-stats)>div:nth-child(-n+2){border-top:0!important}
+  html body.inner-page .projects-stats dd,html body.inner-page .experience-timeline-page .exp-stats dt{font-size:44px!important}
+  html body .site-bottom-cta-inner{flex-direction:column!important;align-items:flex-start!important}
+  html body .site-bottom-cta::after{width:100%;opacity:.35}
+  html body .site-bottom-cta::before{background:linear-gradient(180deg,rgba(30,46,40,.75),var(--green-deep) 70%)!important}
+  html body .site-bottom-cta a.site-bottom-cta-button{width:100%;justify-content:space-between!important}
+}
+
+/* experience strip: the hairlines sit inside the container gutter */
+html body.inner-page .experience-timeline-page .exp-stats{border:0!important;
+  background:linear-gradient(var(--rule-strong),var(--rule-strong)) var(--gut) 0/calc(100% - 2*var(--gut)) 1px no-repeat,
+             linear-gradient(var(--rule),var(--rule)) var(--gut) 100%/calc(100% - 2*var(--gut)) 1px no-repeat!important}
+/* project headline figures in the homepage serif */
+html body .projects-table-wrap .project-row::after{font:400 clamp(34px,2.8vw,42px)/1 var(--rd-serif)!important;letter-spacing:-.01em!important;color:var(--text)!important}
+html body .projects-table-wrap .project-row[data-metric]::after{border-top:1px solid var(--rule-strong)!important;padding-top:12px!important}
+@media (max-width:680px){html body .projects-table-wrap .project-row::after{font-size:34px!important}}
+/* no full-bleed heavy rule under the transformation title; square meta chips */
+html body.inner-page main .page-intro.contextual-header{border-bottom:0!important;box-shadow:none!important}
+html body.inner-page main .page-intro.contextual-header::after{display:none!important}
+html body .enh-meta span{border-radius:2px!important;border-color:var(--rule-strong)!important}
+/* figures sit on one line even when a label wraps */
+html body.inner-page .experience-timeline-page .exp-stats>div{justify-content:flex-start!important}
+html body.inner-page .projects-stats>div{justify-content:flex-end!important}
