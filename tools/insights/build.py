@@ -11,6 +11,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 SITE = os.environ.get('INS_SITE') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'website')
 ASSETS = os.environ.get('INS_ASSETS', 'assets/redesign')
 SITE_JS = os.environ.get('INS_SITE_JS', 'home.js')
+# 'merged': the photo sits behind the right of the title band and fades into it; no featured block
+LAYOUT = os.environ.get('INS_LAYOUT', 'stacked')
 
 def c(*ns):
     """Numbered citation link(s) to the sources list."""
@@ -124,15 +126,21 @@ def article(p, allposts):
     img = post_image(p['slug'])
     hero_fig = (f'<figure class="ins-hero-fig rd-wrap"><img src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
                 '<figcaption>AI-generated illustration</figcaption></figure>') if img else ''
+    band_img = (f'<img class="ins-hero-bg" src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
+                '<span class="ins-hero-credit">AI-generated illustration</span>') if img else ''
+    if LAYOUT == 'merged':
+        hero_fig = ''
+    band_open = f'<div class="ins-hero-band">{band_img}' if LAYOUT == 'merged' else ''
+    band_close = '</div>' if LAYOUT == 'merged' else ''
     main = f'''<main id="main" class="ins">
 <article>
-<header class="ins-hero rd-wrap">
+{band_open}<header class="ins-hero rd-wrap">
 <a class="ins-link ins-link--back" href="/blog.html"><span class="ins-arrow" aria-hidden="true">←</span> All insights</a>
 <p class="rd-label ins-kicker">{p["topic"]} <span>×</span> Research note</p>
 <h1 class="ins-title">{p["title"]}</h1>
 <p class="ins-dek">{p["dek"]}</p>
 <ul class="ins-meta"><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
-</header>
+</header>{band_close}
 {hero_fig}<div class="rd-wrap"><dl class="ins-keys">{keys}</dl></div>
 <div class="ins-body rd-wrap">
 <nav class="ins-toc" aria-label="On this page"><p class="rd-label">On this page</p><ol>{toc}</ol></nav>
@@ -194,20 +202,29 @@ def index(posts):
     hi = f'{ASSETS}/img/insights-header.webp'
     header_fig = (f'<figure class="ins-hero-fig ins-index-fig rd-wrap"><img src="/{hi}?v={vhash(hi)}" width="1536" height="1024" '
                   f'alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async"><figcaption>AI-generated illustration</figcaption></figure>') if os.path.exists(f'{SITE}/{hi}') else ''
-    main = f'''<main id="main" class="ins">
-<header class="ins-index-hero rd-wrap">
-<p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
-<h1 class="ins-title">What the evidence says about building better.</h1>
-<p class="ins-dek">Fifteen research notes on construction cost, safety, data and AI: what published research shows, what it means on a real job, and a case study from my own work in each. Every figure is linked to its source.</p>
-<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
-</header>
-{header_fig}
-<section class="rd-wrap" aria-label="Featured note">
+    feature = f'''<section class="rd-wrap" aria-label="Featured note">
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
 <div><p class="rd-label" style="color:var(--sage)!important">Featured · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
 <span class="ins-link">Read the note <span class="ins-arrow" aria-hidden="true">→</span></span></div>
 <div class="ins-feature-stat">{feat_img}<b>{feat["feature_stat"][0]}</b><span>{feat["feature_stat"][1]}</span></div></a>
-</section>
+</section>'''
+    band_open = band_close = ''
+    if LAYOUT == 'merged':
+        feature = ''
+        if header_fig:
+            band_open = (f'<div class="ins-hero-band"><img class="ins-hero-bg" src="/{hi}?v={vhash(hi)}" width="1536" height="1024" alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async">'
+                         '<span class="ins-hero-credit">AI-generated illustration</span>')
+            band_close = '</div>'
+        header_fig = ''
+    main = f'''<main id="main" class="ins">
+{band_open}<header class="ins-index-hero rd-wrap">
+<p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
+<h1 class="ins-title">What the evidence says about building better.</h1>
+<p class="ins-dek">Fifteen research notes on construction cost, safety, data and AI: what published research shows, what it means on a real job, and a case study from my own work in each. Every figure is linked to its source.</p>
+<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
+</header>{band_close}
+{header_fig}
+{feature}
 <section class="rd-wrap" aria-labelledby="all-notes">
 <div class="ins-sub"><div><p class="rd-label">Library</p><h2 id="all-notes">All notes</h2></div><p><span data-ins-count>{total} notes</span> · filter by topic</p></div>
 <div class="ins-filters" role="group" aria-label="Filter notes by topic" style="margin-top:22px">{filt}</div>
