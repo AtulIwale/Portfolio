@@ -24,15 +24,21 @@
     { t: 'How I help', d: 'Home · four capabilities', h: 'index.html#how-i-help' },
     { t: 'How everything connects', d: 'Home · interactive decision flow', h: 'index.html#decision-flow' },
     { t: 'Selected work', d: 'Home · six highlighted projects', h: 'index.html#selected-work' },
-    { t: 'What 19,021 severe-injury reports say about construction safety', d: 'Research note · safety', h: 'insight-osha-severe-injuries.html' },
-    { t: 'Waiting for a permit: why the average approval time is wrong', d: 'Research note · pre-construction', h: 'insight-permit-wait-times.html' },
-    { t: 'Why construction estimates miss', d: 'Research note · estimating', h: 'insight-cost-estimates-miss.html' },
-    { t: 'Forecasting final cost: when the CPI formula works', d: 'Research note · project controls', h: 'insight-forecasting-final-cost.html' },
-    { t: 'Rework and bad data: the cost line nobody budgets', d: 'Research note · data & quality', h: 'insight-rework-bad-data.html' },
-    { t: 'The construction productivity puzzle', d: 'Research note · productivity', h: 'insight-construction-productivity.html' },
-    { t: 'LLMs on construction documents: what the evidence says', d: 'Research note · AI & automation', h: 'insight-llms-construction-documents.html' },
-    { t: 'Payroll leakage on construction sites', d: 'Research note · workforce & finance', h: 'insight-payroll-fraud.html' },
-    { t: 'Material price shocks and escalation', d: 'Research note · commercial', h: 'insight-material-price-escalation.html' }
+    { t: 'What 19,021 severe-injury reports say about construction safety', d: 'Project 01 note · safety', h: 'insight-osha-severe-injuries.html' },
+    { t: 'Waiting for a permit: why the average approval time is wrong', d: 'Project 02 note · pre-construction', h: 'insight-permit-wait-times.html' },
+    { t: 'Why construction estimates miss', d: 'Project 03 note · estimating', h: 'insight-cost-estimates-miss.html' },
+    { t: 'Reading contract risk from the wording', d: 'Project 04 note · contracts', h: 'insight-contract-clause-risk.html' },
+    { t: 'Where site productivity leaks', d: 'Project 05 note · site progress', h: 'insight-construction-productivity.html' },
+    { t: 'Forecasting final cost: when the CPI formula works', d: 'Project 06 note · project controls', h: 'insight-forecasting-final-cost.html' },
+    { t: 'Payroll leakage on construction sites', d: 'Project 07 note · payroll', h: 'insight-payroll-fraud.html' },
+    { t: 'LLMs on construction documents: what the evidence says', d: 'Project 08 note · AI & automation', h: 'insight-llms-construction-documents.html' },
+    { t: 'Procurement risk: price shocks and late deliveries', d: 'Project 09 note · procurement', h: 'insight-material-price-escalation.html' },
+    { t: 'Getting paid in construction', d: 'Project 10 note · receivables & payables', h: 'insight-construction-payments.html' },
+    { t: 'Inventory records you can trust', d: 'Project 11 note · inventory', h: 'insight-inventory-records.html' },
+    { t: 'Predicting equipment breakdowns', d: 'Project 12 note · plant & equipment', h: 'insight-predictive-maintenance.html' },
+    { t: 'Why flat bookings cancel', d: 'Project 13 note · real estate sales', h: 'insight-booking-cancellations.html' },
+    { t: 'Fix attendance before payroll', d: 'Project 14 note · HR & attendance', h: 'insight-attendance-before-payroll.html' },
+    { t: 'Rework and bad data: the cost line nobody budgets', d: 'Project 15 note · production planning', h: 'insight-rework-bad-data.html' }
   ];
   var GH = 'https://github.com/AtulIwale/Portfolio/tree/main/projects/';
   var LIVE = 'https://atuliwale.github.io/Portfolio/projects/';

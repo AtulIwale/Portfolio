@@ -207,3 +207,22 @@
 .ins .ins-applied h3{color:#F4F2EE!important;font:400 28px/1.15 var(--serif)!important;letter-spacing:0!important}
 .ins-bar-val{white-space:nowrap}
 @media (max-width:680px){.ins-bar{grid-template-columns:1fr 76px}}
+
+/* project brief: the project behind each note */
+.ins-brief{margin:0 0 44px;border:1px solid var(--rule);border-top:2px solid var(--sage);background:var(--surface)}
+.ins-brief-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;padding:22px 26px 16px;border-bottom:1px solid var(--rule)}
+.ins-brief-head .rd-label{width:100%;color:var(--sage)!important}
+.ins .ins-brief-title{font:400 28px/1.1 var(--serif)!important;color:var(--text)!important;margin:0!important;padding:0!important;border:0!important;letter-spacing:-.005em}
+.ins-badge{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;border:1px solid var(--rule-strong);color:var(--text-muted);border-radius:2px}
+.ins-badge--real{background:var(--sage);border-color:var(--sage);color:#fff}
+.ins-brief-grid{display:grid;grid-template-columns:1fr 1fr;margin:0}
+.ins-brief-grid>div{padding:14px 26px 16px;border-bottom:1px solid var(--rule)}
+.ins-brief-grid>div:nth-child(odd){border-right:1px solid var(--rule)}
+.ins-brief-grid dt{font:500 10.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.ins-brief-grid dd{margin:0;font:400 15px/1.55 var(--sans);color:var(--text)}
+.ins-brief-links{display:flex;flex-wrap:wrap;gap:10px 24px;padding:16px 26px 18px}
+@media (max-width:680px){
+  .ins-brief-grid{grid-template-columns:1fr}
+  .ins-brief-grid>div:nth-child(odd){border-right:0}
+  .ins-brief-head,.ins-brief-grid>div,.ins-brief-links{padding-left:18px;padding-right:18px}
+}

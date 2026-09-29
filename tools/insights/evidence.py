@@ -57,3 +57,31 @@ EVIDENCE = {
    ['Index-based clauses share price risk by formula', 'FIDIC 2017 and CPWD contract conditions', 'Strong', 'Only if the clause is included and indices named'],
    ['Rebasing prices improves cost models', 'Standard QS practice; my estimating model', 'Moderate', 'Index weights must match your cost mix']]),
 }
+
+EVIDENCE.update({
+ 'insight-contract-clause-risk': grade([
+   ['Poor contracting erodes about 8.6% of value', 'WorldCC cross-industry research', 'Indicative', 'Survey-based estimate across industries'],
+   ['Contract document errors are the top dispute cause', 'Arcadis annual disputes survey', 'Moderate', 'North American cases reported to one firm'],
+   ['A CNN reading wording beats keyword rules', 'My test on 800 later clauses', 'Indicative', 'Synthetic clauses are more regular than real ones'],
+   ['Reviewer judgement caps model accuracy', 'Model agreement with six reviewers, 85–89%', 'Moderate', 'Measured on synthetic reviewer labels']]),
+ 'insight-construction-payments': grade([
+   ['US construction payment cycles are long', 'Rabbet 2024 industry survey', 'Indicative', 'Vendor-sponsored survey'],
+   ['Small suppliers must be paid within 45 days', 'MSMED Act 2006, s.15–16', 'Strong', 'Applies to registered micro and small enterprises'],
+   ['Confirmed risk and patterns should stay separate', 'Design principle shown in my AR/AP app', 'Moderate', 'Evidence viewer, not a tested predictor']]),
+ 'insight-inventory-records': grade([
+   ['Most inventory records are inaccurate', 'Peer-reviewed study of ~370,000 records', 'Strong', 'Retail, one company; construction untested'],
+   ['Auditing reduces inaccuracy', 'Same study', 'Moderate', 'Association within one retailer'],
+   ['Adjustment concentration flags where to look', 'My rule on synthetic stock data', 'Indicative', 'Size alone reproduced the labels here']]),
+ 'insight-predictive-maintenance': grade([
+   ['Predictive maintenance saves 8–12% over preventive', 'US DOE FEMP guidance', 'Moderate', 'Facility equipment, not mobile plant'],
+   ['Fixed alarm limits warn too late', 'My test against OEM-style limits', 'Indicative', 'Synthetic telematics'],
+   ['Tree models suit patchy sensor data', 'Seven-model comparison, time-split test', 'Indicative', 'Five-month synthetic test window']]),
+ 'insight-booking-cancellations': grade([
+   ['Advance capped at 10% before a registered agreement', 'RERA 2016, s.13', 'Strong', 'State rules add detail'],
+   ['Late first payment is the strongest early signal', 'Odds ratios on my synthetic bookings', 'Indicative', 'Synthetic data built with these patterns'],
+   ['Simple models match complex ones at this size', 'Seven classifiers on 465 later bookings', 'Moderate', 'Small sample; ranking is fragile']]),
+ 'insight-attendance-before-payroll': grade([
+   ['One in five payrolls has errors, $291 each', 'EY survey of 508 US payroll staff', 'Indicative', 'US firms of 250–10,000 employees'],
+   ['Overtime on building work is paid at double rate', 'BOCW Act 1996, s.29', 'Strong', 'Normal hours set by state rules'],
+   ['Three checks catch attendance errors before payroll', 'Rules on my synthetic attendance data', 'Indicative', 'Agreement with labels is by construction']]),
+})

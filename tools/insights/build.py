@@ -98,24 +98,31 @@ def article(p, allposts):
                f'<h3>{a["title"]}</h3>' + ''.join(f'<p>{x}</p>' for x in a['text']) +
                f'<a class="ins-link" href="{a["href"]}"{" target=_blank rel=noopener" if a["href"].startswith("http") else ""}>{a["label"]} <span class="ins-arrow" aria-hidden="true">→</span></a></section>')
     srcs = ''.join(f'<li id="s{i}"><span>{s}</span></li>' for i, s in enumerate(p['sources'], 1))
+    pj = p['project']
+    brief_rows = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in pj['brief'])
+    brief_links = ''.join(f'<a class="ins-link" href="{u}" target="_blank" rel="noopener">{l} <span class="ins-arrow" aria-hidden="true">↗</span></a>' for l, u in pj['links'])
+    brief = (f'<section class="ins-brief" aria-label="Project brief"><div class="ins-brief-head"><p class="rd-label">Project {pj["no"]:02d} · Project brief</p>'
+             f'<h2 class="ins-brief-title">{pj["name"]}</h2><span class="ins-badge{" ins-badge--real" if pj["data"].startswith("Real") else ""}">{pj["data"]}</span></div>'
+             f'<dl class="ins-brief-grid">{brief_rows}</dl><div class="ins-brief-links">{brief_links}</div></section>')
     nxt = ''.join(
-        f'<a href="/{q["slug"]}.html"><span class="rd-label">{q["topic"]}</span><strong>{q["title"]}</strong></a>'
+        f'<a href="/{q["slug"]}.html"><span class="rd-label">Project {q["project"]["no"]:02d} · {q["topic"]}</span><strong>{q["title"]}</strong></a>'
         for q in (next(x for x in allposts if x['slug'] == s) for s in p['next']))
     date_label = p['date_label']
     main = f'''<main id="main" class="ins">
 <article>
 <header class="ins-hero rd-wrap">
 <a class="ins-link ins-link--back" href="/blog.html"><span class="ins-arrow" aria-hidden="true">←</span> All insights</a>
-<p class="rd-label ins-kicker">{p["topic"]} <span>×</span> Research note</p>
+<p class="rd-label ins-kicker">Project {p["project"]["no"]:02d} <span>×</span> {p["topic"]}</p>
 <h1 class="ins-title">{p["title"]}</h1>
 <p class="ins-dek">{p["dek"]}</p>
-<ul class="ins-meta"><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
+<ul class="ins-meta"><li>Project {p["project"]["no"]:02d}</li><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
 </header>
 <div class="rd-wrap"><dl class="ins-keys">{keys}</dl></div>
 <div class="ins-body rd-wrap">
 <nav class="ins-toc" aria-label="On this page"><p class="rd-label">On this page</p><ol>{toc}</ol></nav>
 <div class="ins-prose">
 <section class="ins-takeaways" aria-label="Key takeaways"><p class="rd-label">Key takeaways</p><ul>{take}</ul></section>
+{brief}
 {secs}
 {applied}
 <h2 id="sources"><span class="ins-h2-no">Notes</span>Sources</h2>
@@ -152,7 +159,7 @@ def index(posts):
     cards = []
     for p in posts:
         cards.append(f'''<a class="ins-card" href="/{p["slug"]}.html" data-topics="{p["topics"]}" data-reveal>
-<span class="rd-label">{p["topic"]} · Research note</span><h2>{p["title"]}</h2><p>{p["blurb"]}</p>
+<span class="rd-label">Project {p["project"]["no"]:02d} · {p["topic"]}</span><h2>{p["title"]}</h2><p>{p["blurb"]}</p>
 <span class="ins-card-meta"><span>{p["minutes"]} min · {len(p["sources"])} sources</span><span class="ins-arrow" aria-hidden="true">→</span></span></a>''')
     for e in EXISTING:
         cards.append(f'''<a class="ins-card" href="/{e["slug"]}.html" data-topics="{e["topics"]}" data-reveal>
@@ -162,19 +169,19 @@ def index(posts):
     total = len(posts) + len(EXISTING)
     main = f'''<main id="main" class="ins">
 <header class="ins-index-hero rd-wrap">
-<p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
+<p class="rd-label ins-kicker">Insights <span>×</span> One note per project</p>
 <h1 class="ins-title">What the evidence says about building better.</h1>
-<p class="ins-dek">Research notes on construction cost, safety, data and AI: what published studies and public data actually show, what it means on a project, and where I have tested the idea in my own work. Every figure is linked to its source.</p>
-<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
+<p class="ins-dek">One research note for each of my fifteen projects, in the same order as the Projects page: what published studies and public data show about the problem, what the project built and found, and what it means on a real job. Every figure is linked to its source.</p>
+<ul class="ins-meta"><li>{len(posts)} notes · 15 projects</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
 </header>
 <section class="rd-wrap" aria-label="Featured note">
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
-<div><p class="rd-label" style="color:var(--sage)!important">Featured · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
+<div><p class="rd-label" style="color:var(--sage)!important">Featured · Project {feat["project"]["no"]:02d} · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
 <span class="ins-link">Read the note <span class="ins-arrow" aria-hidden="true">→</span></span></div>
 <div class="ins-feature-stat"><b>{feat["feature_stat"][0]}</b><span>{feat["feature_stat"][1]}</span></div></a>
 </section>
 <section class="rd-wrap" aria-labelledby="all-notes">
-<div class="ins-sub"><div><p class="rd-label">Library</p><h2 id="all-notes">All notes</h2></div><p><span data-ins-count>{total} notes</span> · filter by topic</p></div>
+<div class="ins-sub"><div><p class="rd-label">Library</p><h2 id="all-notes">All fifteen, in project order</h2></div><p><span data-ins-count>{total} notes</span> · filter by topic</p></div>
 <div class="ins-filters" role="group" aria-label="Filter notes by topic" style="margin-top:22px">{filt}</div>
 <div class="ins-grid">{"".join(cards)}</div>
 </section>
@@ -186,14 +193,32 @@ if __name__ == '__main__':
     from posts_a import POSTS as A
     from posts_b import POSTS as B
     from posts_c import POSTS as C
-    posts = A + B + C
+    from posts_d import POSTS as D
+    from posts_e import POSTS as E
     from evidence import EVIDENCE
-    for p in posts:  # insert the evidence grading just before the practical checklist
+    from projects_meta import META, EXTRA, RETITLE
+    posts = A + B + C + D + E
+    for p in posts:
+        m = META[p['slug']]
+        p['project'] = m
+        p.update(RETITLE.get(p['slug'], {}))
         if not any(sid == 'evidence' for sid, _, _ in p['sections']):
             p['sections'].insert(len(p['sections']) - 1, ('evidence', 'How strong is the evidence?', EVIDENCE[p['slug']]))
+        if p['slug'] in EXTRA and not any(sid == EXTRA[p['slug']][0] for sid, _, _ in p['sections']):
+            sid, title, body, extra_sources = EXTRA[p['slug']]
+            p['sections'].insert(len(p['sections']) - 2, (sid, title, body))
+            p['sources'] = p['sources'] + extra_sources
+            # the closing box points at this note's own project
+            live = m['links'][0]
+            p['applied'] = dict(title=m['name'], text=[m['brief'][4][1] + ' ' + m['brief'][5][1]],
+                                href=live[1], label='Open the project' if live[0] != 'Code and README' else 'See the code and README')
+        if p['applied']['href'] in ('/projects.html', '/approach.html') and p['slug'] not in EXTRA:
+            p['applied']['href'] = m['links'][0][1]
+            p['applied']['label'] = 'Open the project' if m['links'][0][0] != 'Code and README' else 'See the code and README'
+    posts.sort(key=lambda p: p['project']['no'])
     for p in posts:
         out = article(p, posts)
         open(f'{SITE}/{p["slug"]}.html', 'w').write(out)
-        print(p['slug'], p['minutes'], 'min', words(''.join(s[2] for s in p['sections'])), 'words', len(p['sources']), 'sources')
+        print(f'{p["project"]["no"]:02d}', p['slug'], p['minutes'], 'min', len(p['sources']), 'sources')
     open(f'{SITE}/blog.html', 'w').write(index(posts))
     print('blog.html written')
