@@ -140,3 +140,12 @@ html body .enh-meta span{border-radius:2px!important;border-color:var(--rule-str
 /* figures sit on one line even when a label wraps */
 html body.inner-page .experience-timeline-page .exp-stats>div{justify-content:flex-start!important}
 html body.inner-page .projects-stats>div{justify-content:flex-end!important}
+
+/* ERP module columns: no connector arrows */
+html body .experience-timeline-page .exp-stage-card::after{content:none!important;display:none!important}
+/* projects: every figure strip starts at the left edge */
+html body .projects-table tbody .project-row.has-figs .fig-strip--one{justify-content:flex-start!important}
+/* experience sidebar: a compact profile, photo beside the caption */
+html body .experience-timeline-page .fig--portrait{display:flex!important;align-items:flex-end;gap:16px;margin:0 0 28px!important}
+html body .experience-timeline-page .fig--portrait .fig-img{width:112px!important;max-width:112px!important;flex:0 0 112px;border-color:var(--rule-strong)!important}
+html body .experience-timeline-page .fig--portrait figcaption{margin:0!important;padding-bottom:2px}
