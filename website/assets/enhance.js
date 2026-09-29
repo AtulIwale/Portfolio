@@ -277,9 +277,9 @@
     if (side && !side.querySelector('.fig--portrait')) {
       var pf = el('figure', { class: 'fig fig--portrait' });
       var pfi = el('div', { class: 'fig-img' });
-      pfi.appendChild(el('img', { src: 'assets/people/portrait-4x5.webp', width: 480, height: 600, alt: 'Atul Iwale', loading: 'lazy', decoding: 'async' }));
+      pfi.appendChild(el('img', { src: 'assets/people/portrait-4x5.webp?v=bf75649d2775', width: 480, height: 600, alt: 'Atul Iwale', loading: 'lazy', decoding: 'async' }));
       pf.appendChild(pfi);
-      pf.appendChild(el('figcaption', null, 'Atul Iwale · PMP · Photo 2023'));
+      pf.appendChild(el('figcaption', null, 'Atul Iwale · PMP'));
       side.insertBefore(pf, side.firstChild);
     }
     // figures unroll as they enter the viewport

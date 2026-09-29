@@ -551,7 +551,7 @@ body.home .lake-hero::before{content:"FIG. 01 \2014  COST PLAN ESTIMATOR \00B7  
 /* byline: a small real portrait beside the name */
 body.home .hero-positioning{gap:14px!important}
 body.home .hero-positioning::before{width:40px!important;height:40px!important;flex:0 0 40px;
-  background:url("people/portrait-sq.webp") center/cover no-repeat,var(--ink)!important;border:1px solid var(--ink);border-radius:0!important}
+  background:url("people/portrait-sq.webp?v=15010c58f34d") center/cover no-repeat,var(--ink)!important;border:1px solid var(--ink);border-radius:0!important}
 
 /* experience sidebar portrait */
 .experience-timeline-page .fig--portrait{margin:0 0 28px}
