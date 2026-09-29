@@ -215,4 +215,8 @@ IMAGE_ALT = {
  'insight-osha-severe-injuries': 'A worker on a step ladder fixing services to a concrete ceiling inside a building under construction, with a mobile scaffold tower behind.',
  'insight-payroll-fraud': 'A supervisor with a clipboard facing a line of construction workers in hard hats and hi-vis vests at a morning roll call.',
  'insight-llms-construction-documents': 'Open contract binders and specification folders on a site table, with a faint teal scanning light across the pages.',
+ 'insight-construction-productivity': 'Aerial view of a large construction site with rows of concrete building blocks at different stages, workers and machines between them and a tower crane.',
+ 'insight-forecasting-final-cost': 'A partly built reinforced-concrete frame at dusk, with two lit tower cranes and two workers in hi-vis walking across the wet slab.',
+ 'insight-material-price-escalation': 'A materials yard with bundles of steel reinforcement bars, stacked timber and covered cement bags, and a delivery truck at the gate.',
+ 'insight-construction-payments': 'A site office desk at dusk with stacked folders, a calculator, a mug and a hard hat, looking out onto a lit construction site.',
 }
