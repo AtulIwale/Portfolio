@@ -135,7 +135,9 @@ def article(p, allposts):
     img = post_image(p['slug'])
     hero_fig = (f'<figure class="ins-hero-fig rd-wrap"><img src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
                 + ('<figcaption>AI-generated illustration</figcaption>' if CREDIT else '') + '</figure>') if img else ''
-    band_img = (f'<img class="ins-hero-bg" src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
+    card = img.replace('.webp', '-card.webp') if img else ''
+    band_srcset = f' srcset="/{card}?v={vhash(card)} 720w, /{img}?v={vhash(img)} 1536w" sizes="(max-width:899px) 100vw, 58vw"' if img and os.path.exists(f'{SITE}/{card}') else ''
+    band_img = (f'<img class="ins-hero-bg" src="/{img}?v={vhash(img)}"{band_srcset} width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
                 + ('<span class="ins-hero-credit">AI-generated illustration</span>' if CREDIT else '')) if img else ''
     if LAYOUT == 'merged':
         hero_fig = ''
@@ -224,7 +226,9 @@ def index(posts):
     if LAYOUT == 'merged':
         feature = ''
         if header_fig:
-            band_open = (f'<div class="ins-hero-band"><img class="ins-hero-bg" src="/{hi}?v={vhash(hi)}" width="1536" height="1024" alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async">'
+            hc = hi.replace('.webp', '-card.webp')
+            hsrc = f' srcset="/{hc}?v={vhash(hc)} 720w, /{hi}?v={vhash(hi)} 1536w" sizes="(max-width:899px) 100vw, 58vw"' if os.path.exists(f'{SITE}/{hc}') else ''
+            band_open = (f'<div class="ins-hero-band"><img class="ins-hero-bg" src="/{hi}?v={vhash(hi)}"{hsrc} width="1536" height="1024" alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async">'
                          + ('<span class="ins-hero-credit">AI-generated illustration</span>' if CREDIT else ''))
             band_close = '</div>'
         header_fig = ''
