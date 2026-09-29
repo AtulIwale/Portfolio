@@ -26,7 +26,16 @@
     { t: 'Selected work', d: 'Home · six highlighted projects', h: 'index.html#selected-work' },
     { t: 'Why ERP adoption fails on site', d: 'Insight · digital adoption', h: 'insight-erp-adoption.html' },
     { t: 'Turning procurement data into project intelligence', d: 'Insight · procurement', h: 'insight-procurement-data.html' },
-    { t: 'Where AI genuinely helps in AEC operations', d: 'Insight · AI & automation', h: 'insight-aec-ai.html' }
+    { t: 'Where AI genuinely helps in AEC operations', d: 'Insight · AI & automation', h: 'insight-aec-ai.html' },
+    { t: 'What 19,021 severe-injury reports say about construction safety', d: 'Research note · safety', h: 'insight-osha-severe-injuries.html' },
+    { t: 'Waiting for a permit: why the average approval time is wrong', d: 'Research note · pre-construction', h: 'insight-permit-wait-times.html' },
+    { t: 'Why construction estimates miss', d: 'Research note · estimating', h: 'insight-cost-estimates-miss.html' },
+    { t: 'Forecasting final cost: when the CPI formula works', d: 'Research note · project controls', h: 'insight-forecasting-final-cost.html' },
+    { t: 'Rework and bad data: the cost line nobody budgets', d: 'Research note · data & quality', h: 'insight-rework-bad-data.html' },
+    { t: 'The construction productivity puzzle', d: 'Research note · productivity', h: 'insight-construction-productivity.html' },
+    { t: 'LLMs on construction documents: what the evidence says', d: 'Research note · AI & automation', h: 'insight-llms-construction-documents.html' },
+    { t: 'Payroll leakage on construction sites', d: 'Research note · workforce & finance', h: 'insight-payroll-fraud.html' },
+    { t: 'Material price shocks and escalation', d: 'Research note · commercial', h: 'insight-material-price-escalation.html' }
   ];
   var GH = 'https://github.com/AtulIwale/Portfolio/tree/main/projects/';
   var LIVE = 'https://atuliwale.github.io/Portfolio/projects/';
@@ -99,7 +108,7 @@
 
   /* ---------- 2. reveal on scroll (batched stagger) ---------- */
   function initReveal() {
-    if (doc.body.classList.contains('rd-home')) return;   // redesigned homepage has its own reveal system
+    if (doc.body.classList.contains('rd-home') || doc.body.classList.contains('rd-page')) return;   // redesigned homepage has its own reveal system
     if (reduceMotion || !('IntersectionObserver' in window)) return;
     var sel = [
       'main .editorial-heading', 'main h2:not(.visually-hidden)', '.help-card', '.selected-work-card',
