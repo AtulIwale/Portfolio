@@ -17,6 +17,8 @@ LAYOUT = os.environ.get('INS_LAYOUT', 'stacked')
 CREDIT = os.environ.get('INS_CREDIT', '1') != '0'
 # INS_DATES=0 leaves the date out of each note's meta line and the index
 DATES = os.environ.get('INS_DATES', '1') != '0'
+# per-site short browser-tab titles (JSON file of slug -> title); social titles keep the full headline
+TITLE_OVERRIDE = json.load(open(os.environ['INS_TITLE_JSON'])) if os.environ.get('INS_TITLE_JSON') else {}
 # per-site alt text for images that differ from the shared set (JSON file of slug -> alt)
 ALT_OVERRIDE = json.load(open(os.environ['INS_ALT_JSON'])) if os.environ.get('INS_ALT_JSON') else {}
 
@@ -163,10 +165,12 @@ def article(p, allposts):
 </article>
 </main>'''
     ld = ('<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article",'
-          f'"headline":{json_str(p["title"])},"description":{json_str(p["dek"])},"datePublished":"{p["date"]}",'
+          f'"headline":{json_str(p["title"])},"description":{json_str(p["dek"])},' + (f'"datePublished":"{p["date"]}",' if DATES else '') +
           '"author":{"@type":"Person","name":"Atul Iwale","url":"https://atuliwale.com/"},'
           f'"mainEntityOfPage":"https://atuliwale.com/{p["slug"]}.html"}}</script>')
     h = set_head(head, re.sub(r'<[^>]+>', '', p['title']), p['meta'], f'{p["slug"]}.html')
+    if p['slug'] in TITLE_OVERRIDE:
+        h = re.sub(r'<title>.*?</title>', f'<title>{html.escape(TITLE_OVERRIDE[p["slug"]])} — Atul Iwale</title>', h, flags=re.S)
     og = f'{ASSETS}/img/{p["slug"]}-og.jpg'
     if os.path.exists(f'{SITE}/{og}'):
         h = re.sub(r'(<meta (?:property|name)="(?:og:image|twitter:image)" content=")[^"]*', rf'\g<1>https://atuliwale.com/{og}', h)
