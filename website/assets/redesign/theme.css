@@ -96,7 +96,7 @@ html body .site-bottom-cta::before{content:""!important;position:absolute!import
   -webkit-mask-image:none!important;mask-image:none!important;background-size:auto!important;
   background:linear-gradient(90deg,var(--green-deep) 0%,var(--green-deep) 48%,rgba(45,70,83,.55) 72%,rgba(45,70,83,.2) 100%)!important}
 html body .site-bottom-cta::after{content:"";position:absolute;top:0;right:0;bottom:0;width:48%;z-index:-2;
-  background:url("arch-panel.webp") 50% 30%/cover no-repeat;filter:grayscale(.5) contrast(1.05) brightness(.85)}
+  background:url("cta-site.webp") 70% 50%/cover no-repeat;filter:grayscale(.2) contrast(1.02) brightness(.9)}
 html body .site-bottom-cta-inner{align-items:flex-end!important;gap:32px!important}
 html body .site-bottom-cta h2{font:400 clamp(38px,4.2vw,60px)/1.02 var(--rd-serif)!important;font-stretch:normal!important;letter-spacing:-.01em!important;
   color:#F4F2EE!important;max-width:18ch}

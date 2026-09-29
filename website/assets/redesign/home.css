@@ -274,3 +274,6 @@ body.rd-home .site-bottom-cta{display:none}
   .rd-cta-img{width:100%;opacity:.35}
   .rd-cta::before{background:linear-gradient(180deg,rgba(45,70,83,.85),rgba(45,70,83,.95))}
 }
+
+/* closing banner: new site photo, warmer than the hero panel */
+.rd-cta-img img{object-position:70% 50%!important;filter:grayscale(.2) contrast(1.02) brightness(.9)!important}

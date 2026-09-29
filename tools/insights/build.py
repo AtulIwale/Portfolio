@@ -79,6 +79,10 @@ def set_head(head, title, desc, url):
              f'<script defer src="/{ASSETS}/insight.js?v={vhash(ASSETS + "/insight.js")}"></script>')
     return head + extra
 
+def post_image(slug):
+    rel = f'{ASSETS}/img/{slug}.webp'
+    return rel if os.path.exists(f'{SITE}/{rel}') else None
+
 def words(htmltext):
     return len(re.sub(r'<[^>]+>', ' ', htmltext).split())
 
@@ -117,6 +121,9 @@ def article(p, allposts):
         f'<a href="/{q["slug"]}.html"><span class="rd-label">{q["topic"]}</span><strong>{q["title"]}</strong></a>'
         for q in (next(x for x in allposts if x['slug'] == s) for s in p['next']))
     date_label = p['date_label']
+    img = post_image(p['slug'])
+    hero_fig = (f'<figure class="ins-hero-fig rd-wrap"><img src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
+                '<figcaption>AI-generated illustration</figcaption></figure>') if img else ''
     main = f'''<main id="main" class="ins">
 <article>
 <header class="ins-hero rd-wrap">
@@ -126,7 +133,7 @@ def article(p, allposts):
 <p class="ins-dek">{p["dek"]}</p>
 <ul class="ins-meta"><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
 </header>
-<div class="rd-wrap"><dl class="ins-keys">{keys}</dl></div>
+{hero_fig}<div class="rd-wrap"><dl class="ins-keys">{keys}</dl></div>
 <div class="ins-body rd-wrap">
 <nav class="ins-toc" aria-label="On this page"><p class="rd-label">On this page</p><ol>{toc}</ol></nav>
 <div class="ins-prose">
@@ -145,6 +152,10 @@ def article(p, allposts):
           '"author":{"@type":"Person","name":"Atul Iwale","url":"https://atuliwale.com/"},'
           f'"mainEntityOfPage":"https://atuliwale.com/{p["slug"]}.html"}}</script>')
     h = set_head(head, re.sub(r'<[^>]+>', '', p['title']), p['meta'], f'{p["slug"]}.html')
+    og = f'{ASSETS}/img/{p["slug"]}-og.jpg'
+    if os.path.exists(f'{SITE}/{og}'):
+        h = re.sub(r'(<meta (?:property|name)="(?:og:image|twitter:image)" content=")[^"]*', rf'\g<1>https://atuliwale.com/{og}', h)
+        h = h.replace('<meta property="og:image:alt" content="Atul Iwale — I build data and AI tools for construction.">', f'<meta property="og:image:alt" content="{html.escape(p.get("image_alt", ""), quote=True)}">')
     pre = pre_main.replace(' aria-current="page"', '')
     pre = pre.replace('<a href="/blog.html">Insights</a>', '<a href="/blog.html" aria-current="page">Insights</a>')
     pre = pre.replace('<a href="/blog.html"><span class="menu-number">04</span>', '<a href="/blog.html" aria-current="page"><span class="menu-number">04</span>')
@@ -163,6 +174,8 @@ FILTERS = [('all', 'All'), ('controls', 'Cost & controls'), ('data', 'Data & pro
 def index(posts):
     head, pre_main, cta, footer = chrome()
     feat = posts[0]
+    fi = post_image(feat['slug'])
+    feat_img = f'<img class="ins-feature-img" src="/{fi}?v={vhash(fi)}" width="1536" height="1024" alt="{html.escape(feat.get("image_alt", ""), quote=True)}" loading="lazy" decoding="async">' if fi else ''
     cards = []
     for p in posts:
         cards.append(f'''<a class="ins-card" href="/{p["slug"]}.html" data-topics="{p["topics"]}" data-reveal>
@@ -185,7 +198,7 @@ def index(posts):
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
 <div><p class="rd-label" style="color:var(--sage)!important">Featured · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
 <span class="ins-link">Read the note <span class="ins-arrow" aria-hidden="true">→</span></span></div>
-<div class="ins-feature-stat"><b>{feat["feature_stat"][0]}</b><span>{feat["feature_stat"][1]}</span></div></a>
+<div class="ins-feature-stat">{feat_img}<b>{feat["feature_stat"][0]}</b><span>{feat["feature_stat"][1]}</span></div></a>
 </section>
 <section class="rd-wrap" aria-labelledby="all-notes">
 <div class="ins-sub"><div><p class="rd-label">Library</p><h2 id="all-notes">All notes</h2></div><p><span data-ins-count>{total} notes</span> · filter by topic</p></div>
@@ -203,12 +216,13 @@ if __name__ == '__main__':
     from posts_d import POSTS as D
     from posts_e import POSTS as E
     from evidence import EVIDENCE
-    from projects_meta import META, EXTRA, RETITLE, CASE
+    from projects_meta import META, EXTRA, RETITLE, CASE, IMAGE_ALT
     posts = A + B + C + D + E
     for p in posts:
         m = META[p['slug']]
         p['project'] = m
         p['case_sections'] = CASE.get(p['slug'], [])
+        p['image_alt'] = IMAGE_ALT.get(p['slug'], '')
         p.update(RETITLE.get(p['slug'], {}))
         if not any(sid == 'evidence' for sid, _, _ in p['sections']):
             p['sections'].insert(len(p['sections']) - 1, ('evidence', 'How strong is the evidence?', EVIDENCE[p['slug']]))

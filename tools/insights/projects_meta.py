@@ -209,3 +209,10 @@ CASE = {
  'insight-attendance-before-payroll': ['three-checks'],
  'insight-rework-bad-data': ['what-bad-data-looks-like', 'rework-in-production'],
 }
+
+# alt text for post images (used when an image file is present)
+IMAGE_ALT = {
+ 'insight-osha-severe-injuries': 'A worker on a step ladder fixing services to a concrete ceiling inside a building under construction, with a mobile scaffold tower behind.',
+ 'insight-payroll-fraud': 'A supervisor with a clipboard facing a line of construction workers in hard hats and hi-vis vests at a morning roll call.',
+ 'insight-llms-construction-documents': 'Open contract binders and specification folders on a site table, with a faint teal scanning light across the pages.',
+}

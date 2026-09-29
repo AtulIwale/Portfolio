@@ -226,3 +226,12 @@
   .ins-brief-grid>div:nth-child(odd){border-right:0}
   .ins-brief-head,.ins-brief-grid>div,.ins-brief-links{padding-left:18px;padding-right:18px}
 }
+
+/* post image under the title; the featured note's image on the index */
+.ins-hero-fig{margin:0 auto clamp(28px,3vw,44px)}
+.ins-hero-fig img{display:block;width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;object-position:50% 55%;border:1px solid var(--rule)}
+.ins-hero-fig figcaption{margin-top:8px;font:400 11px/1.4 var(--mono);letter-spacing:.06em;color:var(--text-muted);text-align:right}
+.ins-feature-img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;margin-bottom:22px;border:1px solid var(--rule)}
+.ins-feature-stat b{margin-top:0}
+@media (prefers-reduced-motion:no-preference){.ins-hero-fig{animation:ins-rise .9s var(--ease) .25s backwards}}
+@media (max-width:680px){.ins-hero-fig img{aspect-ratio:4/3}}
