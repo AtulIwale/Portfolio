@@ -13,6 +13,8 @@ ASSETS = os.environ.get('INS_ASSETS', 'assets/redesign')
 SITE_JS = os.environ.get('INS_SITE_JS', 'home.js')
 # 'merged': the photo sits behind the right of the title band and fades into it; no featured block
 LAYOUT = os.environ.get('INS_LAYOUT', 'stacked')
+# INS_CREDIT=0 drops the image credit line under or over each photo
+CREDIT = os.environ.get('INS_CREDIT', '1') != '0'
 # per-site alt text for images that differ from the shared set (JSON file of slug -> alt)
 ALT_OVERRIDE = json.load(open(os.environ['INS_ALT_JSON'])) if os.environ.get('INS_ALT_JSON') else {}
 
@@ -127,9 +129,9 @@ def article(p, allposts):
     date_label = p['date_label']
     img = post_image(p['slug'])
     hero_fig = (f'<figure class="ins-hero-fig rd-wrap"><img src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
-                '<figcaption>AI-generated illustration</figcaption></figure>') if img else ''
+                + ('<figcaption>AI-generated illustration</figcaption>' if CREDIT else '') + '</figure>') if img else ''
     band_img = (f'<img class="ins-hero-bg" src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
-                '<span class="ins-hero-credit">AI-generated illustration</span>') if img else ''
+                + ('<span class="ins-hero-credit">AI-generated illustration</span>' if CREDIT else '')) if img else ''
     if LAYOUT == 'merged':
         hero_fig = ''
     band_open = f'<div class="ins-hero-band">{band_img}' if LAYOUT == 'merged' else ''
@@ -203,7 +205,7 @@ def index(posts):
     total = len(posts) + len(EXISTING)
     hi = f'{ASSETS}/img/insights-header.webp'
     header_fig = (f'<figure class="ins-hero-fig ins-index-fig rd-wrap"><img src="/{hi}?v={vhash(hi)}" width="1536" height="1024" '
-                  f'alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async"><figcaption>AI-generated illustration</figcaption></figure>') if os.path.exists(f'{SITE}/{hi}') else ''
+                  f'alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async">' + ('<figcaption>AI-generated illustration</figcaption>' if CREDIT else '') + '</figure>') if os.path.exists(f'{SITE}/{hi}') else ''
     feature = f'''<section class="rd-wrap" aria-label="Featured note">
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
 <div><p class="rd-label" style="color:var(--sage)!important">Featured · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
@@ -215,7 +217,7 @@ def index(posts):
         feature = ''
         if header_fig:
             band_open = (f'<div class="ins-hero-band"><img class="ins-hero-bg" src="/{hi}?v={vhash(hi)}" width="1536" height="1024" alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async">'
-                         '<span class="ins-hero-credit">AI-generated illustration</span>')
+                         + ('<span class="ins-hero-credit">AI-generated illustration</span>' if CREDIT else ''))
             band_close = '</div>'
         header_fig = ''
     main = f'''<main id="main" class="ins">
