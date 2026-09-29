@@ -1,4 +1,6 @@
 DirectoryIndex index.html
+# Retired field notes now point to the Insights index
+RedirectMatch 301 ^/insight-(erp-adoption|procurement-data|aec-ai)(\.html)?/?$ /blog.html
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

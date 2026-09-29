@@ -142,16 +142,9 @@ def json_str(s):
     return json.dumps(re.sub(r'<[^>]+>', '', s))
 
 # ---------------------------------------------------------------- index
-EXISTING = [
-    dict(slug='insight-erp-adoption', topic='Digital adoption', topics='adoption', title='Why ERP adoption fails on site — and what to do differently',
-         blurb='The gap between configured systems and everyday site workflows, including training and user adoption.', kind='Field note'),
-    dict(slug='insight-procurement-data', topic='Procurement', topics='commercial', title='Turning procurement data into project intelligence',
-         blurb='Connecting purchase orders, supplier records and material requirements to practical project decisions.', kind='Field note'),
-    dict(slug='insight-aec-ai', topic='AI & automation', topics='ai', title='Where AI genuinely helps in AEC operations — and where it’s still hype',
-         blurb='Useful AEC applications for AI, the information they depend on and where human judgment remains essential.', kind='Field note'),
-]
+EXISTING = []  # the three original short field notes were retired in favour of the research notes
 FILTERS = [('all', 'All'), ('controls', 'Cost & controls'), ('data', 'Data & productivity'), ('safety', 'Safety'),
-           ('ai', 'AI & automation'), ('commercial', 'Commercial'), ('adoption', 'Adoption')]
+           ('ai', 'AI & automation'), ('commercial', 'Commercial')]
 
 def index(posts):
     head, pre_main, cta, footer = chrome()
@@ -172,7 +165,7 @@ def index(posts):
 <p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
 <h1 class="ins-title">What the evidence says about building better.</h1>
 <p class="ins-dek">Research notes on construction cost, safety, data and AI: what published studies and public data actually show, what it means on a project, and where I have tested the idea in my own work. Every figure is linked to its source.</p>
-<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{len(EXISTING)} field notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li></ul>
+<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
 </header>
 <section class="rd-wrap" aria-label="Featured note">
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
