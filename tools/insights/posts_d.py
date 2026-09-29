@@ -11,11 +11,11 @@ CONTRACTS = dict(
     blurb='Poor contracting erodes about 8.6% of value. How a CNN that reads clause wording caught 95% of high-risk clauses, and where human reviewers disagree.',
     date=DATE, date_label=DATE_LABEL,
     keys=[('8.6%', 'average value erosion from poor contracting, per World Commerce & Contracting', 1),
-          ('14.4 mo', 'average length of a construction dispute in North America, per Arcadis’s 2024 report', 2),
+          ('14.4 mo', 'average length of a major construction dispute in Arcadis’s 2024 disputes report', 2),
           ('95%', 'of high-risk clauses caught by a CNN reading the wording (synthetic data), against a 0.38 macro-F1 keyword list', 3)],
     takeaways=[
         'World Commerce & Contracting estimates poor contracting erodes <strong>8.6%</strong> of expected value on average, and 15% or more in complex industries.',
-        'In North America, Arcadis reports construction disputes averaging <strong>$43m</strong> and lasting <strong>14.4 months</strong>; errors and omissions in contract documents are the top cause.',
+        'Arcadis’s disputes research reports major construction disputes averaging <strong>$43m</strong> and lasting <strong>14.4 months</strong>; errors and omissions in contract documents are the top cause.',
         'Risk lives in word order: “within 30 days” versus “within 120 days”, “shall be limited” versus “shall not be limited”. Keyword lists miss it.',
         'On synthetic construction contracts, a 1D-CNN caught <strong>95%</strong> of reviewer-rated high-risk clauses at 85% precision.',
         'Agreement with individual reviewers ranged from <strong>85% to 89%</strong>, and one reviewer rated borderline clauses High more often: part of any model’s “error” is human disagreement.',
@@ -76,16 +76,16 @@ CONTRACTS = dict(
 PAYMENTS = dict(
     slug='insight-construction-payments', topic='Receivables & payables', topics='commercial',
     title='Getting paid in construction: payment delays, the MSME rules and evidence you can act on',
-    dek='Cash, not profit, is what sinks contractors, and construction has some of the slowest payment cycles of any industry. What the data and Indian law say about late payment, and why a collections worklist should keep confirmed risk and suspicion apart.',
-    meta='Construction payment delays, India’s MSMED Act rules on paying small suppliers within 45 days, and how to build receivables and payables worklists that separate confirmed risk from patterns.',
-    blurb='US construction payment cycles average about 90 days; Indian law caps MSME supplier terms at 45. How to build AR/AP worklists that separate evidence from suspicion.',
+    dek='Cash, not profit, is what sinks contractors, and construction has some of the slowest payment cycles of any industry. What the evidence and statutory payment rules say about late payment, and why a collections worklist should keep confirmed risk and suspicion apart.',
+    meta='Construction payment delays, statutory payment limits for small suppliers, and how to build receivables and payables worklists that separate confirmed risk from patterns.',
+    blurb='Construction payment cycles can run to about 90 days, and some laws cap small-supplier terms at 45. How to build AR/AP worklists that separate evidence from suspicion.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('~90 days', 'average payment cycle in US construction, per Rabbet’s 2024 payments report', 1),
-          ('45 days', 'the longest a buyer may take to pay an Indian micro or small supplier (MSMED Act, s.15)', 2),
+    keys=[('~90 days', 'average construction payment cycle, in a 2024 industry payments report', 1),
+          ('45 days', 'the statutory maximum payment term for small suppliers under one national law (India’s MSMED Act)', 2),
           ('3×', 'the RBI bank rate: compound interest owed on late payments to those suppliers (s.16)', 2)],
     takeaways=[
-        'Rabbet’s 2024 report estimates the average US construction payment cycle at about <strong>90 days</strong> and the cost of slow payment at <strong>$280bn</strong> a year.',
-        'In India, buyers must pay micro and small suppliers within the agreed term and <strong>never later than 45 days</strong>; late payment attracts compound interest at <strong>three times the RBI bank rate</strong>, whatever the contract says.',
+        'One 2024 industry report estimates the average construction payment cycle at about <strong>90 days</strong> and the cost of slow payment at <strong>$280bn</strong> a year in the market it covers.',
+        'Some laws set hard limits. Under India’s MSMED Act, for example, buyers must pay registered small suppliers <strong>within 45 days at most</strong>, or owe compound interest at <strong>three times the central bank rate</strong>, whatever the contract says.',
         'Receivables and payables are two sides of the same cash problem, but they should never be netted in a review list.',
         'A worklist should keep <strong>confirmed settlement risk</strong> separate from <strong>patterns worth a look</strong>. Blending them into one score hides what is actually known.',
         'Predicting who will pay late needs point-in-time data and a time-based test; a snapshot of today’s statuses is not a forecast.',
@@ -93,11 +93,11 @@ PAYMENTS = dict(
     sections=[
         ('the-cash-problem', 'The cash problem', f'''
 <p>A contractor pays for labour, materials and plant weeks or months before being paid for the work. The gap is financed from cash reserves, overdrafts or suppliers’ patience. When payment is slow, profitable firms can still fail.</p>
-<p>Rabbet’s 2024 Construction Payments Report, a survey of US construction firms by a construction-finance software company, estimated the average payment cycle at about <strong>90 days</strong> and put the industry-wide cost of slow payment at about <strong>$280 billion</strong> in 2024{c(1)}. As a vendor survey, its exact figures deserve caution; the direction matches what anyone who has run a project’s cash flow will recognise.</p>
+<p>Rabbet’s 2024 Construction Payments Report, a survey of construction firms by a construction-finance software company, estimated the average payment cycle at about <strong>90 days</strong> and put the industry-wide cost of slow payment at about <strong>$280 billion</strong> in 2024{c(1)}. As a vendor survey, its exact figures deserve caution; the direction matches what anyone who has run a project’s cash flow will recognise.</p>
 {pull('Profitable contractors still fail when cash arrives three months after the work.')}
 '''),
-        ('the-law-in-india', 'What Indian law says about paying small suppliers', f'''
-<p>India’s Micro, Small and Medium Enterprises Development (MSMED) Act, 2006 sets hard limits on how long a buyer may take to pay a registered micro or small enterprise{c(2)}:</p>
+        ('the-law', 'What the law can say about paying small suppliers', f'''
+<p>Several countries set statutory payment terms to protect small suppliers. India’s Micro, Small and Medium Enterprises Development (MSMED) Act, 2006 is a clear example: it sets hard limits on how long a buyer may take to pay a registered micro or small enterprise{c(2)}:</p>
 <ul>
 <li><strong>Section 15:</strong> pay within the agreed period, and in any case within <strong>45 days</strong> of accepting the goods or services. Where there is no agreed period, the limit is 15 days.</li>
 <li><strong>Section 16:</strong> if payment is late, the buyer owes <strong>compound interest with monthly rests at three times the bank rate</strong> notified by the Reserve Bank of India. This rate applies notwithstanding any agreement to the contrary.</li>

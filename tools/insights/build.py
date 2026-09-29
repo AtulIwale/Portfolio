@@ -88,10 +88,6 @@ def article(p, allposts):
     p['minutes'] = minutes
     keys = ''.join(
         f'<div class="ins-key" data-reveal><dt>{k[0]}</dt><dd>{k[1]}{c(k[2]) if k[2] else ""}</dd></div>' for k in p['keys'])
-    toc = ''.join(f'<li><a href="#{sid}">{html.escape(t)}</a></li>' for sid, t, _ in p['sections']) + \
-          '<li><a href="#sources">Sources</a></li>'
-    secs = ''.join(
-        f'<h2 id="{sid}"><span class="ins-h2-no">{i:02d}</span>{t}</h2>{b}' for i, (sid, t, b) in enumerate(p['sections'], 1))
     take = ''.join(f'<li>{t}</li>' for t in p['takeaways'])
     a = p['applied']
     applied = (f'<section class="ins-applied" data-reveal aria-label="From my work"><p class="rd-label">From my work</p>'
@@ -101,30 +97,39 @@ def article(p, allposts):
     pj = p['project']
     brief_rows = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in pj['brief'])
     brief_links = ''.join(f'<a class="ins-link" href="{u}" target="_blank" rel="noopener">{l} <span class="ins-arrow" aria-hidden="true">↗</span></a>' for l, u in pj['links'])
-    brief = (f'<section class="ins-brief" aria-label="Project brief"><div class="ins-brief-head"><p class="rd-label">Project {pj["no"]:02d} · Project brief</p>'
-             f'<h2 class="ins-brief-title">{pj["name"]}</h2><span class="ins-badge{" ins-badge--real" if pj["data"].startswith("Real") else ""}">{pj["data"]}</span></div>'
+    brief = (f'<section class="ins-brief" aria-label="Case study"><div class="ins-brief-head"><p class="rd-label">From my portfolio · project {pj["no"]:02d} of 15</p>'
+             f'<span class="ins-badge{" ins-badge--real" if pj["data"].startswith("Real") else ""}">{pj["data"]}</span></div>'
              f'<dl class="ins-brief-grid">{brief_rows}</dl><div class="ins-brief-links">{brief_links}</div></section>')
+    # general sections first, then the case study (card + its detail sections), then evidence and checklist
+    case_ids = p.get('case_sections', [])
+    tail_ids = ('evidence', 'what-to-do')
+    general = [x for x in p['sections'] if x[0] not in case_ids and x[0] not in tail_ids]
+    case = [x for x in p['sections'] if x[0] in case_ids]
+    tail = [x for x in p['sections'] if x[0] in tail_ids]
+    ordered = general + [('case-study', f'Case study: {pj["name"]}', brief)] + case + tail
+    toc = ''.join(f'<li><a href="#{sid}">{html.escape(re.sub(r"<[^>]+>", "", t))}</a></li>' for sid, t, _ in ordered) + \
+          '<li><a href="#sources">Sources</a></li>'
+    secs = ''.join(
+        f'<h2 id="{sid}"><span class="ins-h2-no">{i:02d}</span>{t}</h2>{b}' for i, (sid, t, b) in enumerate(ordered, 1))
     nxt = ''.join(
-        f'<a href="/{q["slug"]}.html"><span class="rd-label">Project {q["project"]["no"]:02d} · {q["topic"]}</span><strong>{q["title"]}</strong></a>'
+        f'<a href="/{q["slug"]}.html"><span class="rd-label">{q["topic"]}</span><strong>{q["title"]}</strong></a>'
         for q in (next(x for x in allposts if x['slug'] == s) for s in p['next']))
     date_label = p['date_label']
     main = f'''<main id="main" class="ins">
 <article>
 <header class="ins-hero rd-wrap">
 <a class="ins-link ins-link--back" href="/blog.html"><span class="ins-arrow" aria-hidden="true">←</span> All insights</a>
-<p class="rd-label ins-kicker">Project {p["project"]["no"]:02d} <span>×</span> {p["topic"]}</p>
+<p class="rd-label ins-kicker">{p["topic"]} <span>×</span> Research note</p>
 <h1 class="ins-title">{p["title"]}</h1>
 <p class="ins-dek">{p["dek"]}</p>
-<ul class="ins-meta"><li>Project {p["project"]["no"]:02d}</li><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
+<ul class="ins-meta"><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
 </header>
 <div class="rd-wrap"><dl class="ins-keys">{keys}</dl></div>
 <div class="ins-body rd-wrap">
 <nav class="ins-toc" aria-label="On this page"><p class="rd-label">On this page</p><ol>{toc}</ol></nav>
 <div class="ins-prose">
 <section class="ins-takeaways" aria-label="Key takeaways"><p class="rd-label">Key takeaways</p><ul>{take}</ul></section>
-{brief}
 {secs}
-{applied}
 <h2 id="sources"><span class="ins-h2-no">Notes</span>Sources</h2>
 <ol class="ins-sources">{srcs}</ol>
 <p class="ins-note">Figures are quoted from the sources above as published; where a source reports a range or a survey estimate, it is described that way. Results from my own projects say whether they use real public data or synthetic data.</p>
@@ -159,7 +164,7 @@ def index(posts):
     cards = []
     for p in posts:
         cards.append(f'''<a class="ins-card" href="/{p["slug"]}.html" data-topics="{p["topics"]}" data-reveal>
-<span class="rd-label">Project {p["project"]["no"]:02d} · {p["topic"]}</span><h2>{p["title"]}</h2><p>{p["blurb"]}</p>
+<span class="rd-label">{p["topic"]} · Research note</span><h2>{p["title"]}</h2><p>{p["blurb"]}</p>
 <span class="ins-card-meta"><span>{p["minutes"]} min · {len(p["sources"])} sources</span><span class="ins-arrow" aria-hidden="true">→</span></span></a>''')
     for e in EXISTING:
         cards.append(f'''<a class="ins-card" href="/{e["slug"]}.html" data-topics="{e["topics"]}" data-reveal>
@@ -169,19 +174,19 @@ def index(posts):
     total = len(posts) + len(EXISTING)
     main = f'''<main id="main" class="ins">
 <header class="ins-index-hero rd-wrap">
-<p class="rd-label ins-kicker">Insights <span>×</span> One note per project</p>
+<p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
 <h1 class="ins-title">What the evidence says about building better.</h1>
-<p class="ins-dek">One research note for each of my fifteen projects, in the same order as the Projects page: what published studies and public data show about the problem, what the project built and found, and what it means on a real job. Every figure is linked to its source.</p>
-<ul class="ins-meta"><li>{len(posts)} notes · 15 projects</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
+<p class="ins-dek">Fifteen research notes on construction cost, safety, data and AI: what published research shows, what it means on a real job, and a case study from my own work in each. Every figure is linked to its source.</p>
+<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
 </header>
 <section class="rd-wrap" aria-label="Featured note">
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
-<div><p class="rd-label" style="color:var(--sage)!important">Featured · Project {feat["project"]["no"]:02d} · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
+<div><p class="rd-label" style="color:var(--sage)!important">Featured · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
 <span class="ins-link">Read the note <span class="ins-arrow" aria-hidden="true">→</span></span></div>
 <div class="ins-feature-stat"><b>{feat["feature_stat"][0]}</b><span>{feat["feature_stat"][1]}</span></div></a>
 </section>
 <section class="rd-wrap" aria-labelledby="all-notes">
-<div class="ins-sub"><div><p class="rd-label">Library</p><h2 id="all-notes">All fifteen, in project order</h2></div><p><span data-ins-count>{total} notes</span> · filter by topic</p></div>
+<div class="ins-sub"><div><p class="rd-label">Library</p><h2 id="all-notes">All notes</h2></div><p><span data-ins-count>{total} notes</span> · filter by topic</p></div>
 <div class="ins-filters" role="group" aria-label="Filter notes by topic" style="margin-top:22px">{filt}</div>
 <div class="ins-grid">{"".join(cards)}</div>
 </section>
@@ -196,11 +201,12 @@ if __name__ == '__main__':
     from posts_d import POSTS as D
     from posts_e import POSTS as E
     from evidence import EVIDENCE
-    from projects_meta import META, EXTRA, RETITLE
+    from projects_meta import META, EXTRA, RETITLE, CASE
     posts = A + B + C + D + E
     for p in posts:
         m = META[p['slug']]
         p['project'] = m
+        p['case_sections'] = CASE.get(p['slug'], [])
         p.update(RETITLE.get(p['slug'], {}))
         if not any(sid == 'evidence' for sid, _, _ in p['sections']):
             p['sections'].insert(len(p['sections']) - 1, ('evidence', 'How strong is the evidence?', EVIDENCE[p['slug']]))

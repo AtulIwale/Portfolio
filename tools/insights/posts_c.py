@@ -9,13 +9,13 @@ LLM = dict(
     meta='What peer-reviewed research says about LLM hallucination on legal documents, what it implies for construction contracts and reports, and how to design and test AI tools that stay accurate.',
     blurb='Research on legal documents found hallucination rates from 17% to 88%. Bounded tasks, retrieval, refusal and testing are the defence.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('69–88%', 'hallucination rates of general-purpose LLMs on verifiable questions about US federal cases', 1),
+    keys=[('69–88%', 'hallucination rates of general-purpose LLMs on verifiable questions about real court cases', 1),
           ('17–33%', 'hallucination rates of commercial legal AI research tools built with retrieval (RAG)', 2),
           ('89%', 'accuracy where a trained model and an LLM agreed on OSHA injury coding (my analysis, real data)', 4)],
     takeaways=[
-        'On verifiable questions about US federal court cases, general-purpose LLMs hallucinated <strong>69% to 88%</strong> of the time in a peer-reviewed Stanford study.',
+        'On verifiable questions about real court cases, general-purpose LLMs hallucinated <strong>69% to 88%</strong> of the time in a peer-reviewed Stanford study.',
         'Commercial legal research tools built with retrieval still hallucinated <strong>17% to 33%</strong> of the time. Retrieval reduces the problem; it does not remove it.',
-        'The US National Institute of Standards and Technology lists <strong>confabulation</strong> as a core risk of generative AI.',
+        'The National Institute of Standards and Technology (NIST) lists <strong>confabulation</strong> as a core risk of generative AI.',
         'Accuracy improves sharply when the task is bounded, answers are grounded in cited source text, the system can decline, and a second method checks the first.',
         'Every AI tool on project documents needs an evaluation set drawn from your own documents before anyone relies on it.',
     ],
@@ -25,7 +25,7 @@ LLM = dict(
 <p>There is little peer-reviewed research on LLM accuracy with construction documents specifically. The closest well-studied field is law: long, precise texts where a wrong answer has real consequences and where answers can be checked against a source. Two studies from Stanford’s RegLab are the most rigorous evidence so far.</p>
 '''),
         ('what-studies-found', 'What the studies found', f'''
-<p><strong>General-purpose models.</strong> Matthew Dahl and colleagues asked widely used LLMs verifiable questions about US federal court cases, questions with a checkable right answer such as who wrote an opinion or what a case held. Hallucination rates ranged from <strong>69% for GPT-3.5 to 88% for Llama 2</strong>. Models also tended to accept false premises in the question, and were poor at judging their own confidence{c(1)}.</p>
+<p><strong>General-purpose models.</strong> Matthew Dahl and colleagues asked widely used LLMs verifiable questions about real court cases, questions with a checkable right answer such as who wrote an opinion or what a case held. Hallucination rates ranged from <strong>69% for GPT-3.5 to 88% for Llama 2</strong>. Models also tended to accept false premises in the question, and were poor at judging their own confidence{c(1)}.</p>
 <p><strong>Specialist tools with retrieval.</strong> Vendors responded that retrieval-augmented generation (RAG), which fetches relevant source documents and asks the model to answer from them, solves the problem. Varun Magesh and colleagues ran the first preregistered test of leading legal AI research tools from LexisNexis and Thomson Reuters. They hallucinated between <strong>17% and 33%</strong> of the time{c(2)}.</p>
 {bars('Share of answers containing a hallucination, by system type', [
     ('General-purpose LLM, best case (GPT-3.5)', 69, '69%', False), ('General-purpose LLM, worst case (Llama 2)', 88, '88%', False),
@@ -156,15 +156,15 @@ PAYROLL = dict(
 ESCALATION = dict(
     slug='insight-material-price-escalation', topic='Commercial', topics='commercial controls',
     title='Material price shocks and escalation: building estimates that survive volatility',
-    dek='In twelve months to spring 2021, US prices for lumber more than doubled and steel mill products rose three-quarters, while contractors’ bid prices barely moved. What the price data shows, how escalation clauses share the risk, and how to estimate with it.',
+    dek='In the 2020–21 price shock, lumber prices more than doubled and steel rose by three-quarters within a year, while contractors’ bid prices barely moved. What the price data shows, how escalation clauses share the risk, how to estimate with it, and a case study on late deliveries.',
     meta='Construction material price volatility (BLS and AGC data), how FIDIC and CPWD escalation clauses work, and how to rebase and index costs in estimates and models.',
     blurb='Lumber prices more than doubled in a year while bid prices barely moved. What the data shows and how escalation clauses share the risk.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('+24.3%', 'US producer prices for construction inputs over the 12 months to May 2021', 2),
+    keys=[('+24.3%', 'rise in producer prices for construction inputs over the 12 months to May 2021', 2),
           ('+111%', 'lumber and plywood producer prices over the same period', 2),
           ('−29%', 'softwood lumber prices in the single month of July 2021, after the spike', 1)],
     takeaways=[
-        'Material prices can move far faster than contract prices. Over 12 months to May 2021, US construction input prices rose <strong>24.3%</strong>, lumber and plywood <strong>111%</strong> and steel mill products <strong>75.6%</strong>.',
+        'Material prices can move far faster than contract prices. Over 12 months to May 2021, construction input prices rose <strong>24.3%</strong>, lumber and plywood <strong>111%</strong> and steel mill products <strong>75.6%</strong>.',
         'Volatility runs both ways: softwood lumber prices fell <strong>29%</strong> in one month in July 2021.',
         'Contractors carrying fixed prices absorbed the gap, because bid prices moved far less than input costs.',
         'Escalation clauses such as <strong>FIDIC Sub-Clause 13.7</strong> and India’s <strong>CPWD clauses 10CA and 10CC</strong> share the risk using published indices and fixed weights.',
@@ -172,8 +172,8 @@ ESCALATION = dict(
     ],
     sections=[
         ('the-shock', 'The 2020–2021 price shock', f'''
-<p>The pandemic years gave a clear demonstration of how fast construction input prices can move. The US Bureau of Labor Statistics reported that producer prices for lumber rose <strong>89.7%</strong> in the year to April 2021, with softwood lumber up <strong>121.1%</strong>{c(1)}. The Associated General Contractors of America, analysing the same producer price data, reported that prices for construction inputs rose <strong>24.3%</strong> over the 12 months to May 2021, nearly twice the largest annual increase previously recorded, with steep rises across materials{c(2)}:</p>
-{bars('Change in US producer prices over the 12 months to May 2021', [
+<p>The pandemic years gave a clear demonstration of how fast construction input prices can move. Official producer price data show it clearly: prices for lumber rose <strong>89.7%</strong> in the year to April 2021, with softwood lumber up <strong>121.1%</strong>{c(1)}. A contractors’ association (AGC), analysing the same producer price data, reported that prices for construction inputs rose <strong>24.3%</strong> over the 12 months to May 2021, nearly twice the largest annual increase previously recorded, with steep rises across materials{c(2)}:</p>
+{bars('Change in producer prices over the 12 months to May 2021', [
     ('All construction inputs', 24.3, '+24.3%', True), ('Aluminium mill shapes', 28.6, '+28.6%', False),
     ('Copper and brass mill shapes', 60.4, '+60.4%', False), ('Steel mill products', 75.6, '+75.6%', False),
     ('Lumber and plywood', 111, '+111%', False)],
@@ -189,8 +189,8 @@ ESCALATION = dict(
 <p>Standard-form contracts handle this with price adjustment formulas: the contract value is split into weighted components (labour, specific materials, fuel, a fixed non-adjustable part), and each component is adjusted by the movement of a named published index between the base date and the date the work is valued.</p>
 <h3>FIDIC</h3>
 <p>In the 2017 FIDIC Red and Yellow Books, <strong>Sub-Clause 13.7, Adjustments for Changes in Cost</strong>, is opt-in: it applies only if the contract includes a Schedule of cost indexation. Where it does, the amounts payable are adjusted for rises or falls in the cost of labour, goods and other inputs by the formula in that schedule, and the schedule is a complete statement of the adjustment; any other cost movements are deemed included in the contract price{c(3)}.</p>
-<h3>CPWD (India)</h3>
-<p>Indian public works contracts on CPWD conditions split escalation in two. <strong>Clause 10CA</strong> covers price variation for specified key materials such as cement and reinforcement steel against base prices. <strong>Clause 10CC</strong> covers the rest (labour, other materials and fuel) with a component formula of the form{c(4)}:</p>
+<h3>Public works conditions: a two-part example</h3>
+<p>Some public works conditions split escalation in two. India’s CPWD conditions are a clear example. <strong>Clause 10CA</strong> covers price variation for specified key materials such as cement and reinforcement steel against base prices. <strong>Clause 10CC</strong> covers the rest (labour, other materials and fuel) with a component formula of the form{c(4)}:</p>
 {callout('Clause 10CC component formula', '<strong>V = W × (Y ÷ 100) × (Q − Q<sub>0</sub>) ÷ Q<sub>0</sub></strong>', 'where W is the value of work done in the period, Y the percentage weight of the component, Q<sub>0</sub> the index at the base date and Q the index for the period.')}
 <p>Both approaches share the same logic: fix the weights and the indices when the contract is signed, so that later adjustment is arithmetic, not negotiation.</p>
 '''),

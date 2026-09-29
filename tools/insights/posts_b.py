@@ -9,12 +9,12 @@ FORECAST = dict(
     meta='The evidence on CPI stability in earned value management, why the EAC = BAC / CPI formula misleads on many construction projects, and how ML forecasts should be tested.',
     blurb='Earned value assumes cost efficiency settles by 20% complete. On defence contracts it did; on other projects it often didn’t.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('20%', 'complete: after this point, cumulative CPI moved by less than ±0.10 on 155 US defence contracts', 1),
+    keys=[('20%', 'complete: after this point, cumulative CPI moved by less than ±0.10 on 155 large defence contracts', 1),
           ('41%', 'complete before CPI stabilised on 136 environmental remediation projects', 2),
           ('2.8%', 'error of my ML forecast below 30% complete, against 4.6% for the CPI formula (synthetic data)', 0)],
     takeaways=[
         'The standard forecast, <strong>EAC = BAC ÷ CPI</strong>, assumes the cost efficiency to date will continue for the rest of the job.',
-        'On 155 US defence contracts, cumulative CPI barely moved after <strong>20% complete</strong>. That result is the basis of the “CPI stability” rule.',
+        'On 155 large defence contracts, cumulative CPI barely moved after <strong>20% complete</strong>. That result is the basis of the “CPI stability” rule.',
         'It does not transfer automatically: on 136 environmental remediation projects, CPI did not settle until <strong>41% complete</strong>, and it is rarely stable on smaller commercial projects.',
         'Construction front-loads procurement, change orders and subcontract packages, which is exactly what breaks the assumption.',
         'ML can learn from completed projects which early patterns predict overrun, but only if it is tested on later projects and compared honestly with the CPI baseline.',
@@ -25,17 +25,17 @@ FORECAST = dict(
 <p>The most common forecast of final cost divides the budget at completion by the CPI to date: <strong>EAC = BAC ÷ CPI</strong>. It is simple, explainable and built into most project controls software. It also carries a strong assumption: the efficiency of the work done so far is the efficiency of the work still to do.</p>
 '''),
         ('the-evidence-for', 'The evidence for CPI stability', f'''
-<p>The assumption has a respectable origin. In 1993, David Christensen and Scott Heise analysed cost performance reports from <strong>155 US defence contracts across 44 programmes</strong> from 1971 to 1991: aircraft, missiles, electronics, ships, software and more. They found that from the 20% completion point to contract completion, the range of the cumulative CPI was less than 0.20 on every contract{c(1)}. That is usually summarised as “after 20% complete, cumulative CPI does not change by more than ±0.10”.</p>
+<p>The assumption has a respectable origin. In 1993, David Christensen and Scott Heise analysed cost performance reports from <strong>155 government defence contracts across 44 programmes</strong> from 1971 to 1991: aircraft, missiles, electronics, ships, software and more. They found that from the 20% completion point to contract completion, the range of the cumulative CPI was less than 0.20 on every contract{c(1)}. That is usually summarised as “after 20% complete, cumulative CPI does not change by more than ±0.10”.</p>
 <p>If that holds, the CPI formula gives a usable forecast early in a project, and a CPI of 0.85 at 20% complete is an early warning that is unlikely to fix itself.</p>
 '''),
         ('the-evidence-against', 'The evidence against assuming it', f'''
 <p>Later research tested whether the rule transfers to other kinds of projects. It often doesn’t.</p>
 <ul>
-<li>Clayson, Thal and White studied monthly earned value data for <strong>136 environmental remediation projects</strong> at a US federal agency (fiscal years 2012–2013). CPI did not stabilise until the projects were <strong>41% complete</strong> by duration, and stability depended on factors such as contractor qualifications, communication, stakeholder engagement and contracting strategy{c(2)}.</li>
+<li>Clayson, Thal and White studied monthly earned value data for <strong>136 environmental remediation projects</strong> at a government agency (fiscal years 2012–2013). CPI did not stabilise until the projects were <strong>41% complete</strong> by duration, and stability depended on factors such as contractor qualifications, communication, stakeholder engagement and contracting strategy{c(2)}.</li>
 <li>Research by Henderson and Zwikael, discussed by Patrick Weaver, found CPI stability is not a given and rarely exists on smaller commercial projects. Where stability does appear, it is better read as a sign of a good plan, stable scope and effective management than as a law of nature{c(3)}.</li>
 </ul>
 {bars('Completion point after which cumulative CPI settled', [
-    ('US defence contracts (155)', 20, '20%', False), ('Environmental remediation projects (136)', 41, '41%', True),
+    ('Defence contracts (155)', 20, '20%', False), ('Environmental remediation projects (136)', 41, '41%', True),
     ('Smaller commercial projects', 100, 'rarely', False)],
     'Sources: Christensen and Heise (1993) [1]; Clayson, Thal and White (2018) [2]; Henderson and Zwikael, via Weaver [3]. The last bar indicates that stability was often not reached.', max_value=100)}
 {pull('CPI stability is better read as a sign of a good plan and stable scope than as a law of nature.')}
@@ -84,26 +84,26 @@ REWORK = dict(
     title='Rework and bad data: the cost line nobody budgets',
     dek='Surveys and benchmarking studies agree that rework is a large, recurring cost, and that poor project information is one of its biggest causes. The fix starts long before the site: at the point where data is first entered.',
     meta='Research on the cost of rework and poor project data in construction (FMI/PlanGrid, CII), the data problems behind it, and practical controls to prevent it.',
-    blurb='Poor data and miscommunication drove an estimated $31.3bn of US rework in one year. What the research says, and what bad data looks like.',
+    blurb='Poor data and miscommunication were blamed for nearly half of all rework in one large survey. What the research says, and what bad data looks like.',
     date=DATE, date_label=DATE_LABEL,
     keys=[('14+ hrs', 'a week per project team member spent on non-optimal activities: fixing mistakes, looking for data, resolving conflict', 1),
-          ('$31.3bn', 'of US rework in 2018 attributed to poor project data and miscommunication', 1),
+          ('48%', 'of rework blamed on poor project data and miscommunication, in a survey of ~600 construction leaders', 1),
           ('2–20%', 'of a project’s contract amount is typically lost to rework, per CII research', 2)],
     takeaways=[
-        'In a survey of about 600 construction leaders, poor project data and miscommunication were blamed for <strong>48% of rework</strong>, an estimated <strong>$31.3bn</strong> in the US in 2018.',
-        'Team members reported spending <strong>14+ hours a week</strong> on non-optimal activities, worth an estimated $177.5bn a year in US labour cost.',
+        'In a survey of about 600 construction leaders, poor project data and miscommunication were blamed for <strong>48% of rework</strong>.',
+        'Team members reported spending <strong>14+ hours a week</strong> on non-optimal activities, worth an estimated $177.5bn a year in labour cost in the market surveyed.',
         'Construction Industry Institute research puts rework at <strong>2–20%</strong> of contract value and finds it can be predicted before construction starts.',
         'Bad data has recognisable shapes: duplicates, spelling variants, mixed units, codes from different standards and impossible dates. Every dataset in my portfolio had them.',
         'The cheapest place to fix data is where it is entered, with validation, ownership and one source of truth.',
     ],
     sections=[
         ('what-surveys-found', 'What the surveys found', f'''
-<p>In 2018, FMI and PlanGrid surveyed nearly 600 construction leaders about how project teams spend their time and where things go wrong. Their report, <em>Construction Disconnected</em>, estimated that team members spend more than <strong>14 hours a week</strong> on non-optimal activities such as looking for project data, fixing mistakes and managing conflict, worth about <strong>$177.5bn</strong> a year in US labour cost{c(1)}.</p>
-<p>On rework specifically, respondents attributed <strong>48%</strong> of it to poor project data and miscommunication: 26% to poor communication between team members and 22% to poor project information. That share represented an estimated <strong>$31.3bn</strong> of rework in the US in 2018{c(1)}.</p>
+<p>In 2018, FMI and PlanGrid surveyed nearly 600 construction leaders about how project teams spend their time and where things go wrong. Their report, <em>Construction Disconnected</em>, estimated that team members spend more than <strong>14 hours a week</strong> on non-optimal activities such as looking for project data, fixing mistakes and managing conflict, worth about <strong>$177.5bn</strong> a year in labour cost across the market surveyed{c(1)}.</p>
+<p>On rework specifically, respondents attributed <strong>48%</strong> of it to poor project data and miscommunication: 26% to poor communication between team members and 22% to poor project information. In the market surveyed, that share represented an estimated <strong>$31.3bn</strong> of rework in a single year{c(1)}.</p>
 {bars('Share of rework attributed to each cause (survey estimate)', [
     ('Poor communication between team members', 26, '26%', True), ('Poor project information / data', 22, '22%', True),
     ('All other causes', 52, '52%', False)],
-    'Source: FMI and PlanGrid, Construction Disconnected (2018) [1]. Survey-based estimates from US construction leaders.', max_value=100)}
+    'Source: FMI and PlanGrid, Construction Disconnected (2018) [1]. Survey-based estimates from construction leaders.', max_value=100)}
 {callout('How to read survey figures', 'These are estimates from respondents, not measured costs, and the report was produced with a software vendor. Treat the exact dollar values with care. The direction is consistent with independent benchmarking research, which is why they are worth taking seriously.')}
 '''),
         ('what-benchmarking-says', 'What rework benchmarking says', f'''
@@ -164,11 +164,11 @@ PRODUCTIVITY = dict(
     blurb='Construction labour productivity grew about 1% a year while the economy managed 2.8%. Is it real, and what drives it?',
     date=DATE, date_label=DATE_LABEL,
     keys=[('1%', 'a year: construction labour-productivity growth over two decades, against 2.8% for the world economy', 1),
-          ('~40%', 'lower value added per full-time worker in US construction in 2020 than in 1970', 2),
-          ('1987', 'since then, construction is the only major US industry with negative average productivity growth', 3)],
+          ('$1.6tn', 'of extra value a year if construction productivity caught up with the wider economy', 1),
+          ('3.6%', 'annual productivity growth in manufacturing over the same two decades, against about 1% in construction', 1)],
     takeaways=[
         'McKinsey Global Institute found construction labour productivity grew about <strong>1% a year</strong> for two decades, against 2.8% for the world economy and 3.6% for manufacturing.',
-        'In the US, value added per construction worker was roughly <strong>40% lower</strong> in 2020 than in 1970, and physical measures of housebuilding productivity are flat or falling.',
+        'In one of the most detailed national studies, value added per construction worker was roughly <strong>40% lower</strong> in 2020 than in 1970, and physical measures of housebuilding productivity are flat or falling.',
         'It is not just a measurement error: Federal Reserve economists found the likely bias is <strong>too small</strong> to change the conclusion.',
         'Productivity fell most where building is hardest: dense urban cores, tight supply constraints and <strong>long permit times</strong>.',
         'The gap shows up on projects as waiting, rework and re-keyed information, which is why process and data fixes pay before new technology does.',
@@ -179,12 +179,12 @@ PRODUCTIVITY = dict(
 {bars('Annual labour-productivity growth, about 1995–2015', [
     ('Construction', 1.0, '1.0%', True), ('Total world economy', 2.8, '2.8%', False), ('Manufacturing', 3.6, '3.6%', False)],
     'Source: McKinsey Global Institute (2017) [1].')}
-<p>The US picture is starker. Austan Goolsbee and Chad Syverson, in a 2023 NBER paper titled <em>The Strange and Awful Path of Productivity in the U.S. Construction Sector</em>, found that value added per full-time employee in US construction was about <strong>40% lower in 2020 than in 1970</strong>. Had it instead grown at a modest 1% a year, aggregate US labour productivity would have been about 10% higher{c(2)}.</p>
+<p>Detailed national data can be starker still. Austan Goolsbee and Chad Syverson, in a 2023 NBER paper titled <em>The Strange and Awful Path of Productivity in the U.S. Construction Sector</em>, found that value added per full-time construction employee was about <strong>40% lower in 2020 than in 1970</strong>. Had it instead grown at a modest 1% a year, labour productivity across the whole economy would have been about 10% higher{c(2)}.</p>
 '''),
         ('is-it-real', 'Is it real, or a measurement problem?', f'''
 <p>This is the right question to ask. Productivity is output divided by input, and construction output is hard to measure: every project is different, and turning spending into “real” output needs a price index that separates inflation from better buildings. If the price index rises too fast, measured productivity falls even when crews are working as well as ever.</p>
 <p>The Bureau of Labor Statistics took this seriously. BLS economists led by Leo Sveikauskas developed new, better quality-adjusted productivity measures for four construction industries (single-family and multifamily housing, highways and bridges, and industrial construction), noting that reliable output deflators are the core difficulty{c(4)}. BLS now publishes these measures{c(5)}.</p>
-<p>The most direct test came from Federal Reserve economists Daniel Garcia and Raven Molloy. Construction is the only major US industry to have recorded <strong>negative average productivity growth since 1987</strong>, and they asked how much of that could be explained by unmeasured improvements in building quality. Their answer: even under generous assumptions, the bias is <strong>not large enough</strong> to overturn the conclusion that construction productivity growth has been weak{c(3)}.</p>
+<p>The most direct test came from Federal Reserve economists Daniel Garcia and Raven Molloy. In their data, construction is the only major industry to have recorded <strong>negative average productivity growth since 1987</strong>, and they asked how much of that could be explained by unmeasured improvements in building quality. Their answer: even under generous assumptions, the bias is <strong>not large enough</strong> to overturn the conclusion that construction productivity growth has been weak{c(3)}.</p>
 {pull('Even under generous assumptions, measurement bias is not large enough to overturn the conclusion.')}
 '''),
         ('what-the-data-point-to', 'What the data point to', f'''
@@ -192,7 +192,7 @@ PRODUCTIVITY = dict(
 <ul>
 <li><strong>Physical output per worker is flat.</strong> Goolsbee and Syverson look past price indices to physical measures in housing, such as homes or square feet built per worker, and find productivity falling or at best stagnant over decades{c(2)}.</li>
 <li><strong>Materials are used less efficiently.</strong> The same paper finds a decline in how efficiently firms turn materials into output{c(2)}.</li>
-<li><strong>Productive firms don’t grow.</strong> In most industries, more productive producers win market share. Across US states, construction shows no sign of this: states with more productive construction sectors do not gain share of national activity{c(2)}.</li>
+<li><strong>Productive firms don’t grow.</strong> In most industries, more productive producers win market share. Across regions, construction shows no sign of this: regions with more productive construction sectors do not gain share of national activity{c(2)}.</li>
 <li><strong>Constraints matter.</strong> Garcia and Molloy find productivity fell most in areas with more building in the urban core and tighter supply constraints, <strong>especially where permit times are long</strong>{c(3)}.</li>
 </ul>
 <p>The short-run numbers show how sensitive the measure is to demand. BLS reports that single-family housebuilding productivity rose 12.4% a year from 2019 to 2021 as output grew much faster than hours worked, then declined in 2022 and 2023 as output fell and hours held steady{c(5)}{c(6)}. Productivity in construction moves with how smoothly work flows, not only with how hard people work.</p>

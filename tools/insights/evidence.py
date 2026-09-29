@@ -12,32 +12,32 @@ def grade(rows):
 
 EVIDENCE = {
  'insight-osha-severe-injuries': grade([
-   ['Falls are the largest cause of severe injuries', '19,021 official OSHA reports over ten years', 'Strong', 'Federal-OSHA states and severe injuries only'],
+   ['Falls are the largest cause of severe injuries', '19,021 official OSHA reports over ten years', 'Strong', 'One regulator’s jurisdiction; severe injuries only'],
    ['Caught-in accidents drive most amputations', 'Same data, amputation recorded per report', 'Strong', 'Coding line with struck-by moved in 2024'],
    ['Falls, slips and trips lead construction fatalities', 'BLS Census of Fatal Occupational Injuries', 'Strong', 'Counts, not rates per hour worked'],
-   ['A simple model codes causes about as well as coders agree', 'Time-split test on 3,204 later reports', 'Moderate', 'US narratives; re-test on your own reports']]),
+   ['A simple model codes causes about as well as coders agree', 'Time-split test on 3,204 later reports', 'Moderate', 'One country’s reports; re-test on your own']]),
  'insight-permit-wait-times': grade([
    ['Approved-only averages understate the wait', 'Statistical property of censored data; 29,123 NYC filings', 'Strong', 'Size of the gap varies by place and year'],
    ['Survival models give calibrated probabilities', 'Out-of-time test on 5,708 NYC filings', 'Moderate', 'One city, one department, one period'],
-   ['Long permit times go with weaker productivity', 'Federal Reserve analysis of US metro areas', 'Moderate', 'Association, not proof of cause'],
+   ['Long permit times go with weaker productivity', 'Federal Reserve analysis of metro areas', 'Moderate', 'Association, not proof of cause'],
    ['Regulation is about a quarter of a new home’s price', 'NAHB builder survey, 2021', 'Indicative', 'Industry-association estimate']]),
  'insight-cost-estimates-miss': grade([
    ['Most large projects overrun cost and schedule', 'Database of 16,000+ projects across sectors', 'Strong', 'Large projects; mix of sectors and countries'],
    ['Early estimates are biased low, not randomly wrong', 'Consistent finding across the overrun literature', 'Strong', 'Size of bias differs by project type'],
-   ['Reference-class uplifts correct the bias', 'UK Treasury guidance built on project data', 'Moderate', 'Uplift values come from UK public projects'],
+   ['Reference-class uplifts correct the bias', 'Government appraisal guidance built on project data', 'Moderate', 'Uplift values come from one country’s public projects'],
    ['ML estimates with calibrated ranges beat coefficients', 'My test on later projects', 'Indicative', 'Synthetic data; needs a firm’s own history']]),
  'insight-forecasting-final-cost': grade([
-   ['Cumulative CPI settles by 20% complete', '155 US defence contracts, 1971–1991', 'Moderate', 'Defence programmes with mature EVM'],
+   ['Cumulative CPI settles by 20% complete', '155 defence contracts, 1971–1991', 'Moderate', 'Defence programmes with mature EVM'],
    ['CPI can take much longer to settle elsewhere', '136 environmental remediation projects', 'Moderate', 'One agency, two fiscal years'],
    ['CPI stability is rare on smaller commercial work', 'Later research, summarised by a practitioner', 'Indicative', 'Secondary summary of the studies'],
    ['ML beats the CPI formula early in a project', 'My test on 239 completed projects', 'Indicative', 'Synthetic data; validate on real history']]),
  'insight-rework-bad-data': grade([
    ['Rework costs 2–20% of contract value', 'Construction Industry Institute research', 'Moderate', 'Wide range; depends on project type'],
    ['Rework can be predicted before construction', 'CII Field Rework Index studies', 'Moderate', 'Mainly industrial projects'],
-   ['Poor data and communication cause ~half of rework', 'Survey of ~600 US construction leaders', 'Indicative', 'Self-reported; vendor-sponsored report'],
+   ['Poor data and communication cause ~half of rework', 'Survey of ~600 construction leaders', 'Indicative', 'Self-reported; vendor-sponsored report'],
    ['Real data sets carry duplicates, unit and code errors', 'Counts from my own cleaning pipelines', 'Strong', 'Examples, not a rate across the industry']]),
  'insight-construction-productivity': grade([
-   ['Construction productivity has grown far slower than the economy', 'MGI global analysis; US national accounts', 'Strong', 'Output is hard to measure in construction'],
+   ['Construction productivity has grown far slower than the economy', 'MGI global analysis; national accounts', 'Strong', 'Output is hard to measure in construction'],
    ['The decline is not just a measurement artefact', 'Federal Reserve test of deflator bias', 'Strong', 'Relies on assumptions about quality change'],
    ['Physical output per worker in housing is flat or falling', 'NBER study of physical measures', 'Moderate', 'Housing only'],
    ['Long permit times go with the biggest declines', 'Federal Reserve metro-area estimates', 'Moderate', 'Association, not proof of cause']]),
@@ -52,7 +52,7 @@ EVIDENCE = {
    ['Isolation Forest isolates anomalies efficiently', 'Peer-reviewed method (ICDM 2008)', 'Strong', 'Finds unusual lines, not proof of fraud'],
    ['Peer-relative features beat audit rules on payroll', 'My test with seeded issues', 'Indicative', 'Synthetic data; misses proxy attendance']]),
  'insight-material-price-escalation': grade([
-   ['Input prices rose far faster than bid prices in 2020–21', 'BLS producer price indices, AGC analysis', 'Strong', 'US market; one exceptional period'],
+   ['Input prices rose far faster than bid prices in 2020–21', 'BLS producer price indices, AGC analysis', 'Strong', 'One market; one exceptional period'],
    ['Prices can fall as fast as they rise', 'BLS monthly lumber prices', 'Strong', 'Lumber is more volatile than most inputs'],
    ['Index-based clauses share price risk by formula', 'FIDIC 2017 and CPWD contract conditions', 'Strong', 'Only if the clause is included and indices named'],
    ['Rebasing prices improves cost models', 'Standard QS practice; my estimating model', 'Moderate', 'Index weights must match your cost mix']]),
@@ -65,7 +65,7 @@ EVIDENCE.update({
    ['A CNN reading wording beats keyword rules', 'My test on 800 later clauses', 'Indicative', 'Synthetic clauses are more regular than real ones'],
    ['Reviewer judgement caps model accuracy', 'Model agreement with six reviewers, 85–89%', 'Moderate', 'Measured on synthetic reviewer labels']]),
  'insight-construction-payments': grade([
-   ['US construction payment cycles are long', 'Rabbet 2024 industry survey', 'Indicative', 'Vendor-sponsored survey'],
+   ['Construction payment cycles are long', 'Rabbet 2024 industry survey', 'Indicative', 'Vendor-sponsored survey'],
    ['Small suppliers must be paid within 45 days', 'MSMED Act 2006, s.15–16', 'Strong', 'Applies to registered micro and small enterprises'],
    ['Confirmed risk and patterns should stay separate', 'Design principle shown in my AR/AP app', 'Moderate', 'Evidence viewer, not a tested predictor']]),
  'insight-inventory-records': grade([
@@ -73,7 +73,7 @@ EVIDENCE.update({
    ['Auditing reduces inaccuracy', 'Same study', 'Moderate', 'Association within one retailer'],
    ['Adjustment concentration flags where to look', 'My rule on synthetic stock data', 'Indicative', 'Size alone reproduced the labels here']]),
  'insight-predictive-maintenance': grade([
-   ['Predictive maintenance saves 8–12% over preventive', 'US DOE FEMP guidance', 'Moderate', 'Facility equipment, not mobile plant'],
+   ['Predictive maintenance saves 8–12% over preventive', 'Government (FEMP) maintenance guidance', 'Moderate', 'Facility equipment, not mobile plant'],
    ['Fixed alarm limits warn too late', 'My test against OEM-style limits', 'Indicative', 'Synthetic telematics'],
    ['Tree models suit patchy sensor data', 'Seven-model comparison, time-split test', 'Indicative', 'Five-month synthetic test window']]),
  'insight-booking-cancellations': grade([
@@ -81,7 +81,7 @@ EVIDENCE.update({
    ['Late first payment is the strongest early signal', 'Odds ratios on my synthetic bookings', 'Indicative', 'Synthetic data built with these patterns'],
    ['Simple models match complex ones at this size', 'Seven classifiers on 465 later bookings', 'Moderate', 'Small sample; ranking is fragile']]),
  'insight-attendance-before-payroll': grade([
-   ['One in five payrolls has errors, $291 each', 'EY survey of 508 US payroll staff', 'Indicative', 'US firms of 250–10,000 employees'],
+   ['One in five payrolls has errors, $291 each', 'EY survey of 508 payroll staff', 'Indicative', 'One country’s firms of 250–10,000 employees'],
    ['Overtime on building work is paid at double rate', 'BOCW Act 1996, s.29', 'Strong', 'Normal hours set by state rules'],
    ['Three checks catch attendance errors before payroll', 'Rules on my synthetic attendance data', 'Indicative', 'Agreement with labels is by construction']]),
 })

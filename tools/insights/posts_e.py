@@ -7,14 +7,14 @@ ASSETS = dict(
     slug='insight-predictive-maintenance', topic='Plant & equipment', topics='ai controls',
     title='Predicting equipment breakdowns: what the maintenance research promises, and what a model delivered',
     dek='A breakdown on site costs the repair, the hire of a replacement and the crew standing idle. Predictive maintenance promises to catch failures early. Here is what the guidance claims, and what happened when I tested it on two years of telematics.',
-    meta='Maintenance strategies and the evidence for predictive maintenance (US DOE FEMP), and a test of seven models predicting construction plant breakdowns four weeks ahead from telematics.',
+    meta='Maintenance strategies and the evidence for predictive maintenance, and a case study of seven models predicting construction plant breakdowns four weeks ahead from telematics.',
     blurb='Predictive maintenance promises 8–12% savings over preventive. A model caught 71% of breakdowns with 10 inspections a week; fixed alarm limits caught 16%.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('8–12%', 'savings of a well-run predictive programme over preventive maintenance alone, per the US DOE', 1),
+    keys=[('8–12%', 'savings of a well-run predictive programme over preventive maintenance alone, per government maintenance guidance', 1),
           ('71%', 'of breakdowns caught by XGBoost with 10 inspections a week (synthetic telematics)', 3),
           ('16%', 'caught by the manufacturer’s fixed alarm limits, which fire too late', 3)],
     takeaways=[
-        'The US Department of Energy’s maintenance guide puts the saving of a working predictive programme at <strong>8–12% over preventive maintenance</strong>, and describes it as nearly eliminating catastrophic failures.',
+        'A widely used government maintenance guide puts the saving of a working predictive programme at <strong>8–12% over preventive maintenance</strong>, and describes it as nearly eliminating catastrophic failures.',
         'Fixed alarm limits fire too late: in my test they caught only <strong>16%</strong> of breakdowns in advance.',
         'Comparing each machine with its <strong>own normal</strong> is what gives the early warning, not absolute thresholds.',
         'At a realistic workshop capacity of 10 inspections a week, XGBoost caught <strong>71%</strong> of breakdowns; at its cost-optimal threshold, 84% with a median of four weeks’ warning.',
@@ -22,7 +22,7 @@ ASSETS = dict(
     ],
     sections=[
         ('maintenance-strategies', 'Four ways to maintain a machine', f'''
-<p>The US Department of Energy’s Federal Energy Management Program (FEMP) publishes a widely used <em>Operations &amp; Maintenance Best Practices</em> guide. It describes a ladder of maintenance strategies{c(1)}{c(2)}:</p>
+<p>One of the most widely used references is the <em>Operations &amp; Maintenance Best Practices</em> guide from the Federal Energy Management Program (FEMP). It describes a ladder of maintenance strategies{c(1)}{c(2)}:</p>
 {table(['Strategy', 'When work happens', 'Trade-off'], [
     ['Reactive', 'After a failure', 'No planning cost, but the most downtime and collateral damage'],
     ['Preventive', 'On a calendar or hour interval', 'Fewer failures, but parts are replaced whether or not they need it'],
@@ -83,7 +83,7 @@ SALES = dict(
     slug='insight-booking-cancellations', topic='Real estate sales', topics='commercial ai',
     title='Why flat bookings cancel: payment timing, home loans and what a call list can do',
     dek='A cancelled booking costs a developer the sale, the marketing spent to win it and months of carrying the flat again. The warning signs usually appear in the first weeks, if someone is watching the right ones.',
-    meta='What drives residential booking cancellations in India, how a model scored 45 days after booking ranks who to call, and pricing and buyer segments for unsold flats. Tested on synthetic data.',
+    meta='What drives residential booking cancellations, how a model scored 45 days after booking ranks who to call, and pricing and buyer segments for unsold flats, with a case study on synthetic data.',
     blurb='Calling the riskiest 20% of buyers found 65% of cancellations. Late first payments and unsanctioned loans are the strongest early signals.',
     date=DATE, date_label=DATE_LABEL,
     keys=[('65%', 'of cancellations found by calling the riskiest 20% of bookings (synthetic data)', 2),
@@ -98,7 +98,7 @@ SALES = dict(
     ],
     sections=[
         ('the-frame', 'The regulatory frame', f'''
-<p>India’s Real Estate (Regulation and Development) Act, 2016 (RERA) shapes the booking journey. Under <strong>Section 13</strong>, a promoter may not accept more than <strong>10% of the cost</strong> of an apartment as an advance or application fee without first entering into a written agreement for sale and registering it{c(1)}. The agreement must set out the payment schedule, the possession date and the interest payable by either side on default.</p>
+<p>Housing regulation shapes the booking journey. India’s Real Estate (Regulation and Development) Act, 2016 (RERA) is a good example: under <strong>Section 13</strong>, a promoter may not accept more than <strong>10% of the cost</strong> of an apartment as an advance or application fee without first entering into a written agreement for sale and registering it{c(1)}. The agreement must set out the payment schedule, the possession date and the interest payable by either side on default.</p>
 <p>That makes the weeks after agreement critical. The buyer now faces the first construction-linked demands, the home loan must be sanctioned and disbursed, and the gap between enthusiasm at booking and affordability in practice becomes visible.</p>
 '''),
         ('what-drives-cancellations', 'What drives cancellations', f'''
@@ -153,28 +153,28 @@ HR = dict(
     slug='insight-attendance-before-payroll', topic='HR & attendance', topics='data commercial',
     title='Fix attendance before payroll: the cheapest payroll error is the one never paid',
     dek='Payroll errors are common, expensive and mostly start as attendance errors. On a construction site, where overtime is paid at double rates, a missing clock-out or a mis-recorded shift turns straight into money.',
-    meta='What payroll errors cost (EY), why construction attendance feeds them, India’s BOCW overtime rules, and three simple checks to run on attendance before payroll.',
+    meta='What payroll errors cost, why construction attendance feeds them, statutory overtime rules, and three simple checks to run on attendance before payroll.',
     blurb='One in five payrolls has errors, at $291 each. Time and attendance errors are the most common. Three checks to run before payroll.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('1 in 5', 'US payrolls contain errors, per a 2022 EY survey', 1),
+    keys=[('1 in 5', 'payrolls contain errors, in a 2022 EY survey of 508 payroll professionals', 1),
           ('$291', 'average cost of each payroll error in the same survey', 1),
-          ('2×', 'ordinary wages for overtime beyond a normal working day under India’s BOCW Act (s.29)', 2)],
+          ('2×', 'ordinary wages for overtime on building work under construction labour law, for example India’s BOCW Act', 2)],
     takeaways=[
-        'An EY survey found <strong>one in five</strong> US payrolls contains errors, each costing about <strong>$291</strong>, with an average of 15 corrections per payroll period.',
+        'An EY survey found <strong>one in five</strong> payrolls contains errors, each costing about <strong>$291</strong>, with an average of 15 corrections per payroll period.',
         '<strong>Time and attendance errors</strong> were the most common, occurring more than once per employee per year.',
-        'Under India’s BOCW Act, building workers are paid <strong>twice the ordinary rate</strong> for work beyond the normal working day, so attendance errors become wage errors quickly.',
+        'Under construction labour laws such as India’s BOCW Act, building workers are paid <strong>twice the ordinary rate</strong> for work beyond the normal working day, so attendance errors become wage errors quickly.',
         'Three checks catch much of it before payroll: missing clock-outs, leave still pending approval and implausibly long shifts.',
         'The goal is review before release. Correcting a paid error costs far more than fixing an attendance record.',
     ],
     sections=[
         ('what-errors-cost', 'What payroll errors cost', f'''
-<p>In 2022, EY surveyed 508 payroll professionals at US companies with 250 to 10,000 employees. It found that about <strong>one in five payrolls contains errors</strong>, that each error costs an average of <strong>$291</strong> to fix, and that the average organisation makes <strong>15 corrections per payroll period</strong>{c(1)}.</p>
+<p>In 2022, EY surveyed 508 payroll professionals at companies with 250 to 10,000 employees. It found that about <strong>one in five payrolls contains errors</strong>, that each error costs an average of <strong>$291</strong> to fix, and that the average organisation makes <strong>15 corrections per payroll period</strong>{c(1)}.</p>
 <p>The most common errors were in <strong>time and attendance</strong> and expenses, occurring on average more than once per employee per year and costing about $250,000 per 1,000 employees. A 1,000-employee organisation spent an estimated 29 workweeks a year fixing the most common payroll errors{c(1)}.</p>
 {pull('Most payroll errors start as attendance errors, and attendance is cheapest to fix before anyone is paid.')}
 '''),
         ('construction-attendance', 'Why construction attendance is error-prone', f'''
 <p>Site attendance has every ingredient for errors: large, changing crews; shifts that start before dawn and run late around concrete pours; biometric devices that fail; manual registers kept by supervisors under pressure; and workers who move between sites during a week.</p>
-<p>In India, the Building and Other Construction Workers (BOCW) Act, 1996 raises the stakes. Under <strong>Section 28</strong>, the government fixes by rule the hours of a normal working day and a weekly day of rest. Under <strong>Section 29</strong>, a building worker who works beyond the normal working day is entitled to wages at <strong>twice the ordinary rate</strong>{c(2)}. A shift recorded two hours too long is therefore paid at double rate, and a missing clock-out forces someone to guess.</p>
+<p>Labour law raises the stakes. India’s Building and Other Construction Workers (BOCW) Act, 1996 is a typical example. Under <strong>Section 28</strong>, the government fixes by rule the hours of a normal working day and a weekly day of rest. Under <strong>Section 29</strong>, a building worker who works beyond the normal working day is entitled to wages at <strong>twice the ordinary rate</strong>{c(2)}. A shift recorded two hours too long is therefore paid at double rate, and a missing clock-out forces someone to guess.</p>
 '''),
         ('three-checks', 'Three checks before payroll', f'''
 <p>My Construction HR project runs three simple, explainable checks on 2,000 synthetic attendance records for 200 employees, each with its own worklist and source evidence{c(3)}:</p>

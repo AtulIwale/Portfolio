@@ -4,31 +4,36 @@ DATE, DATE_LABEL = '2026-09-29', 'Sept 2026'
 
 SAFETY = dict(
     slug='insight-osha-severe-injuries', topic='Safety', topics='safety data',
-    title='What 19,021 severe-injury reports say about construction safety',
-    dek='Ten years of OSHA severe-injury reports, read one narrative at a time by a model and checked against OSHA’s own coders. The hazards that put construction workers in hospital are not always the ones safety plans are written around.',
-    meta='An analysis of 19,021 OSHA severe-injury reports from US construction (2015–2025): where serious injuries come from, what changes by trade, and how to read incident text at scale.',
-    blurb='Ten years of real OSHA reports: falls from under six feet, the amputations behind caught-in accidents, and what a model learns from incident narratives.',
-    feature_stat=('37%', 'of severe construction injuries in ten years of OSHA reports were falls to a lower level.'),
+    title='Where serious construction injuries come from, and what incident reports can tell you',
+    dek='Falls get most of the attention in safety plans, and rightly so. But the hazards that put construction workers in hospital are not always the ones plans are written around, and the detail that explains them sits unread in incident reports. What the evidence shows, with a ten-year case study of 19,021 severe-injury reports.',
+    meta='Where serious construction injuries come from, why severity matters as much as frequency, and how to read incident reports at scale, with a case study of 19,021 severe-injury reports (2015–2025).',
+    blurb='Falls lead, but caught-in accidents cause most amputations. What the evidence shows, with a case study of 19,021 severe-injury reports.',
+    feature_stat=('37%', 'of severe construction injuries were falls to a lower level, in a ten-year study of 19,021 reports.'),
     date=DATE, date_label=DATE_LABEL,
-    keys=[('37%', 'of severe construction injuries were falls to a lower level (my analysis of OSHA data)', 1),
+    keys=[('37%', 'of severe construction injuries were falls to a lower level, in a ten-year case study of 19,021 reports', 1),
           ('63%', 'of caught-in and crushing injuries involved an amputation, mostly fingers', 1),
-          ('14 yrs', 'running, fall protection has been OSHA’s most-cited standard (6,307 citations in FY2024)', 4)],
+          ('No. 1', 'fall protection is, year after year, the most frequently cited construction safety standard', 4)],
     takeaways=[
-        'Falls are the most common severe injury in US construction, and one in four falls with a recorded height was from <strong>under six feet</strong>. Ladders and low platforms matter, not only roofs.',
+        'Falls are the most common severe injury in construction, and in the case study one in four falls with a recorded height was from <strong>under six feet</strong>. Ladders and low platforms matter, not only roofs.',
         'Caught-in and crushing accidents are rarer but cause most amputations: <strong>63%</strong> of them involve one.',
         'The hazard mix changes sharply by trade and by season. <strong>80%</strong> of heat-stress injuries happen from June to August.',
         'Incident narratives can be coded consistently by a simple, explainable model: <strong>84%</strong> agreement with OSHA’s coders against 55% for a keyword list.',
         'Coding rules change. OSHA’s January 2024 manual change moved the caught-in/struck-by line, so any model needs monitoring by cause.',
     ],
     sections=[
-        ('the-data', 'The data behind this note', f'''
-<p>Since 1 January 2015, US employers under federal OSHA must report any work-related in-patient hospitalisation, amputation or loss of an eye within 24 hours{c(2)}. Each report includes a short free-text narrative of what happened, and OSHA’s staff code it by event, source and body part. OSHA publishes the full file on its Severe Injury Reports page{c(3)}.</p>
+        ('what-safety-data-misses', 'What most safety data misses', f'''
+<p>Most contractors track incident counts, lost-time injury rates and near misses. Those numbers are useful, but they are dominated by frequent, less severe events, and they say little about <em>why</em> people are hurt. The detail that explains an injury (the task, the equipment, the height, the sequence of events) sits in the free-text narrative of the incident report.</p>
+<p>That text is rarely analysed. Coding each report consistently by cause takes trained people and time, so in most firms the narratives are read once, filed and never compared. The result is a safety plan built on the hazards everyone expects, rather than on the pattern the firm’s own reports would show.</p>
+{pull('The detail that explains an injury sits in the narrative, and the narrative is rarely read twice.')}
+'''),
+        ('the-data', 'The data: ten years of severe-injury reports', f'''
+<p>Since 1 January 2015, employers under OSHA’s federal jurisdiction must report any work-related in-patient hospitalisation, amputation or loss of an eye within 24 hours{c(2)}. Each report includes a short free-text narrative of what happened, and OSHA’s staff code it by event, source and body part. OSHA publishes the full file on its Severe Injury Reports page{c(3)}.</p>
 <p>I downloaded the January 2015 to November 2025 file (105,996 reports across all industries) and kept the <strong>19,021 reports from construction</strong> (NAICS sector 23). The cleaning mattered more than the modelling. The file holds 348 event codes stored at two, three or four digits, from more than one version of OSHA’s coding manual, where the same prefix can mean different things. I grouped them into nine cause groups from their titles, removed employer names, addresses and coordinates, and set aside 381 reports with no usable cause{c(1)}.</p>
-{callout('Scope', 'These are <strong>severe</strong> injuries only, and only from states under federal OSHA. State-plan states such as California are not in the file, and neither are minor injuries. The shares below describe what puts people in hospital, not everything that happens on site.')}
+{callout('Scope', 'These are <strong>severe</strong> injuries only, and only from regions under OSHA’s federal jurisdiction; regions that run their own state plans are not in the file, and neither are minor injuries. The shares below describe what puts people in hospital, not everything that happens on site.')}
 '''),
         ('where-injuries-come-from', 'Where serious injuries come from', f'''
 <p>Of the 18,640 reports with a known cause, falls to a lower level are the largest group by a distance. But the share of each cause that ends in an amputation tells a different story about severity{c(1)}.</p>
-{bars('Severe construction injuries by cause, US federal-OSHA states, Jan 2015 – Nov 2025', [
+{bars('Severe construction injuries by cause, Jan 2015 – Nov 2025 (case study)', [
     ('Fall to lower level', 6806, '6,806', True), ('Struck by or against object', 4706, '4,706', False),
     ('Caught in or crushed', 2285, '2,285', False), ('Vehicle or mobile equipment', 1429, '1,429', False),
     ('Electrical', 959, '959', False), ('Slip, trip or same-level fall', 881, '881', False),
@@ -51,9 +56,9 @@ SAFETY = dict(
 <p>80% of heat-stress injuries in the file happened from June to August, mostly in Texas and Florida{c(1)}. That makes heat one of the few hazards you can plan for by calendar: water, shade, rest cycles and acclimatisation for new starters, scheduled before the season rather than after the first incident.</p>
 {pull('Falls put the most people in hospital. Caught-in accidents take the most fingers and hands. A plan ranked only by frequency misses the second.')}
 '''),
-        ('the-fatal-picture', 'The fatal picture points the same way', f'''
-<p>The Bureau of Labor Statistics’ Census of Fatal Occupational Injuries tells a consistent story at the most serious end. In 2023, construction and extraction occupations recorded <strong>1,055 deaths</strong>, 20.0% of all fatal work injuries in the US{c(5)}. Falls, slips and trips were the leading fatal event for these occupations, and roofing contractors alone accounted for 26.0% of the construction industry’s fatal falls, slips and trips (110 deaths){c(6)}.</p>
-<p>Enforcement data agree. OSHA’s construction fall-protection standard (29 CFR 1926.501) was the most frequently cited standard for the fourteenth year in a row in fiscal 2024, with 6,307 citations{c(4)}.</p>
+        ('the-fatal-picture', 'The most serious hazards are well known', f'''
+<p>Fatality statistics tell a consistent story. In detailed national fatality data such as the Bureau of Labor Statistics’ census, construction and extraction workers account for about one in five of all workplace deaths, and <strong>falls, slips and trips</strong> are their leading cause of death{c(5)}. Roofing work alone accounts for about a quarter of construction’s fatal falls{c(6)}.</p>
+<p>Enforcement records point the same way. Fall protection is routinely the most frequently cited construction safety standard; OSHA reported it at the top of its list for the fourteenth year running in 2024{c(4)}. The main hazards are not a secret. What varies between firms is whether their own data shows where those hazards are hurting their people.</p>
 '''),
         ('reading-the-text', 'Reading incident text at scale', f'''
 <p>Most contractors don’t employ trained coders, so their own incident reports stay as unread text. I tested whether a model could code the cause of an injury from the narrative as consistently as OSHA’s coders, training on 2015–2022, tuning on 2023 and testing on 2024–2025 so the model is always judged on later years than it learned from{c(1)}.</p>
@@ -94,15 +99,15 @@ SAFETY = dict(
 PERMITS = dict(
     slug='insight-permit-wait-times', topic='Pre-construction', topics='data controls',
     title='Waiting for a permit: why the average approval time is wrong',
-    dek='Ask how long a building department takes and most people quote the average for approved filings. With real New York City data, that shortcut understates the wait by 47 days. The fix is a method medicine has used since 1958.',
-    meta='Why approved-only averages understate permit wait times, shown on 29,123 real NYC Department of Buildings filings, and how survival analysis gives honest approval probabilities.',
-    blurb='On 29,123 real NYC filings, the usual approved-only average understates the wait by 47 days. How survival analysis fixes it.',
+    dek='Ask how long a building department takes and most people quote the average for approved applications. That shortcut ignores every application still waiting, so it always makes approvals look faster than they are. The fix is a method medicine has used since 1958, shown here on a case study of 29,123 building filings.',
+    meta='Why approved-only averages understate permit approval times, how survival analysis gives honest approval probabilities, and a case study of 29,123 building filings.',
+    blurb='Approved-only averages always make permits look faster than they are. In a case study of 29,123 filings, the gap was 47 days.',
     date=DATE, date_label=DATE_LABEL,
-    keys=[('47 days', 'how much the approved-only median understates the real wait on NYC filings (107 vs 154 days)', 1),
-          ('1 in 4', 'major NYC filings in the data were still waiting for approval', 1),
-          ('23.8%', 'of a new US home’s price attributed to regulation in NAHB’s 2021 estimate', 3)],
+    keys=[('47 days', 'how much the approved-only median understated the real wait, in a case study of 29,123 filings (107 vs 154 days)', 1),
+          ('1 in 4', 'filings in the same case study were still waiting for approval, invisible to a simple average', 1),
+          ('1958', 'the year Kaplan and Meier published the method that counts still-waiting cases properly', 2)],
     takeaways=[
-        'Averages of <strong>approved</strong> filings leave out every filing still waiting, which are exactly the slow ones. On NYC data the median moves from <strong>107 to 154 days</strong> once they are counted.',
+        'Averages of <strong>approved</strong> filings leave out every filing still waiting, which are exactly the slow ones. In a case study of 29,123 filings, the median moved from <strong>107 to 154 days</strong> once they were counted.',
         'The bias gets worse for recent filings: for 2026 filings the naive median is 74 days against 182.',
         'Survival analysis (Kaplan–Meier, Cox, survival forests) uses “still waiting after 400 days” as information instead of throwing it away.',
         'Check calibration, not just ranking. A naive model ranked filings almost as well but promised a 73% chance of approval within 180 days when 59% happened.',
@@ -110,9 +115,9 @@ PERMITS = dict(
     ],
     sections=[
         ('why-it-matters', 'Why approval time is a cost line', f'''
-<p>Until plans are approved, the construction start, the financing draw and the holding costs are all guesses. The National Association of Home Builders estimated in 2021 that regulation at all levels of government accounts for <strong>$93,870, or 23.8%</strong>, of the average price of a new US single-family home, with $41,330 of it arising during development{c(3)}. Approval time is part of that cost: every month of waiting is a month of interest, overheads and escalation.</p>
-<p>The variation between places is large. Research from UC Berkeley’s Terner Center found that more than 80% of proposed multifamily developments in the jurisdictions it studied needed entitlement, and that the median entitlement time ranged from about six months in Oakland to more than 25 months in San Francisco for similar projects{c(4)}.</p>
-<p>And it shows up in the national productivity numbers. Federal Reserve economists found that single-family construction productivity declined most in areas with tighter supply constraints, <strong>especially locations with long permit times</strong>{c(5)}.</p>
+<p>Until plans are approved, the construction start, the financing draw and the holding costs are all guesses. Every month of waiting is a month of interest, overheads and escalation, and regulation and approvals together are a material share of what a building costs: one home builders’ association estimated regulation at 23.8% of the average price of a new home in its market{c(3)}.</p>
+<p>The variation between places is large, even between neighbouring cities. Research on housing approvals found that more than 80% of proposed multifamily developments in the jurisdictions studied needed a discretionary approval, and that the median time for similar projects ranged from about six months in one city to more than 25 months in the next{c(4)}.</p>
+<p>And it shows up in productivity statistics. Federal Reserve economists found that single-family construction productivity declined most in areas with tighter supply constraints, <strong>especially locations with long permit times</strong>{c(5)}.</p>
 '''),
         ('the-shortcut', 'The shortcut that everyone uses', f'''
 <p>The usual way to answer “how long does approval take?” is to take filings that were approved and average the days from filing to approval. It feels reasonable. It is biased, always in the same direction.</p>
@@ -120,7 +125,7 @@ PERMITS = dict(
 <p>Statisticians call the still-waiting filings <strong>right-censored</strong>: we know the wait is <em>at least</em> 300 days, not what it will be. Dropping them makes the process look faster than it is. Giving them a made-up end date is worse. Kaplan and Meier solved this in 1958 with an estimator that uses each censored case for exactly as long as it was observed{c(2)}.</p>
 {pull('A filing still waiting after 400 days is information, not missing data.')}
 '''),
-        ('the-nyc-evidence', 'What the NYC data shows', f'''
+        ('the-nyc-evidence', 'What 29,123 real filings show', f'''
 <p>I took New York City’s public DOB NOW filing data{c(6)} for four major job types (New Building, two kinds of major alteration, and full demolition): 29,123 filings from 2021 to 2026, one row per job, with only the information known on the filing day{c(1)}. A quarter were still open, and even among 2021 filings about one in eight had never been approved.</p>
 {bars('Median days from filing to plan approval, Kaplan–Meier (all filings)', [
     ('New Building', 262, '262', True), ('ALT-CO (new building with existing elements)', 213, '213', False),
@@ -167,12 +172,12 @@ ESTIMATES = dict(
     date=DATE, date_label=DATE_LABEL,
     keys=[('8.5%', 'of more than 16,000 large projects were delivered on budget and on time', 1),
           ('0.5%', 'were on budget, on time and delivered the benefits promised', 1),
-          ('24–51%', 'UK Treasury upper-bound cost uplift for standard vs non-standard buildings at business-case stage', 2)],
+          ('24–51%', 'government-recommended uplift to early cost estimates for standard vs non-standard buildings', 2)],
     takeaways=[
         'Overruns are the norm: in Bent Flyvbjerg’s database of 16,000+ projects, <strong>8.5%</strong> met both budget and schedule.',
         'The errors are biased, not random. Early estimates are systematically too low, driven by optimism bias and, sometimes, strategic misrepresentation.',
         '<strong>Reference class forecasting</strong> corrects the bias by starting from the actual outcomes of similar past projects, then adjusting.',
-        'The UK Treasury builds this in: its guidance adds up to <strong>24%</strong> to early capital cost for standard buildings and up to <strong>51%</strong> for non-standard ones.',
+        'Government appraisal guidance can build this in: one widely used version adds up to <strong>24%</strong> to early capital cost for standard buildings and up to <strong>51%</strong> for non-standard ones.',
         'A single number hides the risk. A calibrated P10–P90 range, checked against what later happened, is more honest and more useful.',
     ],
     sections=[
@@ -200,13 +205,13 @@ ESTIMATES = dict(
 <li><strong>Establish the distribution</strong> of their outcomes, for example actual cost against the estimate at the same stage.</li>
 <li><strong>Place your project in that distribution</strong> and adjust only for differences you can actually justify.</li>
 </ol>
-<p>The UK government built this into its appraisal guidance. HM Treasury’s supplementary Green Book guidance on optimism bias gives upper-bound uplifts to apply to capital cost at the earliest business-case stage, reducing as project-specific risks are identified and managed{c(2)}:</p>
+<p>Some governments build this into their appraisal rules. The best-known example, HM Treasury’s supplementary Green Book guidance, on optimism bias gives upper-bound uplifts to apply to capital cost at the earliest business-case stage, reducing as project-specific risks are identified and managed{c(2)}:</p>
 {bars('HM Treasury optimism-bias upper bounds for capital expenditure', [
     ('Standard buildings', 24, '24%', True), ('Standard civil engineering', 44, '44%', False),
     ('Non-standard buildings', 51, '51%', True), ('Non-standard civil engineering', 66, '66%', False),
     ('Equipment / development (incl. IT)', 200, '200%', False)],
     'Upper bounds at outline business-case stage; lower bounds range from about 2% to 10%. Source: HM Treasury [2].')}
-<p>The point is not the exact percentages, which come from a UK study of public projects. It is the discipline: an early estimate should carry an explicit, evidence-based allowance, and that allowance should shrink only as risk is actually removed.</p>
+<p>The point is not the exact percentages, which come from one government’s study of its public projects. It is the discipline: an early estimate should carry an explicit, evidence-based allowance, and that allowance should shrink only as risk is actually removed.</p>
 '''),
         ('from-number-to-range', 'From one number to a calibrated range', f'''
 <p>A single-point estimate says nothing about its own uncertainty. A range does, if it is honest. The usual way to express it is with percentiles:</p>

@@ -18,7 +18,7 @@ META = {
           ('Data', '19,021 OSHA severe-injury reports from construction, Jan 2015 – Nov 2025.'),
           ('Method', 'Keyword baseline, linear text models, CNN, BiLSTM and a blind LLM; trained on earlier years, tested on 2024–2025.'),
           ('Result', '84% agreement with OSHA’s coders (keywords: 55%); 89% where model and LLM agree.'),
-          ('Limits', 'Severe injuries in federal-OSHA states only; a 2024 coding-manual change needs monitoring.')]),
+          ('Limits', 'Severe injuries only, from one regulator’s jurisdiction; a 2024 coding-manual change needs monitoring.')]),
  'insight-permit-wait-times': dict(no=2, name='NYC Permit Approval Forecast', data='Real public data (NYC Open Data)',
    links=links('15-nyc-permit-approval-forecast', ('Live app', '')),
    brief=[('Problem', 'Approval dates for major building filings are guesses, and averages hide the slow cases.'),
@@ -188,5 +188,24 @@ RETITLE = {
    blurb='Lumber prices more than doubled in a year while bid prices barely moved. Escalation clauses, and ranking late deliveries by vendor pattern.'),
  'insight-rework-bad-data': dict(topic='Production & quality',
    title='Rework and bad data: the cost line nobody budgets',
-   blurb='Poor data and miscommunication drove an estimated $31.3bn of US rework in one year. What the research says, and rework hidden behind on-plan output.'),
+   blurb='Poor data and miscommunication were blamed for nearly half of all rework in one large survey. What the research says, and rework hidden behind on-plan output.'),
+}
+
+# sections of each note that belong to the case study (everything else is general research)
+CASE = {
+ 'insight-osha-severe-injuries': ['the-data', 'where-injuries-come-from', 'three-findings', 'reading-the-text'],
+ 'insight-permit-wait-times': ['the-nyc-evidence', 'forecasting'],
+ 'insight-cost-estimates-miss': [],
+ 'insight-contract-clause-risk': ['what-the-model-does', 'human-disagreement'],
+ 'insight-construction-productivity': ['on-site-signals'],
+ 'insight-forecasting-final-cost': ['range-and-spend'],
+ 'insight-payroll-fraud': ['what-my-test-showed'],
+ 'insight-llms-construction-documents': ['my-tests'],
+ 'insight-material-price-escalation': ['delivery-risk'],
+ 'insight-construction-payments': ['evidence-not-scores', 'toward-prediction'],
+ 'insight-inventory-records': ['what-to-check', 'zero-is-not-clean'],
+ 'insight-predictive-maintenance': ['the-test', 'results', 'lessons'],
+ 'insight-booking-cancellations': ['what-drives-cancellations', 'the-call-list', 'pricing-and-segments'],
+ 'insight-attendance-before-payroll': ['three-checks'],
+ 'insight-rework-bad-data': ['what-bad-data-looks-like', 'rework-in-production'],
 }
