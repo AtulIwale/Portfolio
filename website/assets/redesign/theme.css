@@ -1,0 +1,45 @@
+/* ==========================================================================
+   redesign/theme.css — portfolio-redesign palette (loaded last on every page)
+   Deep green-charcoal on warm off-white, with a quiet sage for data marks.
+   Headlines use a green-tinted charcoal rather than black.
+   ========================================================================== */
+:root{
+  --paper:#F4F2EE;
+  --bg-cream:#F4F2EE;
+  --bg-blue:#E9ECE7;
+  --surface:#FBFAF7;
+  --text:#22302A;           /* headlines and strong text */
+  --ink:#22302A;
+  --text-muted:#5E6563;     /* body copy and secondary text */
+  --line:#C9CCC5;
+  --accent:#233630;         /* primary actions, dark sections */
+  --sage:#6A8579;           /* data marks, small accents */
+  --redline:#6A8579;
+  --warm:#6A8579;
+  --warm-soft:color-mix(in srgb,#6A8579 20%,transparent);
+  --rule:color-mix(in srgb,#22302A 16%,transparent);
+  --rule-strong:color-mix(in srgb,#22302A 60%,transparent);
+  --success:#2F6B4F;
+  --green-deep:#1E2E28;
+}
+body{background:var(--paper)}
+p,li,dd{color:inherit}
+
+/* header: quiet, editorial */
+.site-header{background:color-mix(in srgb,var(--paper) 94%,transparent)!important;border-bottom:1px solid var(--rule)!important}
+.site-header .brand-mark{background:transparent!important;color:var(--text)!important;box-shadow:none!important;
+  font:400 34px/1 'Instrument Serif',Georgia,serif!important;letter-spacing:-.02em!important;width:auto!important;height:auto!important;
+  padding-right:14px;border-right:1px solid var(--rule-strong);border-radius:0!important}
+.site-header .brand>span:last-child{font:400 19px/1.1 'Instrument Serif',Georgia,serif!important;letter-spacing:0!important;text-transform:none}
+.site-header .brand-sub{display:block;margin-top:3px;font:400 9.5px/1.3 'IBM Plex Mono',monospace!important;letter-spacing:.14em!important;color:var(--text-muted)!important}
+.desktop-nav>a:not(.nav-cta){color:var(--text)!important}
+.desktop-nav>a:not(.nav-cta)::after{background:var(--text)!important}
+.nav-cta,.button-lime,.button-dark{background:var(--accent)!important;border-color:var(--accent)!important;color:#F4F2EE!important;border-radius:2px!important}
+.nav-cta:hover,.button-lime:hover,.button-dark:hover{background:var(--green-deep)!important;border-color:var(--green-deep)!important}
+
+/* footer and bottom banner in the same green */
+.site-bottom-footer{background:var(--green-deep)!important}
+.site-bottom-cta{background:var(--accent)!important}
+.site-bottom-mark{box-shadow:none!important}
+.status-flagship{background:var(--accent)!important;border-color:var(--accent)!important}
+.enh-progress{background:var(--sage)!important}

@@ -99,6 +99,7 @@
 
   /* ---------- 2. reveal on scroll (batched stagger) ---------- */
   function initReveal() {
+    if (doc.body.classList.contains('rd-home')) return;   // redesigned homepage has its own reveal system
     if (reduceMotion || !('IntersectionObserver' in window)) return;
     var sel = [
       'main .editorial-heading', 'main h2:not(.visually-hidden)', '.help-card', '.selected-work-card',
