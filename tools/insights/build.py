@@ -5,7 +5,7 @@ Run: python3 tools/insights/build.py  (content lives in posts_a/b/c.py and evide
 Head, header, bottom CTA and footer are lifted from the existing blog.html so the
 new pages share the site's navigation and assets exactly.
 """
-import hashlib, html, re, sys, os
+import hashlib, html, json, re, sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 
 SITE = os.environ.get('INS_SITE') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'website')
@@ -13,6 +13,8 @@ ASSETS = os.environ.get('INS_ASSETS', 'assets/redesign')
 SITE_JS = os.environ.get('INS_SITE_JS', 'home.js')
 # 'merged': the photo sits behind the right of the title band and fades into it; no featured block
 LAYOUT = os.environ.get('INS_LAYOUT', 'stacked')
+# per-site alt text for images that differ from the shared set (JSON file of slug -> alt)
+ALT_OVERRIDE = json.load(open(os.environ['INS_ALT_JSON'])) if os.environ.get('INS_ALT_JSON') else {}
 
 def c(*ns):
     """Numbered citation link(s) to the sources list."""
@@ -252,6 +254,7 @@ if __name__ == '__main__':
         p['project'] = m
         p['case_sections'] = CASE.get(p['slug'], [])
         p['image_alt'] = IMAGE_ALT.get(p['slug'], '')
+        p['image_alt'] = ALT_OVERRIDE.get(p['slug'], p['image_alt'])
         p.update(RETITLE.get(p['slug'], {}))
         if not any(sid == 'evidence' for sid, _, _ in p['sections']):
             p['sections'].insert(len(p['sections']) - 1, ('evidence', 'How strong is the evidence?', EVIDENCE[p['slug']]))
