@@ -8,7 +8,9 @@ new pages share the site's navigation and assets exactly.
 import hashlib, html, re, sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 
-SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'website')
+SITE = os.environ.get('INS_SITE') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'website')
+ASSETS = os.environ.get('INS_ASSETS', 'assets/redesign')
+SITE_JS = os.environ.get('INS_SITE_JS', 'home.js')
 
 def c(*ns):
     """Numbered citation link(s) to the sources list."""
@@ -43,7 +45,7 @@ def checklist(items):
     return '<ol class="ins-check">' + ''.join(f'<li><span>{i}</span></li>' for i in items) + '</ol>'
 
 # ---------------------------------------------------------------- page chrome
-TEMPLATE = os.path.join(os.path.dirname(__file__), 'blog_template.html')
+TEMPLATE = os.environ.get('INS_TEMPLATE') or os.path.join(os.path.dirname(__file__), 'blog_template.html')
 
 def chrome():
     if not os.path.exists(TEMPLATE):  # keep the original React-rendered page as the chrome source
@@ -72,9 +74,9 @@ def set_head(head, title, desc, url):
     head = re.sub(r'(<link rel="canonical" href=")[^"]*', rf'\g<1>https://atuliwale.com/{url}', head)
     # refresh every local asset version from the files on disk (the template may be older)
     head = re.sub(r'(/((?:assets|react)/[^"?]+))\?v=[0-9a-f]+', lambda m: f'{m.group(1)}?v={vhash(m.group(2))}', head)
-    extra = (f'<link rel="stylesheet" href="/assets/redesign/insight.css?v={vhash("assets/redesign/insight.css")}">'
-             f'<script defer src="/assets/redesign/home.js?v={vhash("assets/redesign/home.js")}"></script>'
-             f'<script defer src="/assets/redesign/insight.js?v={vhash("assets/redesign/insight.js")}"></script>')
+    extra = (f'<link rel="stylesheet" href="/{ASSETS}/insight.css?v={vhash(ASSETS + "/insight.css")}">'
+             f'<script defer src="/{ASSETS}/{SITE_JS}?v={vhash(ASSETS + "/" + SITE_JS)}"></script>'
+             f'<script defer src="/{ASSETS}/insight.js?v={vhash(ASSETS + "/insight.js")}"></script>')
     return head + extra
 
 def words(htmltext):
