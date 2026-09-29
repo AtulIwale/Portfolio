@@ -15,6 +15,8 @@ SITE_JS = os.environ.get('INS_SITE_JS', 'home.js')
 LAYOUT = os.environ.get('INS_LAYOUT', 'stacked')
 # INS_CREDIT=0 drops the image credit line under or over each photo
 CREDIT = os.environ.get('INS_CREDIT', '1') != '0'
+# INS_DATES=0 leaves the date out of each note's meta line and the index
+DATES = os.environ.get('INS_DATES', '1') != '0'
 # per-site alt text for images that differ from the shared set (JSON file of slug -> alt)
 ALT_OVERRIDE = json.load(open(os.environ['INS_ALT_JSON'])) if os.environ.get('INS_ALT_JSON') else {}
 
@@ -127,6 +129,7 @@ def article(p, allposts):
         f'<a href="/{q["slug"]}.html"><span class="rd-label">{q["topic"]}</span><strong>{q["title"]}</strong></a>'
         for q in (next(x for x in allposts if x['slug'] == s) for s in p['next']))
     date_label = p['date_label']
+    date_li = f'<li><time datetime="{p["date"]}">{date_label}</time></li>' if DATES else ''
     img = post_image(p['slug'])
     hero_fig = (f'<figure class="ins-hero-fig rd-wrap"><img src="/{img}?v={vhash(img)}" width="1536" height="1024" alt="{html.escape(p.get("image_alt", ""), quote=True)}" loading="eager" decoding="async" fetchpriority="high">'
                 + ('<figcaption>AI-generated illustration</figcaption>' if CREDIT else '') + '</figure>') if img else ''
@@ -143,7 +146,7 @@ def article(p, allposts):
 <p class="rd-label ins-kicker">{p["topic"]} <span>×</span> Research note</p>
 <h1 class="ins-title">{p["title"]}</h1>
 <p class="ins-dek">{p["dek"]}</p>
-<ul class="ins-meta"><li>{minutes} min read</li><li>{len(p["sources"])} sources</li><li><time datetime="{p["date"]}">{date_label}</time></li><li>Atul Iwale</li></ul>
+<ul class="ins-meta"><li>{minutes} min read</li><li>{len(p["sources"])} sources</li>{date_li}<li>Atul Iwale</li></ul>
 </header>{band_close}
 {hero_fig}<div class="rd-wrap"><dl class="ins-keys">{keys}</dl></div>
 <div class="ins-body rd-wrap">
@@ -213,6 +216,7 @@ def index(posts):
 <div class="ins-feature-stat">{feat_img}<b>{feat["feature_stat"][0]}</b><span>{feat["feature_stat"][1]}</span></div></a>
 </section>'''
     band_open = band_close = ''
+    updated_li = f'<li>Updated {posts[0]["date_label"]}</li>' if DATES else ''
     if LAYOUT == 'merged':
         feature = ''
         if header_fig:
@@ -225,7 +229,7 @@ def index(posts):
 <p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
 <h1 class="ins-title">What the evidence says about building better.</h1>
 <p class="ins-dek">Fifteen research notes on construction cost, safety, data and AI: what published research shows, what it means on a real job, and a case study from my own work in each. Every figure is linked to its source.</p>
-<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
+<ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li>{updated_li}</ul>
 </header>{band_close}
 {header_fig}
 {feature}
