@@ -235,3 +235,8 @@
 .ins-feature-stat b{margin-top:0}
 @media (prefers-reduced-motion:no-preference){.ins-hero-fig{animation:ins-rise .9s var(--ease) .25s backwards}}
 @media (max-width:680px){.ins-hero-fig img{aspect-ratio:4/3}}
+.ins-card-img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border:1px solid var(--rule);margin-bottom:6px;transition:filter .3s var(--ease)}
+.ins-card:hover .ins-card-img{filter:brightness(.94)}
+.ins-index-fig{margin-top:0}
+.ins-grid .ins-card-img{aspect-ratio:auto;height:clamp(160px,14vw,200px)}
+@media (max-width:680px){.ins-grid .ins-card-img{height:auto;aspect-ratio:3/2}}

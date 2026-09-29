@@ -171,6 +171,8 @@ EXISTING = []  # the three original short field notes were retired in favour of 
 FILTERS = [('all', 'All'), ('controls', 'Cost & controls'), ('data', 'Data & productivity'), ('safety', 'Safety'),
            ('ai', 'AI & automation'), ('commercial', 'Commercial')]
 
+INDEX_ALT = 'A city skyline at sunrise with several towers under construction and tower cranes, workers in hi-vis on the nearest slab.'
+
 def index(posts):
     head, pre_main, cta, footer = chrome()
     feat = posts[0]
@@ -178,8 +180,10 @@ def index(posts):
     feat_img = f'<img class="ins-feature-img" src="/{fi}?v={vhash(fi)}" width="1536" height="1024" alt="{html.escape(feat.get("image_alt", ""), quote=True)}" loading="lazy" decoding="async">' if fi else ''
     cards = []
     for p in posts:
+        ci = f'{ASSETS}/img/{p["slug"]}-card.webp'
+        card_img = f'<img class="ins-card-img" src="/{ci}?v={vhash(ci)}" width="720" height="480" alt="" loading="lazy" decoding="async">' if os.path.exists(f'{SITE}/{ci}') else ''
         cards.append(f'''<a class="ins-card" href="/{p["slug"]}.html" data-topics="{p["topics"]}" data-reveal>
-<span class="rd-label">{p["topic"]} · Research note</span><h2>{p["title"]}</h2><p>{p["blurb"]}</p>
+{card_img}<span class="rd-label">{p["topic"]} · Research note</span><h2>{p["title"]}</h2><p>{p["blurb"]}</p>
 <span class="ins-card-meta"><span>{p["minutes"]} min · {len(p["sources"])} sources</span><span class="ins-arrow" aria-hidden="true">→</span></span></a>''')
     for e in EXISTING:
         cards.append(f'''<a class="ins-card" href="/{e["slug"]}.html" data-topics="{e["topics"]}" data-reveal>
@@ -187,6 +191,9 @@ def index(posts):
 <span class="ins-card-meta"><span>Short read</span><span class="ins-arrow" aria-hidden="true">→</span></span></a>''')
     filt = ''.join(f'<button type="button" data-topic="{k}" aria-pressed="{"true" if k == "all" else "false"}">{v}</button>' for k, v in FILTERS)
     total = len(posts) + len(EXISTING)
+    hi = f'{ASSETS}/img/insights-header.webp'
+    header_fig = (f'<figure class="ins-hero-fig ins-index-fig rd-wrap"><img src="/{hi}?v={vhash(hi)}" width="1536" height="1024" '
+                  f'alt="{html.escape(INDEX_ALT, quote=True)}" fetchpriority="high" decoding="async"><figcaption>AI-generated illustration</figcaption></figure>') if os.path.exists(f'{SITE}/{hi}') else ''
     main = f'''<main id="main" class="ins">
 <header class="ins-index-hero rd-wrap">
 <p class="rd-label ins-kicker">Insights <span>×</span> Research notes</p>
@@ -194,6 +201,7 @@ def index(posts):
 <p class="ins-dek">Fifteen research notes on construction cost, safety, data and AI: what published research shows, what it means on a real job, and a case study from my own work in each. Every figure is linked to its source.</p>
 <ul class="ins-meta"><li>{len(posts)} research notes</li><li>{sum(len(p["sources"]) for p in posts)} cited sources</li><li>Updated {posts[0]["date_label"]}</li></ul>
 </header>
+{header_fig}
 <section class="rd-wrap" aria-label="Featured note">
 <a class="ins-feature" href="/{feat["slug"]}.html" data-reveal>
 <div><p class="rd-label" style="color:var(--sage)!important">Featured · {feat["topic"]}</p><h2 class="ins-title">{feat["title"]}</h2><p>{feat["blurb"]}</p>
@@ -207,6 +215,10 @@ def index(posts):
 </section>
 </main>'''
     h = set_head(head, 'Insights & research notes', 'Research notes on construction cost, safety, data and AI, with every figure linked to its source.', 'blog.html')
+    og = f'{ASSETS}/img/insights-header-og.jpg'
+    if os.path.exists(f'{SITE}/{og}'):
+        h = re.sub(r'(<meta (?:property|name)="(?:og:image|twitter:image)" content=")[^"]*', rf'\g<1>https://atuliwale.com/{og}', h)
+        h = h.replace('<meta property="og:image:alt" content="Atul Iwale — I build data and AI tools for construction.">', f'<meta property="og:image:alt" content="{html.escape(INDEX_ALT, quote=True)}">')
     return f'{h}</head><body id="top" class="writing inner-page rd-page">{pre_main}{main}<div style="height:clamp(56px,6vw,96px)"></div>{cta}{footer}</body></html>'
 
 if __name__ == '__main__':

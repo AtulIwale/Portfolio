@@ -224,4 +224,7 @@ IMAGE_ALT = {
  'insight-rework-bad-data': 'Two workers in PPE repairing a precast concrete beam with a dust-extracted grinder and patching tools, with a gantry crane behind.',
  'insight-inventory-records': 'A storekeeper in hi-vis checking pipe fittings on steel shelving in a construction store, with cable coils, bins and blank tags.',
  'insight-predictive-maintenance': 'A technician with a torch inspecting the hydraulic lines on an excavator arm in an open workshop bay, with a tool trolley alongside.',
+ 'insight-permit-wait-times': 'A desk by a window with drawing sets tied with string, a rubber stamp and ink pad, overlooking a fenced vacant plot waiting for construction.',
+ 'insight-cost-estimates-miss': "A worktable with floor-plan drawings, a scale ruler, a pencil, a tape measure and a white card model of a mid-rise building.",
+ 'insight-contract-clause-risk': 'A thick contract open on a meeting table, with teal flags marking clauses, a fountain pen across the page and a closed laptop behind.',
 }
